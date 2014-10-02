@@ -41,3 +41,16 @@ Zentrale Anforderungen an die Anwendung sind:
 - Die Bedienung erfolgt über einen Browser.
 - Die Anwendung wird mit mindestens 3 unterschiedlichen Schichten (Datenhaltung, Applikationslogik sowie GUI) implementiert. Die jeweiligen Schichten und Softwarekomponenten sind entsprechend über Schnittstellen entkoppelt.
 
+
+Anforderungen aus dem Projektverlauf
+===============
+## Stammdaten:
+
+Folgende Stammdaten werden benötigt:
+
+	Siehe Notizen vom 02.10.2014
+	
+- 2-3 Semester
+- 2 Studienprogramme 
+- den vorherigen Anforderungen entsprechende Anzahl Dozenten
+- 3-4 Räume
