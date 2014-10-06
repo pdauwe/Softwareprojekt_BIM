@@ -21,7 +21,7 @@ Erwartet wird
 - Überblick über DV-Konzept
 - Überblick über durchgeführte QS-Maßnahmen
  
-Beschreibung
+Beschreibun
 =============
 ##Fachlicher Hintergrund
 Zu jedem Semester muss die Fakultät WiSo einen Stundenplan erstellen. Die grundsätzliche Herausforderung dabei liegt darin begründet, den zu planenden Modulen / Unterrichtseinheiten unter Berücksichtigung von den zeitlichen Präferenzen der Dozenten den geeigneten Raum zuzuordnen und dabei zu berücksichtigen, dass die Module einer Studiengruppe nicht zeitgleich stattfinden dürfen.
