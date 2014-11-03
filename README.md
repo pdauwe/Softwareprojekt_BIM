@@ -2,6 +2,20 @@ Softwareprojekt_BIM "Stundenplan"
 ===================
 Repository für das Softwareprojekt BIM Semester 5
 
+Server Hochschule
+================
+	Betriebssystem: Windows 2008 R2 (64bit)
+
+	Hostname: usrv06.zemit.wi.hs-osnabrueck.de
+	IP: 131.173.88.204
+	Remote-Zugang: RDP-Remotedesktop (Port 3389)
+
+	Benutzer: administrator
+	Passwort: SNNnab1PPe
+
+	Extern erreichbare TCP/IP-Ports: 3389
+
+
 Meilensteine
 =============
 ##Donnerstag, 13. November 2014 (12:00, CF107): Erster Überblick (20 min) – PL
