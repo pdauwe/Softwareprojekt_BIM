@@ -3,7 +3,7 @@ package awk.usecase.impl;
 import java.util.ArrayList;
 
 import awk.AnwendungskernException;
-import awk.entity.*;
+import awk.entity.internal.*;
 import awk.usecase.IZeitpraeferenzErfassen;
 
 public class ZeitpraeferenzErfassen implements IZeitpraeferenzErfassen {

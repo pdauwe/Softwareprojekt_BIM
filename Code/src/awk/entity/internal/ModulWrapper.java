@@ -1,4 +1,4 @@
-package awk.entity;
+package awk.entity.internal;
 
 /**
  * Wrapper-Klasse, die ein Modul im angezeigten Studenplan repräsentiert.

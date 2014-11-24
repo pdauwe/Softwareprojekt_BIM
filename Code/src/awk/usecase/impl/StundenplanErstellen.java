@@ -3,10 +3,10 @@ package awk.usecase.impl;
 import java.util.ArrayList;
 
 import awk.AnwendungskernException;
-import awk.entity.Dozent;
-import awk.entity.Modul;
-import awk.entity.Studiengang;
-import awk.entity.Stundenplan;
+import awk.entity.internal.Dozent;
+import awk.entity.internal.Modul;
+import awk.entity.internal.Studiengang;
+import awk.entity.internal.Stundenplan;
 import awk.usecase.IStundenplanErstellen;
 
 public class StundenplanErstellen implements IStundenplanErstellen {

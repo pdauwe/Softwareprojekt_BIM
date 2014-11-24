@@ -1,4 +1,4 @@
-package awk.entity;
+package awk.entity.internal;
 
 public class Semester {
 

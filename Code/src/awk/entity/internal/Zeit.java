@@ -1,4 +1,4 @@
-package awk.entity;
+package awk.entity.internal;
 
 import java.util.Set;
 
@@ -8,10 +8,9 @@ public class Zeit {
 	private Modul modul;
 	private Set<Uhrzeit> bevorzugteZeiten;
 	
-	public Zeit (Dozent dozent, Modul modul, Set<Uhrzeit> bevorzugteZeiten){
+	public Zeit (Dozent dozent, Modul modul){
 		this.dozent = dozent;
 		this.modul = modul;
-		this.bevorzugteZeiten = bevorzugteZeiten;
 	}
 
 	public Dozent getDozent() {
@@ -34,8 +33,8 @@ public class Zeit {
 		return bevorzugteZeiten;
 	}
 
-	public void setBevorzugteZeiten(Set<Uhrzeit> bevorzugteZeiten) {
-		this.bevorzugteZeiten = bevorzugteZeiten;
+	public void addBevorzugteZeiten(Uhrzeit bevorzugteZeit) {
+		this.bevorzugteZeiten.add(bevorzugteZeit);
 	}
 	
 	

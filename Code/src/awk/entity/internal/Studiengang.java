@@ -1,10 +1,10 @@
-package awk.entity;
+package awk.entity.internal;
 
-public class Dozent {
+public class Studiengang {
 
 	private String name;
 	
-	public Dozent (String name){
+	public Studiengang(String name){
 		this.name = name;
 	}
 

@@ -3,7 +3,7 @@ package awk.usecase;
 import java.util.ArrayList;
 
 import awk.AnwendungskernException;
-import awk.entity.*;
+import awk.entity.internal.*;
 
 public interface IZeitpraeferenzErfassen {
 
