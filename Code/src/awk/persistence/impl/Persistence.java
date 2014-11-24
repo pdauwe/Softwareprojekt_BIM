@@ -1,4 +1,4 @@
-package awk.persistence;
+package awk.persistence.impl;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
