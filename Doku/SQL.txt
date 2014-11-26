@@ -1,0 +1,84 @@
+
+CREATE TABLE sp_modul
+(
+	mnr NUMBER NOT NULL PRIMARY KEY, 
+	rnr NUMBER,
+	computerraum boolean,
+);
+
+CREATE TABLE sp_raum
+(
+	rnr NUMBER NOT NULL PRIMARY KEY,
+	anzahlplaetze NUMBER, 
+	computerraum boolean,
+	name Varchar(80)
+);
+
+//Gehört ein Modul jetzt immer nur zu einem Studiengang?
+CREATE TABLE sp_modul-studiengang
+(
+	mnr NUMBER NOT NULL PRIMARY KEY,
+	sgnr NUMBER NOT NULL PRIMARY KEY
+);
+
+CREATE TABLE sp_studiengang
+(
+	sgnr NUMBER NOT NULL PRIMARY KEY,
+	name VARCHAR(100)
+);
+
+//Kann ein Modul auch von zwei Dozenten gehalten werden--> Algorithmus?
+CREATE TABLE sp_modul-dozent
+(
+	mnr NUMBER NOT NULL PRIMARY KEY,
+	dnr NUMBER NOT NULL PRIMARY KEY
+);
+
+CREATE TABLE sp_dozent
+(
+	dnr NUMBER NOT NULL PRIMARY KEY,
+	name VARCHAR(100)
+);
+
+CREATE TABLE sp_modul-semester
+(
+	mnr NUMBER NOT NULL PRIMARY KEY,
+	snr NUMBER NOT NULL PRIMARY KEY
+);
+
+
+//Primärschlüssel Name als String oder Jahr als number???
+CREATE TABLE sp_semester
+(
+	snr NUMBER NOT NULL PRIMARY KEY,
+	jahr date,
+	name VARCHAR(100),
+	semesterstart VARCHAR(6)
+);
+
+//muss noch definiert werden
+CREATE TABLE sp_zeit
+(
+?
+);
+
+
+INSERT INTO sp_dozent VALUES (1, 'Andreas Faatz');
+INSERT INTO sp_dozent VALUES (2, 'Klaus Dallmöller');
+INSERT INTO sp_dozent VALUES (3, 'Marion Wendehals');
+INSERT INTO sp_dozent VALUES (4, 'Andreas Schmidt');
+INSERT INTO sp_dozent VALUES (5, 'Jörn Tröber');
+INSERT INTO sp_dozent VALUES (6, 'Peter Bigdon');
+INSERT INTO sp_dozent VALUES (7, 'Wolfgang Seyfert');
+INSERT INTO sp_dozent VALUES (8, 'Jan Brouer');
+INSERT INTO sp_dozent VALUES (9, 'Hans-Ulrich Holst');
+INSERT INTO sp_dozent VALUES (10, 'Steven Sackinger');
+INSERT INTO sp_dozent VALUES (11, 'Diethart Freye');
+INSERT INTO sp_dozent VALUES (12, 'Katja Roussanova');
+INSERT INTO sp_dozent VALUES (13, 'Jochen Pulczynski');
+INSERT INTO sp_dozent VALUES (14, '');
+INSERT INTO sp_dozent VALUES (15, '');
+INSERT INTO sp_dozent VALUES (16, '');
+INSERT INTO sp_dozent VALUES (17, '');
+INSERT INTO sp_dozent VALUES (18, '');
+INSERT INTO ha1_Wertpapier VALUES (3, 'Symrise', '
