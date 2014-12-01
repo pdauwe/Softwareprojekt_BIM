@@ -49,5 +49,7 @@
 - der Stundenplan ist eine Menge von Tupeln (Ein Raum, samt seines Raumplans)
 - [Käse: Für alle Dozenten, Studiengänge, Räume sind die alle Zeitslots frei.]
 - Eine Zeitslot besteht aus dem Studiengang, Dozent, Modul, Menge der möglich Räume
+- Jedes Modul hat ein Boolean, vergebn oder noch nicht vergeben
+- Räume werden erst nach der Optimierung zugeordnet, vorher KEINE Räume auch keine Teilnehmerzahl in Räumen --> Genug Räume anlegen 6 mit und 6 ohen Computerraum-Attribut
 Seite.11 Exposé. Gehirnmatsch
 
