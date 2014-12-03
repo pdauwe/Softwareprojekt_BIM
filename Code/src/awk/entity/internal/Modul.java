@@ -5,6 +5,8 @@ public class Modul {
 	private int nummer;
 	private boolean benoetigtComputerraum;
 	
+	private boolean isVerplant;
+	
 	public Modul(int nummer, boolean benoetigtComputerraum){
 		this.nummer = nummer;
 		this.benoetigtComputerraum = benoetigtComputerraum;
@@ -22,6 +24,16 @@ public class Modul {
 	public void setBenoetigtComputerraum(boolean benoetigtComputerraum) {
 		this.benoetigtComputerraum = benoetigtComputerraum;
 	}
+
+	public boolean isVerplant() {
+		return isVerplant;
+	}
+
+	public void setVerplant(boolean isVerplant) {
+		this.isVerplant = isVerplant;
+	}
+	
+	
 	
 	
 }
