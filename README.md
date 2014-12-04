@@ -12,10 +12,14 @@ Server Hochschule
 
 	Benutzer: administrator
 	Passwort: SNNnab1PPe
-
+	
 	Extern erreichbare TCP/IP-Ports: 3389
 
-
+Dantenbank-Server
+=================
+	Passwort: $tund3nplan
+	
+	
 Meilensteine
 =============
 ##Donnerstag, 13. November 2014 (12:00, CF107): Erster Überblick (20 min) – PL
