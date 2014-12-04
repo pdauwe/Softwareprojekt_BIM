@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class Dozent {
 
 	private String name;
-	private ArrayList<Zeit> zeiten;
+	private ArrayList<Integer> prefZeiten;
+	private ArrayList<Integer> gesperrteZeiten;
 	
 	public Dozent (String name){
 		this.name = name;
@@ -19,11 +20,26 @@ public class Dozent {
 		this.name = name;
 	}
 	
-	public ArrayList<Zeit> getZeiten(){
-		return this.zeiten;
+	public ArrayList<Integer> getZeiten(){
+		return this.prefZeiten;
 	}
 	
-	public void addZeit(Zeit zeit){
-		this.zeiten.add(zeit);
+	public void addZeit(int zeit){
+		this.prefZeiten.add(zeit);
 	}
+	
+	public void removeZeit(int zeit){
+		int indexOfZeit = this.prefZeiten.indexOf(zeit);
+		this.prefZeiten.remove(indexOfZeit);
+	}
+
+	public ArrayList<Integer> getGesperrteZeiten() {
+		return gesperrteZeiten;
+	}
+
+	public void addGesperrteZeiten(Integer gesperrtZeit) {
+		this.gesperrteZeiten.add(gesperrtZeit);
+	}
+	
+	
 }
