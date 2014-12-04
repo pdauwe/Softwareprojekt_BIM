@@ -1,11 +1,16 @@
 CREATE TABLE sp_modul
 (
 	mnr NUMBER NOT NULL PRIMARY KEY,
-	sgnr NUMBRT NOT NULL,
 	dnr NUMBER NOT NULL,
 	name VARCHAR(100),
 	computernotwendig boolean,
 	verplant boolean
+);
+
+CREATE TABLE sp_modul_Studiengang
+(
+	mnr NUMBER NOT NULL PRIMARY KEY,
+	sgnr NUMBRT NOT NULLPRIMARY KEY
 );
 
 
