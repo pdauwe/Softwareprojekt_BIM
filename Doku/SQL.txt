@@ -3,8 +3,7 @@ CREATE TABLE sp_modul
 	mnr NUMBER NOT NULL PRIMARY KEY,
 	dnr NUMBER NOT NULL,
 	name VARCHAR(100),
-	iscomputernotwendig boolean,
-	isverplant boolean
+	iscomputernotwendig boolean
 );
 
 CREATE TABLE sp_modul_studiengang
@@ -34,11 +33,6 @@ CREATE TABLE sp_zeitpraeferenz_dozent
 	dnr NUMBER NOT NULL
 );
 
-CREATE TABLE sp_modul_semester
-(
-	mnr NUMBER NOT NULL PRIMARY KEY,
-	snr NUMBER NOT NULL PRIMARY KEY
-);
 
 CREATE TABLE sp_raum
 (
@@ -47,14 +41,6 @@ CREATE TABLE sp_raum
 	name Varchar(80)
 );
 
-
-CREATE TABLE sp_semester
-(
-	snr NUMBER NOT NULL PRIMARY KEY,
-	jahr date,
-	name VARCHAR(100),
-	semesterstart VARCHAR(6)
-);
 
 CREATE TABLE sp_stundenplan
 (
