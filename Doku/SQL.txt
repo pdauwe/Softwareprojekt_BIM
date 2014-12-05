@@ -1,15 +1,40 @@
+was ne Rotze, kein boolean Typ in Oracle: So ists glaube ich am einfachsten:
+
+
+Why doesn't Oracle RDBMS have a boolean datatype?   
+
+
+and we said...
+since
+...,
+flag char(1) check (flag in ( 'Y', 'N' )),
+...,
+
+serves the same purpose, requires the same amount of space and does the same thing - I 
+guess we feel this is a feature we can let them have that we really don't need.
+
+I mean - what do you get back from a column in "access" that is a boolean?  TRUE / FALSE. 
+ We'll give you Y/N -- if you would like TRUE/FALSE, we can accomplish that easily with 
+DECODE(flag,'Y','TRUE','N','FALSE')
+ 
+
+
+
+
+
 CREATE TABLE sp_modul
 (
 	mnr NUMBER NOT NULL PRIMARY KEY,
 	dnr NUMBER NOT NULL,
 	name VARCHAR(100),
-	iscomputernotwendig boolean
+	iscomputernotwendig CHAR(1) CHECK (iscomputernotwendig IN ('Y','N'))
 );
 
 CREATE TABLE sp_modul_studiengang
 (
-	mnr NUMBER NOT NULL PRIMARY KEY,
-	sgnr NUMBRT NOT NULLPRIMARY KEY
+	mnr NUMBER NOT NULL,
+	sgnr NUMBER NOT NULL,
+  	PRIMARY KEY (mnr, sgnr)
 );
 
 
@@ -29,7 +54,7 @@ CREATE TABLE sp_studiengang
 CREATE TABLE sp_zeitpraeferenz_dozent
 (
 	spdnr NUMBER NOT NULL PRIMARY KEY,
-	zeitslot NUMBER NOT NULL
+	zeitslot NUMBER NOT NULL,
 	dnr NUMBER NOT NULL
 );
 
@@ -37,8 +62,8 @@ CREATE TABLE sp_zeitpraeferenz_dozent
 CREATE TABLE sp_raum
 (
 	rnr NUMBER NOT NULL PRIMARY KEY,
-	computerraum boolean,
-	name Varchar(80)
+	computerraum CHAR(1) CHECK (computerraum IN ('Y','N')),
+	name VARCHAR(80)
 );
 
 
