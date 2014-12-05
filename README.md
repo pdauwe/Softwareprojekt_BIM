@@ -17,8 +17,14 @@ Server Hochschule
 
 Dantenbank-Server
 =================
+
+	#Konfiguration
+	Benutzername: system
 	Passwort: $tund3nplan
-	
+
+	#DB-User
+	Benutzername: STUNDENPLAN
+	Passwort: NewYork89
 	
 Meilensteine
 =============
