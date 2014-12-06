@@ -28,6 +28,10 @@ public class Dozent {
 		this.prefZeiten.add(zeit);
 	}
 	
+	public void setZeiten(ArrayList<Integer> zeiten){
+		this.prefZeiten = zeiten;
+	}
+	
 	public void removeZeit(int zeit){
 		int indexOfZeit = this.prefZeiten.indexOf(zeit);
 		this.prefZeiten.remove(indexOfZeit);
