@@ -2,6 +2,7 @@ package awk.usecase.impl;
 
 import java.util.ArrayList;
 
+import awk.AnwendungskernException;
 import awk.DatenhaltungsException;
 import awk.entity.DozentTO;
 import awk.entity.internal.Dozent;
@@ -23,7 +24,7 @@ public class DozentManager {
 		}
 	}
 	
-	private DozentManager(){
+	private DozentManager() throws AnwendungskernException{
 		this.ladeDozenten();
 	}
 	
@@ -31,7 +32,7 @@ public class DozentManager {
 		return this.alleDozenten;
 	}
 	
-	private void ladeDozenten(){
+	private void ladeDozenten() throws AnwendungskernException{
 		ArrayList<DozentTO> dozenten;
 		try{
 			dozenten = this.stundenplanDatenzugriff.alleDozenten();
@@ -42,6 +43,15 @@ public class DozentManager {
 			
 		}catch(DatenhaltungsException e){
 			e.printStackTrace();
+		}
+	}
+	
+	public boolean zeitpraeferenzenFuerDozentSpeichern(DozentTO dozent) throws AnwendungskernException{
+		try{
+			return this.stundenplanDatenzugriff.speichereDozentZeitpraeferenzen(dozent);
+		}catch(DatenhaltungsException e){
+			e.printStackTrace();
+			throw new AnwendungskernException();
 		}
 	}
 }

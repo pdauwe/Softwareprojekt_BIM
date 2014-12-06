@@ -9,6 +9,6 @@ public interface IZeitpraeferenzErfassen {
 
 	public ArrayList<Dozent> dozentenlisteAnzeigen() throws AnwendungskernException;
 	public ArrayList<Zeit> zeitpraeferenzbloeckeAnzeigen() throws AnwendungskernException;
-	public boolean zeitpraeferenzenSpeichern() throws AnwendungskernException;
+	public boolean zeitpraeferenzenSpeichern(Dozent dozent) throws AnwendungskernException;
 	
 }

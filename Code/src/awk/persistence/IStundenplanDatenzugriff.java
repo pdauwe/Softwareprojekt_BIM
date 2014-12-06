@@ -16,7 +16,7 @@ public interface IStundenplanDatenzugriff {
 	public ArrayList<StudiengangTO>  alleStudiengaenge() throws DatenhaltungsException;
 	public ArrayList<RaumTO> alleRaeume() throws DatenhaltungsException;
 	
-	public boolean speichereDozent(DozentTO dozent) throws DatenhaltungsException;
+	public boolean speichereDozentZeitpraeferenzen(DozentTO dozent) throws DatenhaltungsException;
 
 	public boolean speichereStundenplan(StundenplanTO stundenplan) throws DatenhaltungsException;
 	public StundenplanTO ladeStundenplanFuerStudiengang(StudiengangTO studiengang) throws DatenhaltungsException;

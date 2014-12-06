@@ -129,10 +129,31 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 	}
 
 	@Override
-	public boolean speichereDozent(DozentTO dozent)
+	public boolean speichereDozentZeitpraeferenzen(DozentTO dozent)
 			throws DatenhaltungsException {
-		// TODO Auto-generated method stub
-		return false;
+		
+		Connection aConnection = Persistence.getConnection();
+		
+		try{
+			// Nummer des Dozenten aus der Datenbank auslesen
+			ResultSet resultSet = Persistence.executeQueryStatement(aConnection, "SELECT " + DatenbankNamen.Dozent.DozentNummer + " FROM " + DatenbankNamen.Dozent.Tabelle + " WHERE " + DatenbankNamen.Dozent.Name + " LIKE '" + dozent.getName() + "'");
+			if(resultSet.next()){
+				int nummer = resultSet.getInt(0);
+				// Alle Zeitpraeferenzen des Dozenten loeschen bevor die neuen hinzugefügt werden.
+				Persistence.executeUpdateStatement(aConnection, "DELETE FROM " + DatenbankNamen.ZeitpraeferenzDozentZuordnung.Tabelle + " WHERE " + DatenbankNamen.ZeitpraeferenzDozentZuordnung.DozentNummer + " = " + nummer);
+				
+				//Neue Zeitpraeferenzen in die Tabelle schreiben
+				for(Integer zeitpref : dozent.getZeiten()){
+					Persistence.executeUpdateStatement(aConnection, "INSERT INTO " + DatenbankNamen.ZeitpraeferenzDozentZuordnung.Tabelle + "VALUES(" + nummer + "," + zeitpref + ")");
+				}
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(aConnection);
+		}
+		return true;
 	}
 
 	@Override
