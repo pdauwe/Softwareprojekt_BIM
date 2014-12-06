@@ -2,10 +2,16 @@ package awk.usecase.impl;
 
 import java.util.ArrayList;
 
+import awk.DatenhaltungsException;
+import awk.entity.RaumTO;
 import awk.entity.internal.Raum;
+import awk.persistence.IStundenplanDatenzugriff;
+import awk.persistence.impl.StundenplanDatenzugriff;
 
 public class RaumManager {
 
+	private IStundenplanDatenzugriff stundenplanDatenzugriff = new StundenplanDatenzugriff();
+	
 	private static RaumManager self;
 	private ArrayList<Raum> alleRaeume;
 	
@@ -27,8 +33,17 @@ public class RaumManager {
 	}
 	
 	private void ladeAlleRaeume(){
-		//TODO: raeume laden
-		this.alleRaeume = null;
+		ArrayList<RaumTO> raeume;
+		try{
+			raeume = this.stundenplanDatenzugriff.alleRaeume();
+			
+			for(RaumTO r : raeume){
+				this.alleRaeume.add(r.toRaum());
+			}
+			
+		}catch(DatenhaltungsException e){
+			e.printStackTrace();
+		}
 	}
 	
 }

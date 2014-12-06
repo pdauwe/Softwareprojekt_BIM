@@ -16,8 +16,7 @@ import awk.entity.internal.Studiengang;
 public class StatischeObjekteManager {
 
 	public ArrayList<Dozent> getDozenten(){
-		//TODO: Implementierung
-		return null;
+		return DozentManager.getManager().getAlleDozenten();
 	}
 	
 	public ArrayList<Modul> getModule(){
@@ -26,8 +25,7 @@ public class StatischeObjekteManager {
 	}
 	
 	public ArrayList<Raum> getRaeume(){
-		//TODO: Implementierung
-		return null;
+		return RaumManager.getManager().getAlleRaeume();
 	}
 	
 	public ArrayList<Semester> getSemester(){
@@ -36,8 +34,7 @@ public class StatischeObjekteManager {
 	}
 	
 	public ArrayList<Studiengang> getStudiengaenge(){
-		//TODO: Implementierung
-		return null;
+		return StudiengangManager.getManager().getAlleStudiengaenge();
 	}
 	
 	

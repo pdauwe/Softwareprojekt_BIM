@@ -2,10 +2,15 @@ package awk.usecase.impl;
 
 import java.util.ArrayList;
 
+import awk.DatenhaltungsException;
+import awk.entity.DozentTO;
 import awk.entity.internal.Dozent;
+import awk.persistence.IStundenplanDatenzugriff;
+import awk.persistence.impl.StundenplanDatenzugriff;
 
 public class DozentManager {
 
+	private IStundenplanDatenzugriff stundenplanDatenzugriff = new StundenplanDatenzugriff();
 	
 	private static DozentManager self;
 	private ArrayList<Dozent> alleDozenten;
@@ -27,7 +32,16 @@ public class DozentManager {
 	}
 	
 	private void ladeDozenten(){
-		// TODO: dozenten laden
-		this.alleDozenten = null;
+		ArrayList<DozentTO> dozenten;
+		try{
+			dozenten = this.stundenplanDatenzugriff.alleDozenten();
+			
+			for(DozentTO d : dozenten){
+				this.alleDozenten.add(d.toDozent());
+			}
+			
+		}catch(DatenhaltungsException e){
+			e.printStackTrace();
+		}
 	}
 }
