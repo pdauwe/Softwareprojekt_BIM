@@ -102,8 +102,30 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 
 	@Override
 	public ArrayList<RaumTO> alleRaeume() throws DatenhaltungsException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ArrayList<RaumTO> alleRaeume = new ArrayList<RaumTO>();
+		
+		Connection aConnection = Persistence.getConnection();
+		ResultSet resultSet;
+		
+		try{
+			resultSet = Persistence.executeQueryStatement(aConnection, "SELECT * FROM " + DatenbankNamen.Raum.Tabelle);
+			
+			while(resultSet.next()){
+				RaumTO raum = new RaumTO();
+				raum.setName(resultSet.getString(DatenbankNamen.Raum.Name));
+				raum.setComputerraum(resultSet.getString(DatenbankNamen.Raum.Computerraum).charAt(0) == 'J' ? true : false);
+				
+				alleRaeume.add(raum);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(aConnection);
+		}
+		
+		return alleRaeume;
 	}
 
 	@Override
