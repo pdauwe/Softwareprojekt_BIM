@@ -24,7 +24,7 @@ public class DozentManager {
 		}
 	}
 	
-	private DozentManager() throws AnwendungskernException{
+	private DozentManager(){
 		this.ladeDozenten();
 	}
 	
@@ -32,7 +32,7 @@ public class DozentManager {
 		return this.alleDozenten;
 	}
 	
-	private void ladeDozenten() throws AnwendungskernException{
+	private void ladeDozenten(){
 		ArrayList<DozentTO> dozenten;
 		try{
 			dozenten = this.stundenplanDatenzugriff.alleDozenten();
