@@ -1,8 +1,11 @@
 package awk.usecase.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 import awk.AnwendungskernException;
+import awk.entity.StudiengangTO;
 import awk.entity.internal.Dozent;
 import awk.entity.internal.Modul;
 import awk.entity.internal.Studiengang;
@@ -28,15 +31,20 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 	@Override
 	public ArrayList<Studiengang> generiereStudiengangZufallsliste()
 			throws AnwendungskernException {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Studiengang> alleStudiengaenge = StudiengangManager.getManager().getAlleStudiengaenge();
+		Collections.shuffle(alleStudiengaenge);
+		return alleStudiengaenge;
 	}
 
 	@Override
 	public Dozent randomDozentMitZeitpref(int zeitpref,
 			Studiengang studiengang) throws AnwendungskernException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ArrayList<Dozent> alleDozenten = DozentManager.getManager().getAlleDozenten();
+		Random randomGenerator = new Random();
+		int randomIndex = randomGenerator.nextInt(alleDozenten.size());
+		
+		return alleDozenten.get(randomIndex);
 	}
 
 	@Override
