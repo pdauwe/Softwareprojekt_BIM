@@ -170,12 +170,49 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		return null;
 	}
 	
+	@Override
+	public ArrayList<ModulTO> moduleVonDozent(DozentTO dozent)
+			throws DatenhaltungsException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<DozentTO> dozentenMitZeitprefUndStudiengang(int zeitpref,
+			StudiengangTO studiengang) throws DatenhaltungsException {
+		
+		ArrayList<DozentTO> dozenten = new ArrayList<DozentTO>();
+		Connection aConnection = Persistence.getConnection();
+		ResultSet resultSet;
+		
+		try{
+			resultSet = Persistence.executeQueryStatement(aConnection, "TODO QUERY");
+			// TODO: Verarbeitung
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(aConnection);
+		}
+
+		return dozenten;
+	}
+
+	@Override
+	public ArrayList<DozentTO> dozentenVonStudiengang(StudiengangTO studiengang)
+			throws DatenhaltungsException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
 	/*
 	 *  Helpers
 	 */
 	
 	
-	private ArrayList<Integer> zeitPrefsFuerDozent(int dozentNummer) throws DatenhaltungsException{
+	private ArrayList<Integer> zeitPrefsVonDozent(int dozentNummer) throws DatenhaltungsException{
 		ArrayList<Integer> zeitPrefs = new ArrayList<Integer>();
 		
 		Connection aConnection = Persistence.getConnection();
