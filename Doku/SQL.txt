@@ -58,6 +58,17 @@ CREATE TABLE sp_zeitpraeferenz_dozent
 	dnr NUMBER NOT NULL
 );
 
+CREATE SEQUENCE sp_zeit_dozent_seq;
+
+CREATE OR REPLACE TRIGGER sp_zeit_dozent_tri
+BEFORE INSERT ON sp_zeitpraeferenz_dozent
+FOR EACH ROW
+WHEN(new.spdnr IS NULL)
+BEGIN
+SELECT sp_zeit_dozent_seq.NEXTVAL
+INTO :new.spdnr
+FROM dual;
+END;
 
 CREATE TABLE sp_raum
 (
