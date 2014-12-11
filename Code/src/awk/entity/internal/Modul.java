@@ -4,12 +4,14 @@ public class Modul {
 
 	private int nummer;
 	private boolean benoetigtComputerraum;
+	private String bezeichnung;
 	
 	private boolean isVerplant;
 	
-	public Modul(int nummer, boolean benoetigtComputerraum){
+	public Modul(int nummer, String bezeichnung, boolean benoetigtComputerraum){
 		this.nummer = nummer;
 		this.benoetigtComputerraum = benoetigtComputerraum;
+		this.bezeichnung = bezeichnung;
 	}
 	
 	public int getNummer() {
@@ -31,6 +33,14 @@ public class Modul {
 
 	public void setVerplant(boolean isVerplant) {
 		this.isVerplant = isVerplant;
+	}
+
+	public String getBezeichnung() {
+		return bezeichnung;
+	}
+
+	public void setBezeichnung(String bezeichnung) {
+		this.bezeichnung = bezeichnung;
 	}
 	
 	

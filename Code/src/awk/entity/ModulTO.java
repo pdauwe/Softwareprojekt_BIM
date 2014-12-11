@@ -13,13 +13,14 @@ public class ModulTO implements Serializable {
 	private int nummer;
 	private boolean benoetigtComputerraum;
 	private boolean isVerplant;
+	private String bezeichnung;
 	
 	public ModulTO(){
 		
 	}
 	
 	public Modul toModul(){
-		return new Modul(this.getNummer(), this.isBenoetigtComputerraum());
+		return new Modul(this.getNummer(), this.getBezeichnung(), this.isBenoetigtComputerraum());
 	}
 
 	public int getNummer() {
@@ -44,6 +45,14 @@ public class ModulTO implements Serializable {
 
 	public void setVerplant(boolean isVerplant) {
 		this.isVerplant = isVerplant;
+	}
+
+	public String getBezeichnung() {
+		return bezeichnung;
+	}
+
+	public void setBezeichnung(String bezeichnung) {
+		this.bezeichnung = bezeichnung;
 	}
 	
 	
