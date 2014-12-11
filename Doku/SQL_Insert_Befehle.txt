@@ -1,0 +1,277 @@
+INSERT INTO sp_studiengang (snr, Studiengang)
+VALUES (1, "BIM1");
+
+
+INSERT INTO sp_studiengang (snr, Studiengang)
+VALUES (2, "BIM3");
+
+
+INSERT INTO sp_studiengang (snr, Studiengang)
+VALUES (3, "BIM5");
+
+
+INSERT INTO sp_studiengang (snr, Studiengang)
+VALUES (4, "BABM1");
+
+
+INSERT INTO sp_studiengang (snr, Studiengang)
+VALUES (5, "BABM3");
+
+
+INSERT INTO sp_studiengang (snr, Studiengang)
+VALUES (6, "BABM5");
+
+
+
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (1, "Schulte");
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (2, "Dallmöller");
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (3, "Faatz");
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (4, "Brouer");
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (5, "Freye");
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (6, "Winkler");
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (7, "Brauer");
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (8, "Wendehals");
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (9, "Seyfert");
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (10, "Schmidt");
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (11, "Trober");
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (12, "Hirata");
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (13, "Sutscht");
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (14, "Sevastianova");
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (15, "Griese");
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (16, "Meyer");
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (17, "Lahrmann");
+
+
+INSERT INTO sp_dozent (dnr, Name)
+VALUES (18, "Eggers");
+
+
+
+
+
+INSERT INTO sp_raum (R_ID, Bezeichnung, IT-Ausstattung)
+VALUES (1, "cf101", "J");
+
+
+INSERT INTO sp_raum (R_ID, Bezeichnung, IT-Ausstattung)
+VALUES (2, "cf102", "J");
+
+
+INSERT INTO sp_raum (R_ID, Bezeichnung, IT-Ausstattung)
+VALUES (3, "cf103", "J");
+
+
+INSERT INTO sp_raum (R_ID, Bezeichnung, IT-Ausstattung)
+VALUES (4, "cf104", "J");
+
+
+INSERT INTO sp_raum (R_ID, Bezeichnung, IT-Ausstattung)
+VALUES (5, "cf105", "J");
+
+
+INSERT INTO sp_raum (R_ID, Bezeichnung, IT-Ausstattung)
+VALUES (6, "cf106", "J");
+
+
+INSERT INTO sp_raum (R_ID, Bezeichnung, IT-Ausstattung)
+VALUES (7, "cn001", "N");
+
+
+INSERT INTO sp_raum (R_ID, Bezeichnung, IT-Ausstattung)
+VALUES (8, "cn002", "N");
+
+
+INSERT INTO sp_raum (R_ID, Bezeichnung, IT-Ausstattung)
+VALUES (9, "cn003", "N");
+
+
+INSERT INTO sp_raum (R_ID, Bezeichnung, IT-Ausstattung)
+VALUES (10, "cn004", "N");
+
+
+INSERT INTO sp_raum (R_ID, Bezeichnung, IT-Ausstattung)
+VALUES (11, "cn005", "N");
+
+
+INSERT INTO sp_raum (R_ID, Bezeichnung, IT-Ausstattung)
+VALUES (12, "cn006", "N");
+
+
+
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (1, "IT-Basistechnologien", (SELECT 1, "J" FROM sp_dozent, sp_raum WHERE dnr = 1 AND IT-Ausstattung = "J"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (2, "Objektorientierte Programmierung", (SELECT 2, "J" FROM sp_dozent, sp_raum WHERE dnr = 2 AND IT-Ausstattung = "J"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (3, "Mathematik", (SELECT 3, "N" FROM sp_dozent, sp_raum WHERE dnr = 3 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (4, "Methoden in Studium un Beruf", (SELECT 4, "N" FROM sp_dozent, sp_raum WHERE dnr = 4 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (5, "Grundlagen der Betriebswirtschaftslehre", (SELECT 5, "N" FROM sp_dozent, sp_raum WHERE dnr = 5 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (6, "Grundlagen internes und externes Rechungswesen", (SELECT 6, "N" FROM sp_dozent, sp_raum WHERE dnr = 6 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (7, "Operations Research I", (SELECT 3, "J" FROM sp_dozent, sp_raum WHERE dnr = 3 AND IT-Ausstattung = "J"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (8, "Objektorientierte Analyse und Design", (SELECT 2, "J" FROM sp_dozent, sp_raum WHERE dnr = 2 AND IT-Ausstattung = "J"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (9, "Projektmanagement", (SELECT 9, "N" FROM sp_dozent, sp_raum WHERE dnr = 9 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (10, "Wahlpflichtmodul 1", (SELECT 9, "N" FROM sp_dozent, sp_raum WHERE dnr = 9 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (11, "Geschäftsprozesse", (SELECT 2, "J" FROM sp_dozent, sp_raum WHERE dnr = 2 AND IT-Ausstattung = "J"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (12, "Datenanalyse", (SELECT 3, "J" FROM sp_dozent, sp_raum WHERE dnr = 3 AND IT-Ausstattung = "J"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (13, "Softwareprojekt", (SELECT 2, "J" FROM sp_dozent, sp_raum WHERE dnr = 2 AND IT-Ausstattung = "J"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (14, "e-Business", (SELECT 10, "J" FROM sp_dozent, sp_raum WHERE dnr = 10 AND IT-Ausstattung = "J"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (15, "Wahpflichtmodul 3", (SELECT 9, "N" FROM sp_dozent, sp_raum WHERE dnr = 9 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (16, "Datenschutz und -sicherheit / IT-Recht", (SELECT 11, "N" FROM sp_dozent, sp_raum WHERE dnr = 11 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (17, "Produktions- und Fertigungswirtschaft", (SELECT 8, "N" FROM sp_dozent, sp_raum WHERE dnr = 8 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (18, "Grundlagen der Volkswirtschaftslehre", (SELECT 12, "N" FROM sp_dozent, sp_raum WHERE dnr = 12 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (19, "Wirtschaftsprivatrecht", (SELECT 13, "N" FROM sp_dozent, sp_raum WHERE dnr = 13 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (20, "Methoden in Studium und Beruf", (SELECT 4, "N" FROM sp_dozent, sp_raum WHERE dnr = 4 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (21, "Grundlagen der Wirtschaftsinformatik", (SELECT 1, "J" FROM sp_dozent, sp_raum WHERE dnr = 1 AND IT-Ausstattung = "J"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (22, "Rechnungswesen", (SELECT 8, "N" FROM sp_dozent, sp_raum WHERE dnr = 8 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (23, "Wirtschaftspolitik", (SELECT 14, "N" FROM sp_dozent, sp_raum WHERE dnr = 14 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (24, "1. Vertiefung Modul 1", (SELECT 15, "N" FROM sp_dozent, sp_raum WHERE dnr = 15 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (25, "2. Vertiefung Modul 1", (SELECT 10, "N" FROM sp_dozent, sp_raum WHERE dnr = 10 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (26, "Management-Konzepte", (SELECT 17, "N" FROM sp_dozent, sp_raum WHERE dnr = 17 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (27, "Betriebliches Projekt und Kommunikation", (SELECT 16, "N" FROM sp_dozent, sp_raum WHERE dnr = 16 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (28, "1. Vertiefung Modul 3", (SELECT 18, "N" FROM sp_dozent, sp_raum WHERE dnr = 18 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (29, "2. Vertiefung Modul 3", (SELECT 10, "N" FROM sp_dozent, sp_raum WHERE dnr = 10 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (30, "Englisch 3", (SELECT 7, "N" FROM sp_dozent, sp_raum WHERE dnr = 7 AND IT-Ausstattung = "N"));
+
+
+INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
+VALUES (31, "Statistik", (SELECT 3, "N" FROM sp_dozent, sp_raum WHERE dnr = 3 AND IT-Ausstattung = "N"));
+
+
