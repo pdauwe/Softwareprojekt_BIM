@@ -18,11 +18,11 @@ public interface IStundenplanDatenzugriff {
 	
 	public boolean speichereDozentZeitpraeferenzen(DozentTO dozent) throws DatenhaltungsException;
 	
-	public ArrayList<ModulTO> moduleVonDozent(DozentTO dozent) throws DatenhaltungsException;
+	public ArrayList<ModulTO> moduleVonDozent(int dozentNummer) throws DatenhaltungsException;
 	public ArrayList<DozentTO> dozentenMitZeitprefUndStudiengang(int zeitpref, StudiengangTO studiengang) throws DatenhaltungsException;
 	public ArrayList<DozentTO> dozentenVonStudiengang(StudiengangTO studiengang) throws DatenhaltungsException;
 	
-	
+	public DozentTO dozentMitNummer(int nummer) throws DatenhaltungsException;
 
 	public boolean speichereStundenplan(StundenplanTO stundenplan) throws DatenhaltungsException;
 	public StundenplanTO ladeStundenplanFuerStudiengang(StudiengangTO studiengang) throws DatenhaltungsException;

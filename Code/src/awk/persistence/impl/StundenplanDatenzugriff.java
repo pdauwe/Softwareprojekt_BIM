@@ -58,7 +58,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 			while(resultSet.next()){
 				ModulTO modul = new ModulTO();
 				modul.setNummer(resultSet.getInt(DatenbankNamen.Modul.ModulNummer));
-				modul.setBenoetigtComputerraum( resultSet.getString(DatenbankNamen.Modul.BenoetigtComputerraum).charAt(0) == 'J' ? true : false);
+				modul.setBenoetigtComputerraum( resultSet.getString(DatenbankNamen.Modul.BenoetigtComputerraum).charAt(0) == 'Y' ? true : false);
 				modul.setVerplant(false);
 				
 				alleModule.add(modul);
@@ -114,7 +114,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 			while(resultSet.next()){
 				RaumTO raum = new RaumTO();
 				raum.setName(resultSet.getString(DatenbankNamen.Raum.Name));
-				raum.setComputerraum(resultSet.getString(DatenbankNamen.Raum.Computerraum).charAt(0) == 'J' ? true : false);
+				raum.setComputerraum(resultSet.getString(DatenbankNamen.Raum.Computerraum).charAt(0) == 'Y' ? true : false);
 				
 				alleRaeume.add(raum);
 			}
@@ -171,11 +171,58 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 	}
 	
 	@Override
-	public ArrayList<ModulTO> moduleVonDozent(DozentTO dozent)
+	public ArrayList<ModulTO> moduleVonDozent(int dozentNummer)
 			throws DatenhaltungsException {
-		// TODO Auto-generated method stub
+		
+		Connection aConnection = Persistence.getConnection();
+		ResultSet resultSet;
+		
+		try{
+			ArrayList<ModulTO> module = new ArrayList<ModulTO>();
+			
+			resultSet = Persistence.executeQueryStatement(aConnection,
+					"SELECT * FROM " + DatenbankNamen.Modul.Tabelle + " WHERE " + DatenbankNamen.Modul.DozentNummer + " = " + dozentNummer);
+			
+			while(resultSet.next()){
+				ModulTO m = new ModulTO();
+				m.setBezeichnung(resultSet.getString(DatenbankNamen.Modul.Name));
+				m.setBenoetigtComputerraum(resultSet.getString(DatenbankNamen.Modul.BenoetigtComputerraum).charAt(0) == 'Y' ? true : false);
+				module.add(m);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(aConnection);
+		}
+		
 		return null;
 	}
+	
+	public DozentTO dozentMitNummer(int nummer) throws DatenhaltungsException{
+		
+		Connection aConnection = Persistence.getConnection();
+		ResultSet resultSet;
+		try{
+			resultSet = Persistence.executeQueryStatement(aConnection, 
+					"SELECT * FROM " + DatenbankNamen.Dozent.Tabelle + 
+					" WHERE " + DatenbankNamen.Dozent.DozentNummer + " = " + nummer);
+			
+			if(resultSet.next()){
+				DozentTO d = new DozentTO();
+				d.setName(resultSet.getString(DatenbankNamen.Dozent.Name));
+				d.setZeiten(this.zeitPrefsFuerDozent(nummer));
+			}	
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(aConnection);
+		}
+		return null;
+	}
+	
+	
 
 	@Override
 	public ArrayList<DozentTO> dozentenMitZeitprefUndStudiengang(int zeitpref,
@@ -185,9 +232,26 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		Connection aConnection = Persistence.getConnection();
 		ResultSet resultSet;
 		
+		/*
+		SELECT d.dnr, z.zeitslot from sp_dozent d, SP_ZEITPRAEFERENZ_DOZENT z, sp_modul m, sp_modul_studiengang ms 
+		where d.dnr = z.dnr AND d.dnr = m.dnr AND m.mnr = ms.mnr;
+		*/
+		
 		try{
-			resultSet = Persistence.executeQueryStatement(aConnection, "TODO QUERY");
-			// TODO: Verarbeitung
+			resultSet = Persistence.executeQueryStatement(aConnection, 
+					"SELECT d." + DatenbankNamen.Dozent.DozentNummer + ", z." + DatenbankNamen.ZeitpraeferenzDozentZuordnung.Zeitslot +
+					" FROM " + DatenbankNamen.Dozent.Tabelle + " d, " + DatenbankNamen.ZeitpraeferenzDozentZuordnung.Tabelle + " z, " + DatenbankNamen.Modul.Tabelle + " m, " 
+							+ DatenbankNamen.ModulStudiengangZuordnung.Tabelle + " ms " +
+					" WHERE d." + DatenbankNamen.Dozent.DozentNummer + " = z." + DatenbankNamen.ZeitpraeferenzDozentZuordnung.DozentNummer +
+							" AND d." + DatenbankNamen.Dozent.DozentNummer + " = m." + DatenbankNamen.Modul.DozentNummer +
+							" AND m." + DatenbankNamen.Modul.ModulNummer + " = ms." + DatenbankNamen.ModulStudiengangZuordnung.ModulNummer
+					);
+			
+			
+			while(resultSet.next()){
+				DozentTO d = this.dozentMitNummer(resultSet.getInt(DatenbankNamen.Dozent.DozentNummer));
+				dozenten.add(d);
+			}
 		}catch(SQLException e){
 			e.printStackTrace();
 			throw new DatenhaltungsException();
@@ -201,8 +265,38 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 	@Override
 	public ArrayList<DozentTO> dozentenVonStudiengang(StudiengangTO studiengang)
 			throws DatenhaltungsException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ArrayList<DozentTO> dozenten = new ArrayList<DozentTO>();
+		Connection aConnection = Persistence.getConnection();
+		ResultSet resultSet;
+		
+		/*
+		SELECT d.dnr from sp_dozent d, sp_modul m, sp_modul_studiengang ms 
+		where d.dnr = m.dnr AND m.mnr = ms.mnr;
+		*/
+		
+		try{
+			resultSet = Persistence.executeQueryStatement(aConnection, 
+					"SELECT d." + DatenbankNamen.Dozent.DozentNummer +
+					" FROM " + DatenbankNamen.Dozent.Tabelle + " d, " + DatenbankNamen.ZeitpraeferenzDozentZuordnung.Tabelle + " m, " 
+							+ DatenbankNamen.ModulStudiengangZuordnung.Tabelle + " ms " +
+					" WHERE d." + DatenbankNamen.Dozent.DozentNummer + " = m." + DatenbankNamen.Modul.DozentNummer +
+							" AND m." + DatenbankNamen.Modul.ModulNummer + " = ms." + DatenbankNamen.ModulStudiengangZuordnung.ModulNummer
+					);
+			
+			
+			while(resultSet.next()){
+				DozentTO d = this.dozentMitNummer(resultSet.getInt(DatenbankNamen.Dozent.DozentNummer));
+				dozenten.add(d);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(aConnection);
+		}
+
+		return dozenten;
 	}
 	
 	
