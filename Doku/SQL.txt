@@ -73,8 +73,8 @@ END;
 CREATE TABLE sp_raum
 (
 	rnr NUMBER NOT NULL PRIMARY KEY,
+	name VARCHAR(80),
 	computerraum CHAR(1) CHECK (computerraum IN ('Y','N')),
-	name VARCHAR(80)
 );
 
 

@@ -77,22 +77,22 @@ INSERT INTO sp_dozent VALUES (18, 'Eggers');
 
 
 -- Raeume
-INSERT INTO sp_raum VALUES (1, 'cf101', 'J');
+INSERT INTO sp_raum VALUES (1, 'cf101', 'Y');
 
 
-INSERT INTO sp_raum VALUES (2, 'cf102', 'J');
+INSERT INTO sp_raum VALUES (2, 'cf102', 'Y');
 
 
-INSERT INTO sp_raum VALUES (3, 'cf103', 'J');
+INSERT INTO sp_raum VALUES (3, 'cf103', 'Y');
 
 
-INSERT INTO sp_raum VALUES (4, 'cf104', 'J');
+INSERT INTO sp_raum VALUES (4, 'cf104', 'Y');
 
 
-INSERT INTO sp_raum VALUES (5, 'cf105', 'J');
+INSERT INTO sp_raum VALUES (5, 'cf105', 'Y');
 
 
-INSERT INTO sp_raum VALUES (6, 'cf106', 'J');
+INSERT INTO sp_raum VALUES (6, 'cf106', 'Y');
 
 
 INSERT INTO sp_raum VALUES (7, 'cn001', 'N');
@@ -116,96 +116,96 @@ INSERT INTO sp_raum VALUES (12, 'cn006', 'N');
 
 
 -- Module
-INSERT INTO sp_modul VALUES (1, 'IT-Basistechnologien', 1, 'J');
+INSERT INTO sp_modul VALUES (1, 1, 'IT-Basistechnologien', 'Y');
 
 
-INSERT INTO sp_modul VALUES (2, 'Objektorientierte Programmierung', 2,'J');
+INSERT INTO sp_modul VALUES (2, 2, 'Objektorientierte Programmierung', 'Y');
 
 
-INSERT INTO sp_modul VALUES (3, 'Mathematik', 3, 'N');
+INSERT INTO sp_modul VALUES (3, 3, 'Mathematik','N');
 
 
-INSERT INTO sp_modul VALUES (4, 'Methoden in Studium un Beruf', 4, 'N');
+INSERT INTO sp_modul VALUES (4, 4, 'Methoden in Studium un Beruf', 'N');
 
 
-INSERT INTO sp_modul VALUES (5, 'Grundlagen der Betriebswirtschaftslehre', 5,'N');
+INSERT INTO sp_modul VALUES (5, 5, 'Grundlagen der Betriebswirtschaftslehre', 'N');
 
 
-INSERT INTO sp_modul VALUES (6, 'Grundlagen internes und externes Rechungswesen', 6, 'N');
+INSERT INTO sp_modul VALUES (6, 6, 'Grundlagen internes und externes Rechungswesen','N');
 
 
-INSERT INTO sp_modul VALUES (7, 'Operations Research I', 3, 'J');
+INSERT INTO sp_modul VALUES (7, 3,'Operations Research I','Y');
 
 
-INSERT INTO sp_modul VALUES (8, 'Objektorientierte Analyse und Design', 2, 'J');
+INSERT INTO sp_modul VALUES (8, 2,'Objektorientierte Analyse und Design', 'Y');
 
 
-INSERT INTO sp_modul VALUES (9, 'Projektmanagement', 9,'N');
+INSERT INTO sp_modul VALUES (9, 9,'Projektmanagement','N');
 
 
-INSERT INTO sp_modul VALUES (10, 'Wahlpflichtmodul 1', 9, 'N');
+INSERT INTO sp_modul VALUES (10,9, 'Wahlpflichtmodul 1','N');
 
 
-INSERT INTO sp_modul VALUES (11, 'Geschaeftsprozesse', 2, 'J');
+INSERT INTO sp_modul VALUES (11, 2,'Geschaeftsprozesse','Y');
 
 
-INSERT INTO sp_modul VALUES (12, 'Datenanalyse', 3, 'J');
+INSERT INTO sp_modul VALUES (12, 3,'Datenanalyse','Y');
 
 
-INSERT INTO sp_modul VALUES (13, 'Softwareprojekt', 2, 'J');
+INSERT INTO sp_modul VALUES (13, 2,'Softwareprojekt', 'Y');
 
 
-INSERT INTO sp_modul VALUES (14, 'e-Business', 10, 'J');
+INSERT INTO sp_modul VALUES (14, 10,'e-Business','Y');
 
 
-INSERT INTO sp_modul VALUES (15, 'Wahpflichtmodul 3', 9, 'N');
+INSERT INTO sp_modul VALUES (15, 9,'Wahpflichtmodul 3','N');
 
 
-INSERT INTO sp_modul VALUES (16, 'Datenschutz und -sicherheit / IT-Recht', 11, 'N');
+INSERT INTO sp_modul VALUES (16, 11,'Datenschutz und -sicherheit / IT-Recht', 'N');
 
 
-INSERT INTO sp_modul VALUES (17, 'Produktions- und Fertigungswirtschaft', 8, 'N');
+INSERT INTO sp_modul VALUES (17, 8,'Produktions- und Fertigungswirtschaft', 'N');
 
 
-INSERT INTO sp_modul VALUES (18, 'Grundlagen der Volkswirtschaftslehre', 12, 'N');
+INSERT INTO sp_modul VALUES (18, 12,'Grundlagen der Volkswirtschaftslehre','N');
 
 
-INSERT INTO sp_modul VALUES (19, 'Wirtschaftsprivatrecht', 13, 'N');
+INSERT INTO sp_modul VALUES (19, 13,'Wirtschaftsprivatrecht','N');
 
 
-INSERT INTO sp_modul VALUES (20, 'Methoden in Studium und Beruf', 4, 'N');
+INSERT INTO sp_modul VALUES (20, 4,'Methoden in Studium und Beruf', 'N');
 
 
-INSERT INTO sp_modul VALUES (21, 'Grundlagen der Wirtschaftsinformatik', 1, 'J');
+INSERT INTO sp_modul VALUES (21, 1,'Grundlagen der Wirtschaftsinformatik', 'Y');
 
 
-INSERT INTO sp_modul VALUES (22, 'Rechnungswesen', 8, 'N');
+INSERT INTO sp_modul VALUES (22, 8,'Rechnungswesen','N');
 
 
-INSERT INTO sp_modul VALUES (23, 'Wirtschaftspolitik', 14,'N');
+INSERT INTO sp_modul VALUES (23, 14,'Wirtschaftspolitik','N');
 
 
-INSERT INTO sp_modul VALUES (24, '1. Vertiefung Modul 1', 15, 'N');
+INSERT INTO sp_modul VALUES (24, 15,'1. Vertiefung Modul 1', 'N');
 
 
-INSERT INTO sp_modul VALUES (25, '2. Vertiefung Modul 1', 10, 'N');
+INSERT INTO sp_modul VALUES (25, 10,'2. Vertiefung Modul 1', 'N');
 
 
-INSERT INTO sp_modul VALUES (26, 'Management-Konzepte', 17, 'N');
+INSERT INTO sp_modul VALUES (26, 17,'Management-Konzepte', 'N');
 
 
-INSERT INTO sp_modul VALUES (27, 'Betriebliches Projekt und Kommunikation', 16, 'N');
+INSERT INTO sp_modul VALUES (27, 16,'Betriebliches Projekt und Kommunikation', 'N');
 
 
-INSERT INTO sp_modul VALUES (28, '1. Vertiefung Modul 3', 18, 'N');
+INSERT INTO sp_modul VALUES (28, 18,'1. Vertiefung Modul 3','N');
 
 
-INSERT INTO sp_modul VALUES (29, '2. Vertiefung Modul 3', 10, 'N');
+INSERT INTO sp_modul VALUES (29, 10,'2. Vertiefung Modul 3','N');
 
 
-INSERT INTO sp_modul VALUES (30, 'Englisch 3', 7, 'N');
+INSERT INTO sp_modul VALUES (30, 7,'Englisch 3','N');
 
 
-INSERT INTO sp_modul VALUES (31, 'Statistik', 3, 'N');
+INSERT INTO sp_modul VALUES (31, 3,'Statistik','N');
 
 
