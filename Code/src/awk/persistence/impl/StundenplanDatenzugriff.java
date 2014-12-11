@@ -212,7 +212,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 	 */
 	
 	
-	private ArrayList<Integer> zeitPrefsVonDozent(int dozentNummer) throws DatenhaltungsException{
+	private ArrayList<Integer> zeitPrefsFuerDozent(int dozentNummer) throws DatenhaltungsException{
 		ArrayList<Integer> zeitPrefs = new ArrayList<Integer>();
 		
 		Connection aConnection = Persistence.getConnection();
