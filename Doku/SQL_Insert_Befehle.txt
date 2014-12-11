@@ -150,10 +150,11 @@ VALUES (12, "cn006", "N");
 
 
 
-
-INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
-VALUES (1, "IT-Basistechnologien", (SELECT 1, "J" FROM sp_dozent, sp_raum WHERE dnr = 1 AND IT-Ausstattung = "J"));
-
+Beispiel:
+//
+INSERT INTO sp_modul 
+VALUES (1, “IT-Basistechnologien“,1,“J“)
+//
 
 INSERT INTO sp_modul (mnr, Bezeichnung, dnr, IT-Ausstattung)
 VALUES (2, "Objektorientierte Programmierung", (SELECT 2, "J" FROM sp_dozent, sp_raum WHERE dnr = 2 AND IT-Ausstattung = "J"));
