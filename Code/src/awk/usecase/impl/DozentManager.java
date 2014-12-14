@@ -24,20 +24,19 @@ public class DozentManager {
 		}
 	}
 	
-	private DozentManager(){
-		this.ladeDozenten();
-	}
-	
 	public ArrayList<Dozent> getAlleDozenten(){
+		if(this.alleDozenten == null){
+			this.ladeDozenten();
+		}
+		
 		return this.alleDozenten;
 	}
 	
 	private void ladeDozenten(){
-		ArrayList<DozentTO> dozenten;
+		this.alleDozenten = new ArrayList<Dozent>();
 		try{
-			dozenten = this.stundenplanDatenzugriff.alleDozenten();
 			
-			for(DozentTO d : dozenten){
+			for(DozentTO d : this.stundenplanDatenzugriff.alleDozenten()){
 				this.alleDozenten.add(d.toDozent());
 			}
 			

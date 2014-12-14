@@ -24,20 +24,19 @@ public class RaumManager {
 		}
 	}
 	
-	private RaumManager(){
-		this.ladeAlleRaeume();
-	}
-	
 	public ArrayList<Raum> getAlleRaeume(){
+		if(this.alleRaeume == null){
+			this.ladeAlleRaeume();
+		}
+		
 		return this.alleRaeume;
 	}
 	
 	private void ladeAlleRaeume(){
-		ArrayList<RaumTO> raeume;
+		this.alleRaeume = new ArrayList<Raum>();
 		try{
-			raeume = this.stundenplanDatenzugriff.alleRaeume();
 			
-			for(RaumTO r : raeume){
+			for(RaumTO r : this.stundenplanDatenzugriff.alleRaeume()){
 				this.alleRaeume.add(r.toRaum());
 			}
 			

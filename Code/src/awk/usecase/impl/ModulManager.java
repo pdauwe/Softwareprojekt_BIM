@@ -22,21 +22,19 @@ public class ModulManager {
 			return self;
 		}
 	}
-	
-	private ModulManager(){
-		this.ladeAlleModule();
-	}
-	
+
 	public ArrayList<Modul> getAlleModule(){
+		if(this.alleModule == null){
+			this.ladeAlleModule();
+		}
 		return this.alleModule;
 	}
 	
 	private void ladeAlleModule(){
-		ArrayList<ModulTO> module;
+		this.alleModule = new ArrayList<Modul>();
 		try{
-			module = this.stundenplanDatenzugriff.alleModule();
 			
-			for(ModulTO m : module){
+			for(ModulTO m : this.stundenplanDatenzugriff.alleModule()){
 				this.alleModule.add(m.toModul());
 			}
 			

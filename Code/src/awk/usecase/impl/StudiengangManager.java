@@ -22,22 +22,20 @@ public class StudiengangManager {
 			return self;
 		}
 	}
-	
-	private StudiengangManager(){
-		this.ladeStudiengaenge();
-	}
 
 	public ArrayList<Studiengang> getAlleStudiengaenge() {
+		if(this.alleStudiengaenge == null){
+			this.ladeStudiengaenge();
+		}
 		return alleStudiengaenge;
 	}
 	
 	private void ladeStudiengaenge(){
-		ArrayList<StudiengangTO> studiengaenge;
+		this.alleStudiengaenge = new ArrayList<Studiengang>();
 		
 		try{
-			studiengaenge = this.stundenplanDatenzugriff.alleStudiengaenge();
 			
-			for(StudiengangTO s : studiengaenge){
+			for(StudiengangTO s : this.stundenplanDatenzugriff.alleStudiengaenge()){
 				this.alleStudiengaenge.add(s.toStudiengang());
 			}
 		}catch(DatenhaltungsException e){
