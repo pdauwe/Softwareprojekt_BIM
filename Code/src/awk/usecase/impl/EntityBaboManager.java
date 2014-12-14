@@ -32,8 +32,7 @@ public class EntityBaboManager {
 	}
 	
 	public ArrayList<Modul> getModule(){
-		//TODO: Implementierung
-		return null;
+		return ModulManager.getManager().getAlleModule();
 	}
 	
 	public ArrayList<Raum> getRaeume(){
