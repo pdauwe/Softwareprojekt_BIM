@@ -10,6 +10,8 @@ public class Dozent {
 	
 	public Dozent (String name){
 		this.name = name;
+		this.prefZeiten = new ArrayList<Integer>();
+		this.gesperrteZeiten = new ArrayList<Integer>();
 	}
 
 	public String getName() {

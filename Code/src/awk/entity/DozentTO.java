@@ -16,7 +16,8 @@ public class DozentTO implements Serializable{
 	private ArrayList<Integer> gesperrteZeiten;
 	
 	public DozentTO(){
-		
+		this.prefZeiten = new ArrayList<Integer>();
+		this.gesperrteZeiten = new ArrayList<Integer>();
 	}
 	
 	public Dozent toDozent(){
