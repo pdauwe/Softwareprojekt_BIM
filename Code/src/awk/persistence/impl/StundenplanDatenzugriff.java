@@ -31,7 +31,6 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 				DozentTO dozent = new DozentTO();
 				dozent.setName(resultSet.getString(DatenbankNamen.Dozent.Name));
 				dozent.setZeiten(this.zeitPrefsFuerDozent(resultSet.getInt(DatenbankNamen.Dozent.DozentNummer)));
-				
 				alleDozenten.add(dozent);
 			}
 		}catch (SQLException e){
@@ -41,7 +40,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 			Persistence.closeConnection(aConnection);
 		}
 		
-		return null;
+		return alleDozenten;
 	}
 
 	@Override
