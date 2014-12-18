@@ -1,5 +1,7 @@
 package awk.usecase.impl;
 
+import java.util.HashMap;
+
 import awk.AnwendungskernException;
 import awk.entity.internal.Dozent;
 import awk.entity.internal.Modul;
@@ -13,7 +15,7 @@ import awk.entity.internal.Stundenplan;
 public class StundenplanManager {
 	
 	private static StundenplanManager self;
-	private Stundenplan urplan;
+	private HashMap<Studiengang,Stundenplan> urplan;
 	
 	public static StundenplanManager getManager(){
 		if(self == null){
@@ -34,13 +36,14 @@ public class StundenplanManager {
 		return false;
 	}
 	
-	public boolean addToUrplan(int zeitslot, Studiengang studiengang,
-			Modul modul, Dozent dozent) throws AnwendungskernException {
+	public boolean addToUrplan(Studiengang studiengang, Stundenplan stundenplan) throws AnwendungskernException {
 		// TODO Auto-generated method stub
 		
-		
-		
-		
+		if(studiengang != null && stundenplan != null){
+			this.urplan.put(studiengang, stundenplan);
+			return true;
+		}
+
 		return false;
 	}
 	
@@ -48,7 +51,7 @@ public class StundenplanManager {
 		return false;
 	}
 	
-	public Stundenplan getUrplan(){
+	public HashMap<Studiengang, Stundenplan> getUrplan(){
 		return this.urplan;
 	}
 }
