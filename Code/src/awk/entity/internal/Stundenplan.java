@@ -1,23 +1,16 @@
 package awk.entity.internal;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Stundenplan {
 
-	private ArrayList<ModulWrapper> module;
 	private Studiengang studiengang;
-	private Semester semester;
+	private Map<Integer, StundenplanSlot> zuordnung;
 	
-	public Stundenplan(Studiengang studiengang, Semester semester){
-		
-	}
-
-	public ArrayList<ModulWrapper> getModule() {
-		return module;
-	}
-
-	public void addModul(ModulWrapper modul) {
-		this.module.add(modul);
+	public Stundenplan  (Studiengang studiengang){
+		this.studiengang = studiengang;
+		zuordnung = new HashMap<Integer, StundenplanSlot>();
 	}
 
 	public Studiengang getStudiengang() {
@@ -28,13 +21,17 @@ public class Stundenplan {
 		this.studiengang = studiengang;
 	}
 
-	public Semester getSemester() {
-		return semester;
+	public Map<Integer, StundenplanSlot> getZuordnung() {
+		return this.zuordnung;
+	}
+	
+	public boolean addZuordnung(int zeitslot, StundenplanSlot stundenplanslot){
+		if(this.zuordnung.containsKey(Integer.valueOf(zeitslot))){
+			return false;
+		}else{
+			this.zuordnung.put(Integer.valueOf(zeitslot), stundenplanslot);
+			return true;
+		}
 	}
 
-	public void setSemester(Semester semester) {
-		this.semester = semester;
-	}
-	
-	
 }

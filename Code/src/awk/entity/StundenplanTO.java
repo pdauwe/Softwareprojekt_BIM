@@ -1,8 +1,8 @@
 package awk.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-
+import java.util.HashMap;
+import java.util.Map;
 import awk.entity.internal.Stundenplan;
 
 public class StundenplanTO implements Serializable {
@@ -11,28 +11,21 @@ public class StundenplanTO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ArrayList<ModulWrapperTO> module;
 	private StudiengangTO studiengang;
-	private SemesterTO semester;
+	private HashMap<Integer, StundenplanSlotTO> zuordnung;
 	
 	public StundenplanTO(){
-		
+		this.zuordnung = new HashMap<Integer, StundenplanSlotTO>();
 	}
 	
-	public Stundenplan toStudiengang(){
-		Stundenplan s = new Stundenplan(this.getStudiengang().toStudiengang(), this.getSemester().toSemester());
-		for(ModulWrapperTO m : this.getModule()){
-			s.addModul(m.toModulWrapper());
+	public Stundenplan toStundenplan(){
+		
+		Stundenplan s = new Stundenplan(this.studiengang.toStudiengang());
+		for(Map.Entry<Integer, StundenplanSlotTO> entry : zuordnung.entrySet()){
+			s.addZuordnung(entry.getKey().intValue(), entry.getValue().toStundenplanSlot());
 		}
 		return s;
-	}
-
-	public ArrayList<ModulWrapperTO> getModule() {
-		return module;
-	}
-
-	public void setModule(ArrayList<ModulWrapperTO> module) {
-		this.module = module;
+		
 	}
 
 	public StudiengangTO getStudiengang() {
@@ -42,14 +35,18 @@ public class StundenplanTO implements Serializable {
 	public void setStudiengang(StudiengangTO studiengang) {
 		this.studiengang = studiengang;
 	}
-
-	public SemesterTO getSemester() {
-		return semester;
-	}
-
-	public void setSemester(SemesterTO semester) {
-		this.semester = semester;
+	
+	public Map<Integer, StundenplanSlotTO> getZuordnung() {
+		return this.zuordnung;
 	}
 	
+	public boolean addZuordnung(int zeitslot, StundenplanSlotTO stundenplanslot){
+		if(this.zuordnung.containsKey(Integer.valueOf(zeitslot))){
+			return false;
+		}else{
+			this.zuordnung.put(Integer.valueOf(zeitslot), stundenplanslot);
+			return true;
+		}
+	}
 	
 }
