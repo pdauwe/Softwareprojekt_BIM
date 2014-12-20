@@ -1,11 +1,14 @@
 package awk.usecase.impl;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
+import java.util.HashMap;
+
 
 import awk.AnwendungskernException;
+import awk.entity.DozentTO;
+import awk.entity.ModulTO;
 import awk.entity.StudiengangTO;
+import awk.entity.StundenplanSlotTO;
 import awk.entity.internal.Dozent;
 import awk.entity.internal.Modul;
 import awk.entity.internal.Studiengang;
@@ -28,68 +31,42 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 		return false;
 	}
 
-	@Override
-	public ArrayList<Studiengang> generiereStudiengangZufallsliste()
-			throws AnwendungskernException {
-		ArrayList<Studiengang> alleStudiengaenge = StudiengangManager.getManager().getAlleStudiengaenge();
-		Collections.shuffle(alleStudiengaenge);
-		return alleStudiengaenge;
-	}
 
 	@Override
-	public Dozent randomDozentMitZeitpref(int zeitpref,
-			Studiengang studiengang) throws AnwendungskernException {
-		
-		ArrayList<Dozent> alleDozenten = DozentManager.getManager().getAlleDozenten();
-		Random randomGenerator = new Random();
-		int randomIndex = randomGenerator.nextInt(alleDozenten.size());
-		
-		return alleDozenten.get(randomIndex);
-	}
-
-	@Override
-	public Dozent randomDozent(Studiengang studiengang)
-			throws AnwendungskernException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Modul randomModul(Dozent dozent, Studiengang studiengang) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Stundenplan erstelleUrplan() throws AnwendungskernException {
+	public HashMap<Studiengang,Stundenplan> erstelleUrplan() throws AnwendungskernException {
 		
 		StundenplanManager stundenplanManager = StundenplanManager.getManager();
-		
-		ArrayList<Dozent> alleDozenten = DozentManager.getManager().getAlleDozenten();
-		ArrayList<Modul> alleModule = ModulManager.getManager().getAlleModule();
-		
-		
-		
+
 		for(int zeitslot = 0; zeitslot<15; zeitslot++){
 			
-			ArrayList<Studiengang> stList = this.generiereStudiengangZufallsliste();
+			ArrayList<StudiengangTO> stList = StudiengangManager.getManager().studiengangZufallsliste();
 			
-			for(Studiengang s :stList){
-				Dozent randomDozent = this.randomDozentMitZeitpref(zeitslot, s);
+			
+			for(StudiengangTO s :stList){
+	
+				DozentTO randomDozent = DozentManager.getManager().RandomDozentMitZeitpref(zeitslot, s);
 				
 				if(randomDozent == null){
 					break;
 				}
 				
-				Modul randomModul = this.randomModul(randomDozent, s);
+				ModulTO randomModul = ModulManager.getManager().randomModulVonDozentImStudiengang(randomDozent, s);
 				
-				stundenplanManager.addToUrplan(zeitslot, s, randomModul, randomDozent);
+				if(randomModul == null){
+					break;
+				}
 				
-				randomModul.setVerplant(true);
-				randomDozent.removeZeit(zeitslot);
+				StundenplanSlotTO slot = new StundenplanSlotTO();
+				slot.setDozent(randomDozent);
+				slot.setModul(randomModul);
 				
-				alleDozenten.set(alleDozenten.indexOf(randomDozent), randomDozent);
-				alleModule.set(alleModule.indexOf(randomModul), randomModul);
+				
+				
+				boolean ok = stundenplanManager.addToUrplan(s, slot, zeitslot);
+					
+				if(!ok){
+					break;
+				}
 			}
 		}
 		
@@ -99,24 +76,31 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 		
 		for(int zeitslot = 0; zeitslot<15; zeitslot++){
 			
-			ArrayList<Studiengang> stList = this.generiereStudiengangZufallsliste();
+			ArrayList<StudiengangTO> stList = StudiengangManager.getManager().studiengangZufallsliste();
 			
-			for(Studiengang s :stList){
-				Dozent randomDozent = this.randomDozent(s);
+			for(StudiengangTO s :stList){
+				DozentTO randomDozent = DozentManager.getManager().RandomDozent(s);
 				
 				if(randomDozent == null){
 					break;
 				}
 				
-				Modul randomModul = this.randomModul(randomDozent, s);
+				ModulTO randomModul = ModulManager.getManager().randomModulVonDozentImStudiengang(randomDozent, s);
 				
-				stundenplanManager.addToUrplan(zeitslot, s, randomModul, randomDozent);
+				if(randomModul == null){
+					break;
+				}
 				
-				randomModul.setVerplant(true);
-				randomDozent.removeZeit(zeitslot);
+				StundenplanSlotTO slot = new StundenplanSlotTO();
+				slot.setDozent(randomDozent);
+				slot.setModul(randomModul);
 				
-				alleDozenten.set(alleDozenten.indexOf(randomDozent), randomDozent);
-				alleModule.set(alleModule.indexOf(randomModul), randomModul);
+				boolean ok = stundenplanManager.addToUrplan(s, slot, zeitslot);
+				
+				if(!ok){
+					break;
+				}
+				
 			}
 		}
 		
