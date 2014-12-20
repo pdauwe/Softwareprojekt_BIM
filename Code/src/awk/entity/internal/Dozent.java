@@ -47,5 +47,15 @@ public class Dozent {
 		this.gesperrteZeiten.add(gesperrtZeit);
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		Dozent d = (Dozent) obj;
+		if(this.getName().equals(d.getName())){
+			return true;
+		}
+		
+		return false;
+	}
+	
 	
 }
