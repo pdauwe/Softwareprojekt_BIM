@@ -145,7 +145,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 				
 				//Neue Zeitpraeferenzen in die Tabelle schreiben
 				for(Integer zeitpref : dozent.getZeiten()){
-					Persistence.executeUpdateStatement(aConnection, "INSERT INTO " + DatenbankNamen.ZeitpraeferenzDozentZuordnung.Tabelle + "VALUES(" + nummer + "," + zeitpref + ")");
+					Persistence.executeUpdateStatement(aConnection, "INSERT INTO " + DatenbankNamen.ZeitpraeferenzDozentZuordnung.Tabelle + " VALUES(" + nummer + "," + zeitpref + ")");
 				}
 			}
 		}catch(SQLException e){
@@ -235,8 +235,8 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		
 		try{
 			resultSet = Persistence.executeQueryStatement(aConnection,
-					"select d.dnr from sp_dozent d, sp_modul_studiengang ms, sp_modul m, sp_studiengang s, sp_zeitpraeferenz_dozent z" +
-					  "where d.dnr = m.dnr AND m.mnr = ms.mnr AND ms.sgnr = s.sgnr AND d.dnr = z.dnr AND s.name = '" + studiengang.getName() + "' AND "
+					"SELECT d.dnr from sp_dozent d, sp_modul_studiengang ms, sp_modul m, sp_studiengang s, sp_zeitpraeferenz_dozent z " +
+					  "WHERE d.dnr = m.dnr AND m.mnr = ms.mnr AND ms.sgnr = s.sgnr AND d.dnr = z.dnr AND s.name = '" + studiengang.getName() + "' AND "
 							+"z.zeitslot = " + zeitpref
 					);
 			
@@ -283,8 +283,8 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		
 		try{
 			resultSet = Persistence.executeQueryStatement(aConnection, 
-					"select d.dnr from sp_dozent d, sp_modul_studiengang ms, sp_modul m, sp_studiengang s" +
-						 "where d.dnr = m.dnr AND m.mnr = ms.mnr AND ms.sgnr = s.sgnr AND s.name = '" + studiengang.getName() + "'"
+					"SELECT d.dnr from sp_dozent d, sp_modul_studiengang ms, sp_modul m, sp_studiengang s " +
+						 "WHERE d.dnr = m.dnr AND m.mnr = ms.mnr AND ms.sgnr = s.sgnr AND s.name = '" + studiengang.getName() + "'"
 					);
 			
 			
