@@ -22,28 +22,28 @@ public class StundenplanSlotTO implements Serializable {
 		return new StundenplanSlot(modul.toModul(), dozent.toDozent(), raum.toRaum());
 	}
 
-	public ModulTO getModulName() {
+	public ModulTO getModul() {
 		return modul;
 	}
 
-	public void setModulName(ModulTO modulName) {
-		this.modul = modulName;
+	public void setModul(ModulTO modul) {
+		this.modul = modul;
 	}
 
-	public DozentTO getDozentName() {
+	public DozentTO getDozent() {
 		return dozent;
 	}
 
-	public void setDozentName(DozentTO dozentName) {
-		this.dozent = dozentName;
+	public void setDozent(DozentTO dozent) {
+		this.dozent = dozent;
 	}
 
-	public RaumTO getRaumName() {
+	public RaumTO getRaum() {
 		return raum;
 	}
 
-	public void setRaumName(RaumTO raumName) {
-		this.raum = raumName;
+	public void setRaum(RaumTO raum) {
+		this.raum = raum;
 	}
 	
 	
