@@ -65,7 +65,7 @@ public class DozentManager {
 	 * @return true/false
 	 * @throws AnwendungskernException
 	 */
-	public boolean ZeitpraeferenzenFuerDozentSpeichern(DozentTO dozent) throws AnwendungskernException{
+	public boolean zeitpraeferenzenFuerDozentSpeichern(DozentTO dozent) throws AnwendungskernException{
 		try{
 			return this.stundenplanDatenzugriff.speichereDozentZeitpraeferenzen(dozent);
 		}catch(DatenhaltungsException e){
