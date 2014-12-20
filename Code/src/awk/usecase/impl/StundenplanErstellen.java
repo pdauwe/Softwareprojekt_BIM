@@ -47,13 +47,13 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 				DozentTO randomDozent = DozentManager.getManager().RandomDozentMitZeitpref(zeitslot, s);
 				
 				if(randomDozent == null){
-					break;
+					continue;
 				}
 				
 				ModulTO randomModul = ModulManager.getManager().randomModulVonDozentImStudiengang(randomDozent, s);
 				
 				if(randomModul == null){
-					break;
+					continue;
 				}
 				
 				StundenplanSlotTO slot = new StundenplanSlotTO();
@@ -65,7 +65,7 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 				boolean ok = stundenplanManager.addToUrplan(s, slot, zeitslot);
 					
 				if(!ok){
-					break;
+					continue;
 				}
 			}
 		}
