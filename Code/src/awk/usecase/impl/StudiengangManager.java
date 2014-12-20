@@ -53,7 +53,7 @@ public class StudiengangManager {
 	public ArrayList<StudiengangTO> studiengangZufallsliste()
 			throws AnwendungskernException {
 		ArrayList<StudiengangTO> alleStudiengaenge = new ArrayList<StudiengangTO>();
-		for(Studiengang s : this.alleStudiengaenge){
+		for(Studiengang s : this.getAlleStudiengaenge()){
 			StudiengangTO sto = new StudiengangTO();
 			sto.setName(s.getName());
 			alleStudiengaenge.add(sto);

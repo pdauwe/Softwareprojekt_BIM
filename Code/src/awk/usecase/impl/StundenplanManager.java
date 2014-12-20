@@ -5,8 +5,6 @@ import java.util.HashMap;
 import awk.AnwendungskernException;
 import awk.entity.StudiengangTO;
 import awk.entity.StundenplanSlotTO;
-import awk.entity.internal.Dozent;
-import awk.entity.internal.Modul;
 import awk.entity.internal.Studiengang;
 import awk.entity.internal.Stundenplan;
 
@@ -28,6 +26,10 @@ public class StundenplanManager {
 		}else{
 			return self;
 		}
+	}
+	
+	private StundenplanManager(){
+		this.urplan = new HashMap<Studiengang, Stundenplan>();
 	}
 	
 
