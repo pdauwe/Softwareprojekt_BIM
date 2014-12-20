@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import awk.AnwendungskernException;
 import awk.DatenhaltungsException;
 import awk.entity.DozentTO;
 import awk.entity.ModulTO;
@@ -13,6 +14,7 @@ import awk.entity.StudiengangTO;
 import awk.entity.StundenplanTO;
 import awk.persistence.DatenbankNamen;
 import awk.persistence.IStundenplanDatenzugriff;
+import awk.usecase.impl.DozentManager;
 
 public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 
@@ -231,25 +233,25 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		Connection aConnection = Persistence.getConnection();
 		ResultSet resultSet;
 		
-		/*
-		SELECT d.dnr, z.zeitslot from sp_dozent d, SP_ZEITPRAEFERENZ_DOZENT z, sp_modul m, sp_modul_studiengang ms 
-		where d.dnr = z.dnr AND d.dnr = m.dnr AND m.mnr = ms.mnr;
-		*/
-		
 		try{
-			resultSet = Persistence.executeQueryStatement(aConnection, 
-					"SELECT d." + DatenbankNamen.Dozent.DozentNummer + ", z." + DatenbankNamen.ZeitpraeferenzDozentZuordnung.Zeitslot +
-					" FROM " + DatenbankNamen.Dozent.Tabelle + " d, " + DatenbankNamen.ZeitpraeferenzDozentZuordnung.Tabelle + " z, " + DatenbankNamen.Modul.Tabelle + " m, " 
-							+ DatenbankNamen.ModulStudiengangZuordnung.Tabelle + " ms " +
-					" WHERE d." + DatenbankNamen.Dozent.DozentNummer + " = z." + DatenbankNamen.ZeitpraeferenzDozentZuordnung.DozentNummer +
-							" AND d." + DatenbankNamen.Dozent.DozentNummer + " = m." + DatenbankNamen.Modul.DozentNummer +
-							" AND m." + DatenbankNamen.Modul.ModulNummer + " = ms." + DatenbankNamen.ModulStudiengangZuordnung.ModulNummer
+			resultSet = Persistence.executeQueryStatement(aConnection,
+					"select d.dnr from sp_dozent d, sp_modul_studiengang ms, sp_modul m, sp_studiengang s, sp_zeitpraeferenz_dozent z" +
+					  "where d.dnr = m.dnr AND m.mnr = ms.mnr AND ms.sgnr = s.sgnr AND d.dnr = z.dnr AND s.name = '" + studiengang.getName() + "' AND "
+							+"z.zeitslot = " + zeitpref
 					);
 			
 			
 			while(resultSet.next()){
-				DozentTO d = this.dozentMitNummer(resultSet.getInt(DatenbankNamen.Dozent.DozentNummer));
-				dozenten.add(d);
+				
+				
+				DozentTO d;
+				try {
+					d = DozentManager.getManager().dozentMitNummer(resultSet.getInt(DatenbankNamen.Dozent.DozentNummer));
+					dozenten.add(d);
+				} catch (AnwendungskernException e) {
+					e.printStackTrace();
+				}
+				
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -274,19 +276,27 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		where d.dnr = m.dnr AND m.mnr = ms.mnr;
 		*/
 		
+		/*
+		 * select d.name from sp_dozent d, sp_modul_studiengang ms, sp_modul m, sp_studiengang s
+						 where d.dnr = m.dnr AND m.mnr = ms.mnr AND ms.sgnr = s.sgnr AND s.name = 'BIM3';
+		 */
+		
 		try{
 			resultSet = Persistence.executeQueryStatement(aConnection, 
-					"SELECT d." + DatenbankNamen.Dozent.DozentNummer +
-					" FROM " + DatenbankNamen.Dozent.Tabelle + " d, " + DatenbankNamen.ZeitpraeferenzDozentZuordnung.Tabelle + " m, " 
-							+ DatenbankNamen.ModulStudiengangZuordnung.Tabelle + " ms " +
-					" WHERE d." + DatenbankNamen.Dozent.DozentNummer + " = m." + DatenbankNamen.Modul.DozentNummer +
-							" AND m." + DatenbankNamen.Modul.ModulNummer + " = ms." + DatenbankNamen.ModulStudiengangZuordnung.ModulNummer
+					"select d.dnr from sp_dozent d, sp_modul_studiengang ms, sp_modul m, sp_studiengang s" +
+						 "where d.dnr = m.dnr AND m.mnr = ms.mnr AND ms.sgnr = s.sgnr AND s.name = '" + studiengang.getName() + "'"
 					);
 			
 			
 			while(resultSet.next()){
-				DozentTO d = this.dozentMitNummer(resultSet.getInt(DatenbankNamen.Dozent.DozentNummer));
-				dozenten.add(d);
+				
+				DozentTO d;
+				try {
+					d = DozentManager.getManager().dozentMitNummer(resultSet.getInt(DatenbankNamen.Dozent.DozentNummer));
+					dozenten.add(d);
+				} catch (AnwendungskernException e) {
+					e.printStackTrace();
+				}
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -297,12 +307,6 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 
 		return dozenten;
 	}
-	
-	
-	
-	/*
-	 *  Helpers
-	 */
 	
 	
 	private ArrayList<Integer> zeitPrefsFuerDozent(int dozentNummer) throws DatenhaltungsException{
@@ -324,6 +328,85 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		}
 		
 		return zeitPrefs;
+	}
+
+	@Override
+	public ArrayList<ModulTO> moduleVonDozentImStudiengang(DozentTO dozent,
+			StudiengangTO studiengang) throws DatenhaltungsException {
+		
+		ArrayList<ModulTO> alleModule = new ArrayList<ModulTO>();
+		
+		Connection connection = Persistence.getConnection();
+		ResultSet resultSet;
+		
+		try{
+			
+			int dnr = -1;
+			try {
+				dnr = DozentManager.getManager().dozentNummerVonDozent(dozent);
+			} catch (AnwendungskernException e) {
+				e.printStackTrace();
+			}
+			
+			if(dnr != -1){
+				resultSet = Persistence.executeQueryStatement(connection,
+						"SELECT * FROM " +
+						"sp_dozent d, sp_modul m, sp_modul_studiengang ms, sp_studiengang s " +
+						"WHERE "+
+						"d.dnr = m.dnr AND m.mnr = m.mnr AND s.sgnr = ms.sgnr AND d.dnr = " + dnr + " AND s.name = '" + studiengang.getName() + "'");	
+				
+				while(resultSet.next()){
+					ModulTO modul = new ModulTO();
+					modul.setBezeichnung(resultSet.getString(DatenbankNamen.Modul.Name));
+					modul.setBenoetigtComputerraum( resultSet.getString(DatenbankNamen.Modul.BenoetigtComputerraum).charAt(0) == 'Y' ? true : false);
+					
+					alleModule.add(modul);
+				}
+				
+				
+			}else{
+				return null;
+			}
+
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(connection);
+		}
+
+		return alleModule;
+	}
+
+	@Override
+	public int dozentNummerVonDozent(DozentTO dozent)
+			throws DatenhaltungsException {
+		
+		Connection connection = Persistence.getConnection();
+		ResultSet resultSet;
+		
+		// dnr auf -1 setzen, so kann mit -1 ueberprueft werden, ob eine dnr legitim ist oder ob der Dozent nicht in der Datenbank ist
+		int dnr = -1;
+		
+		try{
+			resultSet = Persistence.executeQueryStatement(connection,
+					"SELECT d.dnr FROM " +
+					"sp_dozent d " +
+					"WHERE " +
+					"d.name = '" + dozent.getName() + "'");
+			
+			if(resultSet.next()){
+				dnr = resultSet.getInt("dnr");
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(connection);
+		}
+		
+		return dnr;
 	}
 	
 }
