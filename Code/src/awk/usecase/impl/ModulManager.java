@@ -1,9 +1,13 @@
 package awk.usecase.impl;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import awk.AnwendungskernException;
 import awk.DatenhaltungsException;
+import awk.entity.DozentTO;
 import awk.entity.ModulTO;
+import awk.entity.StudiengangTO;
 import awk.entity.internal.Modul;
 import awk.persistence.IStundenplanDatenzugriff;
 import awk.persistence.impl.StundenplanDatenzugriff;
@@ -40,6 +44,29 @@ public class ModulManager {
 			
 		}catch(DatenhaltungsException e){
 			e.printStackTrace();
+		}
+	}
+	
+	/***
+	 * Liefert ein zufaelliges Modul eines Dozenten in einem Studiengang
+	 * @param dozent
+	 * @param studiengang
+	 * @return ModulTO
+	 * @throws AnwendungskernException
+	 */
+	public ModulTO randomModulVonDozentImStudiengang(DozentTO dozent, StudiengangTO studiengang) throws AnwendungskernException{
+		try{
+			ArrayList<ModulTO> alleModule =  this.stundenplanDatenzugriff.moduleVonDozentImStudiengang(dozent, studiengang);
+			if(alleModule.size() == 0){
+				return null;
+			}else{
+				Random randomGenerator = new Random();
+				int randomIndex = randomGenerator.nextInt(alleModule.size());
+				return alleModule.get(randomIndex);
+			}
+		}catch(DatenhaltungsException e){
+			e.printStackTrace();
+			throw new AnwendungskernException();
 		}
 	}
 
