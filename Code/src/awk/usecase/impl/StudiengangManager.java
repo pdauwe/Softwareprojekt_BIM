@@ -1,7 +1,9 @@
 package awk.usecase.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
+import awk.AnwendungskernException;
 import awk.DatenhaltungsException;
 import awk.entity.StudiengangTO;
 import awk.entity.internal.Studiengang;
@@ -43,7 +45,21 @@ public class StudiengangManager {
 		}
 	}
 	
-	
-	
-	
+	/***
+	 * Geniert eine zufaellige Liste aller Studiengaenge
+	 * @return Zufallsliste aller Studiengaenge
+	 * @throws AnwendungskernException
+	 */
+	public ArrayList<StudiengangTO> studiengangZufallsliste()
+			throws AnwendungskernException {
+		ArrayList<StudiengangTO> alleStudiengaenge = new ArrayList<StudiengangTO>();
+		for(Studiengang s : this.alleStudiengaenge){
+			StudiengangTO sto = new StudiengangTO();
+			sto.setName(s.getName());
+			alleStudiengaenge.add(sto);
+		}
+		Collections.shuffle(alleStudiengaenge);
+		return alleStudiengaenge;
+	}
+
 }
