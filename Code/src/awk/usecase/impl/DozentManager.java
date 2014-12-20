@@ -108,41 +108,56 @@ public class DozentManager {
 	 * Liefert einen zufälligen Dozenten mit der angegebenen Zeitpraeferenz im Studiengang
 	 * @param zeitpref
 	 * @param studiengang
-	 * @return Dozent
+	 * @return DozentTO
 	 * @throws AnwendungskernException
 	 */
-	public Dozent RandomDozentMitZeitpref(int zeitpref,
+	public DozentTO RandomDozentMitZeitpref(int zeitpref,
 			StudiengangTO studiengang) throws AnwendungskernException {
 		ArrayList<DozentTO> alleDozenten;
 		
 		try {
 			alleDozenten = this.stundenplanDatenzugriff.dozentenMitZeitprefUndStudiengang(zeitpref, studiengang);
 		} catch (DatenhaltungsException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new AnwendungskernException();
 		}
-		Random randomGenerator = new Random();
-		int randomIndex = randomGenerator.nextInt(alleDozenten.size());
 		
-		return alleDozenten.get(randomIndex).toDozent();
-		
+		if(alleDozenten.size() == 0){
+			return null;
+		}else{
+			Random randomGenerator = new Random();
+			int randomIndex = randomGenerator.nextInt(alleDozenten.size());
+			
+			return alleDozenten.get(randomIndex);
+		}	
 	}
 
 	/***
 	 * Liefer einen zufaelligen Dozenten im Studiengang
 	 * @param studiengang
-	 * @return Dozent
+	 * @return DozentTO
 	 * @throws AnwendungskernException
 	 */
-	public Dozent RandomDozent(Studiengang studiengang)
-			throws AnwendungskernException {
+	public DozentTO RandomDozent(StudiengangTO studiengang)
+			throws AnwendungskernException {	
+
+		ArrayList<DozentTO> alleDozenten;
 		
-		ArrayList<Dozent> alleDozenten = DozentManager.getManager().getAlleDozenten();
-		Random randomGenerator = new Random();
-		int randomIndex = randomGenerator.nextInt(alleDozenten.size());
+		try {
+			alleDozenten = this.stundenplanDatenzugriff.dozentenVonStudiengang(studiengang);
+		} catch (DatenhaltungsException e) {
+			e.printStackTrace();
+			throw new AnwendungskernException();
+		}
 		
-		return alleDozenten.get(randomIndex);
+		if(alleDozenten.size() == 0){
+			return null;
+		}else{
+			Random randomGenerator = new Random();
+			int randomIndex = randomGenerator.nextInt(alleDozenten.size());
+			
+			return alleDozenten.get(randomIndex);
+		}
 	}
 	
 	public ArrayList<Dozent> alleDozentenVonStudiengang(Studiengang studiengang){
