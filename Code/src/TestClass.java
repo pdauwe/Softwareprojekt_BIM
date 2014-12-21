@@ -1,7 +1,9 @@
+import java.util.HashMap;
+
 import awk.AnwendungskernException;
+import awk.entity.internal.Studiengang;
 import awk.entity.internal.Stundenplan;
 import awk.usecase.IStundenplanErstellen;
-import awk.usecase.impl.EntityBaboManager;
 import awk.usecase.impl.StundenplanErstellen;
 
 
@@ -11,17 +13,20 @@ import awk.usecase.impl.StundenplanErstellen;
 public class TestClass {
 
 	public static void main(String[] args) {
-		
-		
-		IStundenplanErstellen spErstellen = new StundenplanErstellen();
+		// TODO Auto-generated method stub
+
+		IStundenplanErstellen se = new StundenplanErstellen();
 		
 		try {
-			System.out.println(spErstellen.erstelleUrplan());
+			HashMap<Studiengang, Stundenplan> urplan = se.erstelleUrplan();
+			
+			System.out.println(urplan);
+			
 		} catch (AnwendungskernException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	
 	}
 
 }
