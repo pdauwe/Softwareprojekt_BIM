@@ -25,11 +25,17 @@ public class Stundenplan {
 		return this.zuordnung;
 	}
 	
+	/***
+	 * Fügt einen StundenplanSlot zum Stundenplan hinzu, wenn der Zeitslot noch nicht besetzt ist. 
+	 * @param zeitslot
+	 * @param stundenplanslot
+	 * @return
+	 */
 	public boolean addZuordnung(int zeitslot, StundenplanSlot stundenplanslot){
-		if(this.zuordnung.containsKey(Integer.valueOf(zeitslot))){
+		if(this.zuordnung.containsKey(zeitslot)){
 			return false;
 		}else{
-			this.zuordnung.put(Integer.valueOf(zeitslot), stundenplanslot);
+			this.getZuordnung().put(Integer.valueOf(zeitslot), stundenplanslot);
 			return true;
 		}
 	}
