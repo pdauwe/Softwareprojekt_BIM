@@ -7,6 +7,7 @@ import awk.entity.StudiengangTO;
 import awk.entity.StundenplanSlotTO;
 import awk.entity.internal.Studiengang;
 import awk.entity.internal.Stundenplan;
+import awk.entity.internal.StundenplanSlot;
 
 
 /*
@@ -52,24 +53,25 @@ public class StundenplanManager {
 	 */
 	public boolean addToUrplan(StudiengangTO studiengang, StundenplanSlotTO stundenplanslot, int zeitslot) throws AnwendungskernException {
 		
-		// Überprüfen ob der Dozent zu dem Zeitslot schon belegt ist
-		for(Stundenplan s : this.urplan.values()){
-			if(s.getZuordnung().get(zeitslot).getDozent().equals(stundenplanslot.getDozent().toDozent())){
-				return false;
+		// Überprüfen ob der Dozent zu dem Zeitslot schon belegt ist.
+		// Wenn ja, dann nicht hinzufuegen und abbrechen.
+		for(Stundenplan stundenplan : this.urplan.values()){
+			for(StundenplanSlot slot : stundenplan.getZuordnung().values()){
+				if(slot.getDozent().equals(stundenplanslot.getDozent().toDozent())){
+					return false;
+				}
 			}
 		}
-		
-		Stundenplan stundenplan = this.urplan.get(studiengang);
-		
-		if(stundenplan == null){
-			Stundenplan stundenplanFuerStudiengang = new Stundenplan(studiengang.toStudiengang());
-			stundenplan = stundenplanFuerStudiengang;
+
+		if(this.urplan.get(studiengang) == null){
+			this.urplan.put(studiengang.toStudiengang(), new Stundenplan(studiengang.toStudiengang()));
 		}
 		
-		stundenplan.addZuordnung(zeitslot, stundenplanslot.toStundenplanSlot());
+		boolean ok = this.urplan.get(studiengang).addZuordnung(zeitslot, stundenplanslot.toStundenplanSlot()); 
+		if(!ok){
+			return false;
+		}
 
-		this.urplan.put(studiengang.toStudiengang(), stundenplan);
-		
 		return true;
 	}
 	
@@ -81,7 +83,8 @@ public class StundenplanManager {
 	public boolean isUrplanComplete(){
 		
 		for(Stundenplan s : this.urplan.values()){
-			if(!(s.getZuordnung().containsKey(14))){
+			
+			if((s.getZuordnung().containsKey(14)) == false){
 				return false;
 			}
 		}
