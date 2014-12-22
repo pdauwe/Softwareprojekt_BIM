@@ -186,8 +186,8 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 			
 			while(resultSet.next()){
 				ModulTO m = new ModulTO();
-				m.setBezeichnung(resultSet.getString(DatenbankNamen.Modul.Name));
-				m.setBenoetigtComputerraum(resultSet.getString(DatenbankNamen.Modul.BenoetigtComputerraum).charAt(0) == 'Y' ? true : false);
+				m.setBezeichnung(resultSet.getString("name"));
+				m.setBenoetigtComputerraum(resultSet.getString("iscomputernotwendig").charAt(0) == 'Y' ? true : false);
 				module.add(m);
 			}
 		}catch(SQLException e){
@@ -204,14 +204,15 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		
 		Connection aConnection = Persistence.getConnection();
 		ResultSet resultSet;
+		DozentTO d = null;
 		try{
 			resultSet = Persistence.executeQueryStatement(aConnection, 
-					"SELECT * FROM " + DatenbankNamen.Dozent.Tabelle + 
-					" WHERE " + DatenbankNamen.Dozent.DozentNummer + " = " + nummer);
+					"SELECT * FROM sp_dozent" + 
+					" WHERE dnr = " + nummer);
 			
 			if(resultSet.next()){
-				DozentTO d = new DozentTO();
-				d.setName(resultSet.getString(DatenbankNamen.Dozent.Name));
+				d = new DozentTO();
+				d.setName(resultSet.getString("name"));
 				d.setZeiten(this.zeitPrefsFuerDozent(nummer));
 			}	
 		}catch(SQLException e){
@@ -220,7 +221,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		}finally{
 			Persistence.closeConnection(aConnection);
 		}
-		return null;
+		return d;
 	}
 	
 	
@@ -287,12 +288,11 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 						 "WHERE d.dnr = m.dnr AND m.mnr = ms.mnr AND ms.sgnr = s.sgnr AND s.name = '" + studiengang.getName() + "'"
 					);
 			
-			
-			while(resultSet.next()){
-				
-				DozentTO d;
+			System.out.println(resultSet);
+			while( resultSet.next() ){
+
 				try {
-					d = DozentManager.getManager().dozentMitNummer(resultSet.getInt(DatenbankNamen.Dozent.DozentNummer));
+					DozentTO d = DozentManager.getManager().dozentMitNummer(resultSet.getInt("dnr"));
 					dozenten.add(d);
 				} catch (AnwendungskernException e) {
 					e.printStackTrace();
@@ -350,7 +350,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 			
 			if(dnr != -1){
 				resultSet = Persistence.executeQueryStatement(connection,
-						"SELECT * FROM " +
+						"SELECT DISTINCT m.name, m.iscomputernotwendig FROM " +
 						"sp_dozent d, sp_modul m, sp_modul_studiengang ms, sp_studiengang s " +
 						"WHERE "+
 						"d.dnr = m.dnr AND m.mnr = m.mnr AND s.sgnr = ms.sgnr AND d.dnr = " + dnr + " AND s.name = '" + studiengang.getName() + "'");	
