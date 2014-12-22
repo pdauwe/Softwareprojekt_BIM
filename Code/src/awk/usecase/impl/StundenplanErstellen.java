@@ -35,8 +35,11 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 	@Override
 	public HashMap<Studiengang,Stundenplan> erstelleUrplan() throws AnwendungskernException {
 		
+		//TODO: evtl Optimierung der beiden Schleifen, in beiden passiert quasi das gleiche. Doppelter Code.
+
 		StundenplanManager stundenplanManager = StundenplanManager.getManager();
 
+		// Erste Iteration fuer das Zuordnen mit Zeitpraeferenzen
 		for(int zeitslot = 0; zeitslot<15; zeitslot++){
 			
 			ArrayList<StudiengangTO> stList = StudiengangManager.getManager().studiengangZufallsliste();
@@ -59,21 +62,22 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 				StundenplanSlotTO slot = new StundenplanSlotTO();
 				slot.setDozent(randomDozent);
 				slot.setModul(randomModul);
-				
-				
-				
+
 				boolean ok = stundenplanManager.addToUrplan(s, slot, zeitslot);
-					
+				
 				if(!ok){
 					continue;
 				}
 			}
 		}
 		
+		// Fuer den Fall, dass der Plan bereits nach der ersten Iteration komplett ist.
+		// Dies sollte jedoch unwahrscheinlich sein.
 		if(stundenplanManager.isUrplanComplete()){
 			return stundenplanManager.getUrplan();
 		}
 		
+		// Zweite Iteration fuer das Zuordnen ohne Zeitpraeferenzen, um den Urplan aufzufuellen.
 		for(int zeitslot = 0; zeitslot<15; zeitslot++){
 			
 			ArrayList<StudiengangTO> stList = StudiengangManager.getManager().studiengangZufallsliste();
@@ -82,28 +86,27 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 				DozentTO randomDozent = DozentManager.getManager().RandomDozent(s);
 				
 				if(randomDozent == null){
-					break;
+					continue;
 				}
 				
 				ModulTO randomModul = ModulManager.getManager().randomModulVonDozentImStudiengang(randomDozent, s);
 				
 				if(randomModul == null){
-					break;
+					continue;
 				}
 				
 				StundenplanSlotTO slot = new StundenplanSlotTO();
 				slot.setDozent(randomDozent);
 				slot.setModul(randomModul);
-				
+
 				boolean ok = stundenplanManager.addToUrplan(s, slot, zeitslot);
 				
 				if(!ok){
-					break;
-				}
-				
+					continue;
+				}	
 			}
 		}
-		
+
 		return stundenplanManager.getUrplan();
 		
 	}
