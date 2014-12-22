@@ -12,11 +12,11 @@ public class Hauptmenue implements IAction{
 		
 			String nextPage = null;
 			
-			if (request.getParameter("Zeiterfassung") != null ){
+			if (request.getParameter("zeiterfassung") != null ){
 				
 				request.setAttribute("dozenten", DozentManager.getManager().getAlleDozenten());
 
-				nextPage = "Kundenverwaltung/Kundenmenue.jsp";
+				nextPage = "Zeiterfassung/Zeiterfassung.jsp";
 			}
 			    
 			return nextPage;		
