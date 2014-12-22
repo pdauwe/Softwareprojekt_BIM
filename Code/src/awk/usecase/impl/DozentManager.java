@@ -113,22 +113,22 @@ public class DozentManager {
 	 */
 	public DozentTO RandomDozentMitZeitpref(int zeitpref,
 			StudiengangTO studiengang) throws AnwendungskernException {
-		ArrayList<DozentTO> alleDozenten;
+		ArrayList<DozentTO> dozenten;
 		
 		try {
-			alleDozenten = this.stundenplanDatenzugriff.dozentenMitZeitprefUndStudiengang(zeitpref, studiengang);
+			dozenten = this.stundenplanDatenzugriff.dozentenMitZeitprefUndStudiengang(zeitpref, studiengang);
 		} catch (DatenhaltungsException e) {
 			e.printStackTrace();
 			throw new AnwendungskernException();
 		}
 		
-		if(alleDozenten.size() == 0){
+		if(dozenten.size() == 0){
 			return null;
 		}else{
 			Random randomGenerator = new Random();
-			int randomIndex = randomGenerator.nextInt(alleDozenten.size());
+			int randomIndex = randomGenerator.nextInt(dozenten.size());
 			
-			return alleDozenten.get(randomIndex);
+			return dozenten.get(randomIndex);
 		}	
 	}
 
@@ -141,22 +141,22 @@ public class DozentManager {
 	public DozentTO RandomDozent(StudiengangTO studiengang)
 			throws AnwendungskernException {	
 
-		ArrayList<DozentTO> alleDozenten;
+		ArrayList<DozentTO> dozenten;
 		
 		try {
-			alleDozenten = this.stundenplanDatenzugriff.dozentenVonStudiengang(studiengang);
+			dozenten = this.stundenplanDatenzugriff.dozentenVonStudiengang(studiengang);
 		} catch (DatenhaltungsException e) {
 			e.printStackTrace();
 			throw new AnwendungskernException();
 		}
 		
-		if(alleDozenten.size() == 0){
+		if(dozenten.size() == 0){
 			return null;
 		}else{
 			Random randomGenerator = new Random();
-			int randomIndex = randomGenerator.nextInt(alleDozenten.size());
+			int randomIndex = randomGenerator.nextInt(dozenten.size());
 			
-			return alleDozenten.get(randomIndex);
+			return dozenten.get(randomIndex);
 		}
 	}
 	
