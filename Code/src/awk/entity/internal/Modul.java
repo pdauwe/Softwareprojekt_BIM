@@ -43,7 +43,19 @@ public class Modul {
 		this.bezeichnung = bezeichnung;
 	}
 	
+	@Override
+	public int hashCode() {
+		return this.getBezeichnung().hashCode();
+	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		Modul m = (Modul) obj;
+		if(this.getBezeichnung().equals(m.getBezeichnung())){
+			return true;
+		}
+		return false;
+	}
 	
 	
 }

@@ -353,7 +353,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 						"SELECT DISTINCT m.name, m.iscomputernotwendig FROM " +
 						"sp_dozent d, sp_modul m, sp_modul_studiengang ms, sp_studiengang s " +
 						"WHERE "+
-						"d.dnr = m.dnr AND m.mnr = m.mnr AND s.sgnr = ms.sgnr AND d.dnr = " + dnr + " AND s.name = '" + studiengang.getName() + "'");	
+						"d.dnr = m.dnr AND m.mnr = ms.mnr AND s.sgnr = ms.sgnr AND d.dnr = " + dnr + " AND s.name = '" + studiengang.getName() + "'");	
 				
 				while(resultSet.next()){
 					ModulTO modul = new ModulTO();

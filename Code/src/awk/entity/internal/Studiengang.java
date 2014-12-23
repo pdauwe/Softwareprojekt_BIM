@@ -15,4 +15,17 @@ public class Studiengang {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public boolean equals(Object obj) {
+		Studiengang sgang = (Studiengang) obj;
+		if(this.getName().equals(sgang.getName())){
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.getName().hashCode();
+	}
 }

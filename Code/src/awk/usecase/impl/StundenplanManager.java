@@ -53,21 +53,34 @@ public class StundenplanManager {
 	 */
 	public boolean addToUrplan(StudiengangTO studiengang, StundenplanSlotTO stundenplanslot, int zeitslot) throws AnwendungskernException {
 		
+		Studiengang sgang = studiengang.toStudiengang();
+		
 		// Überprüfen ob der Dozent zu dem Zeitslot schon belegt ist.
 		// Wenn ja, dann nicht hinzufuegen und abbrechen.
 		for(Stundenplan stundenplan : this.urplan.values()){
-			for(StundenplanSlot slot : stundenplan.getZuordnung().values()){
+			StundenplanSlot slot = stundenplan.getZuordnung().get(zeitslot);
+			if(slot != null){
 				if(slot.getDozent().equals(stundenplanslot.getDozent().toDozent())){
 					return false;
 				}
 			}
+			
+			for(StundenplanSlot s : stundenplan.getZuordnung().values()){
+				if(s.getModul().equals(stundenplanslot.getModul().toModul())){
+					return false;
+				}
+			}
+			
+			
 		}
 
-		if(this.urplan.get(studiengang) == null){
-			this.urplan.put(studiengang.toStudiengang(), new Stundenplan(studiengang.toStudiengang()));
+		if(!this.urplan.containsKey(sgang)){
+			Stundenplan stundenplan = new Stundenplan(sgang);
+			this.urplan.put(sgang, stundenplan);
 		}
 		
-		boolean ok = this.urplan.get(studiengang).addZuordnung(zeitslot, stundenplanslot.toStundenplanSlot()); 
+		Stundenplan stundenplan = this.urplan.get(sgang);
+		boolean ok = stundenplan.addZuordnung(zeitslot, stundenplanslot.toStundenplanSlot());
 		if(!ok){
 			return false;
 		}

@@ -55,6 +55,9 @@ public class ModulTO implements Serializable {
 		this.bezeichnung = bezeichnung;
 	}
 	
-	
+	@Override
+	public int hashCode() {
+		return this.getBezeichnung().hashCode();
+	}
 	
 }
