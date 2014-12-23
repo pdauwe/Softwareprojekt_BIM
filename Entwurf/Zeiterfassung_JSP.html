@@ -1,0 +1,78 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="design.css">
+</head>
+<body>
+	<div id="webside">
+		<div id="header">
+			<div id="header1">
+				<h1>Dozenten Zeiterfassung</h1>
+			</div>
+			<div id="logo">
+			<img src="hlogo.png" alt="h2logo" width="93px" height="75px">
+			</div>
+		</div>
+		<div id="main"></div>
+		
+		<jsp:useBean id="dozentenManager" class="awk.usecase.DozentManager" scope="request"/>
+<jsp:useBean id="dozent" class="awk.entity.impl.Dozent" scope="request"/>
+
+
+
+<label><br><br>Bitte Dozenten waehlen!<br><br></label>
+
+	<form name="dozentenauswahl" action="Dozent" method="Get">
+	  	<select id = "nameauswahl" name="name" size="1">
+	    	<c:forEach var="dozent" items="${dozentenManager.getAlleDozenten}" >
+				<option> ${dozent.name } </option>
+				</c:forEach>
+	    </select>
+	    
+<style type="text/css">
+table {width:dynamic;}
+td{border:1px solid #110 vertical-align:top; overflow:hidden;}
+</style>
+
+
+	    <table style="table-layout:fixed" border=1 align="center">
+	    <br><br><br>
+  <tr>
+    <th  style="width:16%">Zeit</th>
+    <th  style="width:16%">Mo</th>
+    <th  style="width:16%">Di</th>
+    <th  style="width:16%">Mi</th>
+    <th  style="width:16%">Do</th>
+    <th  style="width:16%">Fr</th>
+  </tr>
+  <tr>
+    <td>08:00 - 11:30</td>
+    <td align="center" valign="center"><input type ="checkbox" name="1" value="true"/></td>
+    <td align="center" valign="center"><input type ="checkbox" name="4" value="true"/></td>
+    <td align="center" valign="center"><input type ="checkbox" name="7" value="true"/></td>
+    <td align="center" valign="center"><input type ="checkbox" name="10" value="true"/></td>
+    <td align="center" valign="center"><input type ="checkbox" name="13" value="true"/></td>
+  </tr>
+  <tr>
+    <td>12:00 - 15:45</td>
+    <td align="center" valign="center"><input type ="checkbox" name="2" value="true"/></td>
+    <td align="center" valign="center"><input type ="checkbox" name="5" value="true"/></td>
+    <td align="center" valign="center"><input type ="checkbox" name="8" value="true"/></td>
+    <td align="center" valign="center"><input type ="checkbox" name="11" value="true"/></td>
+    <td align="center" valign="center"><input type ="checkbox" name="14" value="true"/></td>
+  </tr>
+   <tr>
+    <td>16:15 - 19:45</td>
+    <td align="center" valign="center"><input type ="checkbox" name="3" value="true"/></td>
+    <td align="center" valign="center"><input type ="checkbox" name="6" value="true"/></td>
+    <td align="center" valign="center"><input type ="checkbox" name="9" value="true"/></td>
+    <td align="center" valign="center"><input type ="checkbox" name="12" value="true"/></td>
+    <td align="center" valign="center"><input type ="checkbox" name="15" value="true"/></td>
+  </tr>
+</table>
+<br>
+<input type="submit" value="Speichern">
+<input type="submit" value="Abbrechen">
+	</form>
+	</div>
+</body>
+</html>
