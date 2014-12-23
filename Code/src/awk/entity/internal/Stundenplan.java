@@ -29,7 +29,7 @@ public class Stundenplan {
 	 * Fügt einen StundenplanSlot zum Stundenplan hinzu, wenn der Zeitslot noch nicht besetzt ist. 
 	 * @param zeitslot
 	 * @param stundenplanslot
-	 * @return
+	 * @return true/false
 	 */
 	public boolean addZuordnung(int zeitslot, StundenplanSlot stundenplanslot){
 		if(this.zuordnung.containsKey(zeitslot)){
