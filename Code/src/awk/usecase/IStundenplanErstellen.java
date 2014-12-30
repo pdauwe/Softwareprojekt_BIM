@@ -1,7 +1,6 @@
 package awk.usecase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import awk.AnwendungskernException;
 import awk.entity.internal.*;
@@ -17,7 +16,7 @@ public interface IStundenplanErstellen {
 	 * @return Stundenplan je Studiengang
 	 * @throws AnwendungskernException
 	 */
-	public HashMap<Studiengang, Stundenplan> erstelleUrplan() throws AnwendungskernException;
+	public boolean erstelleUrplan() throws AnwendungskernException;
 	
 	
 }

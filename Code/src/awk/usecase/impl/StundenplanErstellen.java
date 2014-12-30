@@ -33,7 +33,7 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 
 
 	@Override
-	public HashMap<Studiengang,Stundenplan> erstelleUrplan() throws AnwendungskernException {
+	public boolean erstelleUrplan() throws AnwendungskernException {
 		
 		//TODO: evtl Optimierung der beiden Schleifen, in beiden passiert quasi das gleiche. Doppelter Code.
 
@@ -107,7 +107,7 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 			}
 		}
 
-		return stundenplanManager.getUrplan();
+		return true;
 		
 	}
 
