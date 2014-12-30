@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dlg.menue.Hauptmenue;
+import dlg.stundenplan.StudiengangAuswaehlen;
+import dlg.stundenplan.StundenplanAnzeigen;
+import dlg.stundenplan.StundenplanErstellung;
 import dlg.zeiterfassung.DozentenZeitpraeferenzenErfassen;
 
 /**
@@ -21,7 +24,9 @@ public class Dispatch extends HttpServlet {
        
 	Hauptmenue hauptmenue = new Hauptmenue();
 	DozentenZeitpraeferenzenErfassen zeiterfassung = new DozentenZeitpraeferenzenErfassen();
-	
+	StudiengangAuswaehlen studiengangauswahl = new StudiengangAuswaehlen();
+	StundenplanErstellung stundenplanerstellung = new StundenplanErstellung();
+	StundenplanAnzeigen stundenplananzeigen = new StundenplanAnzeigen();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -56,6 +61,15 @@ public class Dispatch extends HttpServlet {
 			}
 			else if (page.equalsIgnoreCase("zeiterfassung")){
 				nextPage = zeiterfassung.doAction(request);
+			}
+			else if (page.equalsIgnoreCase("studiengangauswahl")){
+				nextPage = studiengangauswahl.doAction(request);
+			}
+			else if (page.equalsIgnoreCase("stundenplanerstellung")){
+				nextPage = stundenplanerstellung.doAction(request);
+			}
+			else if (page.equalsIgnoreCase("stundenplananzeigen")){
+				nextPage = stundenplananzeigen.doAction(request);
 			}
 			
 		} catch (DialogException e) {
