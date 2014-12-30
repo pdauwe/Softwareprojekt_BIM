@@ -35,8 +35,7 @@ public class StundenplanManager {
 	
 
 	public Stundenplan getStundenplan(Studiengang studiengang){
-		//TODO: Implementierung
-		return null;
+		return urplan.get(studiengang);
 	}
 	
 	public boolean stundenplanSpeichern(Stundenplan stundenplan){
