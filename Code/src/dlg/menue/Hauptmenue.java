@@ -20,7 +20,7 @@ public class Hauptmenue implements IAction{
 				request.setAttribute("studiengaenge", StudiengangManager.getManager().getAlleStudiengaenge());
 				nextPage = "Stundenplan/StudiengangAuswaehlen.jsp";
 			}else if(request.getParameter("stundenplanerstellen") != null){
-				nextPage = "Stundenplan/StundenplanErstellung.jsp";
+				nextPage = "Stundenplan/StartErstellung.jsp";
 			}
 			
 			

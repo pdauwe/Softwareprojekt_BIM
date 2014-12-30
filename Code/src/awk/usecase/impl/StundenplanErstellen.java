@@ -1,8 +1,8 @@
 package awk.usecase.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 
 import awk.AnwendungskernException;
 import awk.entity.DozentTO;
@@ -15,8 +15,22 @@ import awk.entity.internal.Studiengang;
 import awk.entity.internal.Stundenplan;
 import awk.usecase.IStundenplanErstellen;
 
-public class StundenplanErstellen implements IStundenplanErstellen {
+public class StundenplanErstellen implements IStundenplanErstellen, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int counter;
+    private boolean started;
+    private boolean running;
+	
+    public StundenplanErstellen(){
+    	counter = 0;
+    	started = false;
+    	running = false;
+    }
+    
 	@Override
 	public Stundenplan stundenplanGenerieren(Studiengang studiengang,
 			ArrayList<Dozent> dozenten, ArrayList<Modul> module)
@@ -38,7 +52,9 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 		//TODO: evtl Optimierung der beiden Schleifen, in beiden passiert quasi das gleiche. Doppelter Code.
 
 		StundenplanManager stundenplanManager = StundenplanManager.getManager();
-
+		
+		this.setRunning(true);
+		
 //		// Erste Iteration fuer das Zuordnen mit Zeitpraeferenzen
 //		for(int zeitslot = 0; zeitslot<15; zeitslot++){
 //			
@@ -103,12 +119,36 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 				
 				if(!ok){
 					continue;
-				}	
+				}
+				
 			}
+			counter++;
 		}
-
+		this.setRunning(false);
 		return true;
 		
+	}
+	
+	public synchronized int getPercent() {
+	    return counter;
+	}
+	
+	public synchronized boolean isStarted() {
+	    return started;
+	}
+	
+	public synchronized boolean isCompleted() {
+	    return counter == 14;
+	}
+	
+	public synchronized boolean isRunning() {
+	    return running;
+	}
+	
+	public synchronized void setRunning(boolean running) {
+	    this.running = running;
+	    if (running)
+	        started  = true;
 	}
 
 }
