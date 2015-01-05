@@ -88,6 +88,14 @@ public interface IStundenplanDatenzugriff {
 	public ArrayList<ModulTO> moduleVonDozentImStudiengang(DozentTO dozent, StudiengangTO studiengang) throws DatenhaltungsException;
 	
 	
+	/****
+	 * Liefert die Modulnummer aus der Datenbank.
+	 * @param modul
+	 * @return
+	 * @throws DatenhaltungsException
+	 */
+	public int modulNummerVonModul(ModulTO modul) throws DatenhaltungsException;
+	
 	/*
 	 * ################################################################
 	 * Returns Studiengang / Studiengaenge
@@ -100,17 +108,33 @@ public interface IStundenplanDatenzugriff {
 	 */
 	public ArrayList<StudiengangTO>  alleStudiengaenge() throws DatenhaltungsException;
 	
+	/***
+	 * Liefert die Studiengangnummer aus der Datenbank
+	 * @param studiengang
+	 * @return studiengangnummer
+	 * @throws DatenhaltungsException
+	 */
+	public int studiengangNummerVonStudiengang(StudiengangTO studiengang) throws DatenhaltungsException;
+	
 	/*
 	 * ################################################################
 	 * Returns Raeume
 	 * ################################################################
 	*/
-	/***
+	/****
 	 * Liefert alle Raeume die im persistenten Speicher stehen
 	 * @return alle Raeume
 	 * @throws DatenhaltungsException
 	 */
 	public ArrayList<RaumTO> alleRaeume() throws DatenhaltungsException;
+
+	/***
+	 * Liefert die Raumnummer aus der Datenbank
+	 * @param raum
+	 * @return raumnummer
+	 * @throws DatenhaltungsException
+	 */
+	public int raumNummerVonRaum(RaumTO raum) throws DatenhaltungsException;
 	
 	/*
 	 * ################################################################

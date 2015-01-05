@@ -3,11 +3,15 @@ package awk.usecase.impl;
 import java.util.HashMap;
 
 import awk.AnwendungskernException;
+import awk.DatenhaltungsException;
 import awk.entity.StudiengangTO;
 import awk.entity.StundenplanSlotTO;
+import awk.entity.StundenplanTO;
 import awk.entity.internal.Studiengang;
 import awk.entity.internal.Stundenplan;
 import awk.entity.internal.StundenplanSlot;
+import awk.persistence.IStundenplanDatenzugriff;
+import awk.persistence.impl.StundenplanDatenzugriff;
 
 
 /*
@@ -15,6 +19,7 @@ import awk.entity.internal.StundenplanSlot;
  */
 public class StundenplanManager {
 	
+	private IStundenplanDatenzugriff stundenplanDatenzugriff = new StundenplanDatenzugriff();
 	private static StundenplanManager self;
 	/***
 	 * Der Urplan beinhaltet einen vollstaendigen Stundenplan fuer jeden Studiengang
@@ -38,9 +43,14 @@ public class StundenplanManager {
 		return urplan.get(studiengang);
 	}
 	
-	public boolean stundenplanSpeichern(Stundenplan stundenplan){
-		//TODO: Implementierung
-		return false;
+	public boolean stundenplanSpeichern(StundenplanTO stundenplan) throws AnwendungskernException{
+		try {
+			return this.stundenplanDatenzugriff.speichereStundenplan(stundenplan);
+		} catch (DatenhaltungsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new AnwendungskernException();
+		}
 	}
 	
 	/***
