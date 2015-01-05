@@ -80,11 +80,11 @@ CREATE TABLE sp_raum
 
 CREATE TABLE sp_stundenplan
 (
-	stdpnr NUMBER NOT NULL PRIMARY KEY,
 	sgnr NUMBER NOT NULL,
 	zeitslot NUMBER NOT NULL,
 	mnr NUMBER NOT NULL,
-	rnr NUMBER NOT NULL	
+	rnr NUMBER NOT NULL,
+	PRIMARY KEY (sgnr, zeitslot)	
 );
 
 
