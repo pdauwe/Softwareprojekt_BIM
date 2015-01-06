@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import awk.AnwendungskernException;
@@ -176,12 +175,10 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 				
 				if(modulnummer >= 0 && studiengangnummer >= 0 && raumnummer >= 0){
 					Persistence.executeUpdateStatement(aConnection, 
-							"INSERT INTO sp_studenplan VALUES(" + studiengangnummer + 
+							"INSERT INTO sp_stundenplan VALUES(" + studiengangnummer + 
 							"," + entry.getKey() + "," +
 							modulnummer + "," + raumnummer + ")");
 				}
-				
-				
 			}
 			return true;
 		}catch(SQLException e){
