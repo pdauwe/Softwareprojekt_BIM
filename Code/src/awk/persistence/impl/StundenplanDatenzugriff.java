@@ -17,6 +17,9 @@ import awk.entity.StundenplanTO;
 import awk.persistence.DatenbankNamen;
 import awk.persistence.IStundenplanDatenzugriff;
 import awk.usecase.impl.DozentManager;
+import awk.usecase.impl.ModulManager;
+import awk.usecase.impl.RaumManager;
+import awk.usecase.impl.StudiengangManager;
 
 public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 
@@ -169,9 +172,27 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 			
 			for (Entry<Integer, StundenplanSlotTO> entry : stundenplan.getZuordnung().entrySet()) {
 			
-				int modulnummer = this.modulNummerVonModul(entry.getValue().getModul());
-				int studiengangnummer = this.studiengangNummerVonStudiengang(stundenplan.getStudiengang());
-				int raumnummer = this.raumNummerVonRaum(entry.getValue().getRaum());
+				int modulnummer = -1;
+				try {
+					modulnummer = ModulManager.getManager().modulNummerVonModul(entry.getValue().getModul());
+				} catch (AnwendungskernException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				int studiengangnummer = -1;
+				try {
+					studiengangnummer = StudiengangManager.getManager().studiengangNummerVonStudiengang(stundenplan.getStudiengang());
+				} catch (AnwendungskernException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				int raumnummer = -1;
+				try {
+					raumnummer = RaumManager.getManager().raumNummerVonRaum(entry.getValue().getRaum());
+				} catch (AnwendungskernException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				if(modulnummer >= 0 && studiengangnummer >= 0 && raumnummer >= 0){
 					Persistence.executeUpdateStatement(aConnection, 
