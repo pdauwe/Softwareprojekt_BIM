@@ -69,5 +69,20 @@ public class ModulManager {
 			throw new AnwendungskernException();
 		}
 	}
+	
+	/****
+	 * Liefert die Modulnummer eines Moduls
+	 * @param modul
+	 * @return modulnummer
+	 * @throws AnwendungskernException
+	 */
+	public int modulNummerVonModul(ModulTO modul) throws AnwendungskernException{
+		try{
+			return this.stundenplanDatenzugriff.modulNummerVonModul(modul);
+		}catch(DatenhaltungsException e){
+			e.printStackTrace();
+			throw new AnwendungskernException();
+		}
+	}
 
 }

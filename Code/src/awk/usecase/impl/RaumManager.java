@@ -2,6 +2,7 @@ package awk.usecase.impl;
 
 import java.util.ArrayList;
 
+import awk.AnwendungskernException;
 import awk.DatenhaltungsException;
 import awk.entity.RaumTO;
 import awk.entity.internal.Raum;
@@ -42,6 +43,21 @@ public class RaumManager {
 			
 		}catch(DatenhaltungsException e){
 			e.printStackTrace();
+		}
+	}
+	
+	/****
+	 * Liefert die Raumnummer eines Raumes
+	 * @param raum
+	 * @return Raumnummer
+	 * @throws AnwendungskernException
+	 */
+	public int raumNummerVonRaum(RaumTO raum) throws AnwendungskernException{
+		try{
+			return this.stundenplanDatenzugriff.raumNummerVonRaum(raum);
+		}catch(DatenhaltungsException e){
+			e.printStackTrace();
+			throw new AnwendungskernException();
 		}
 	}
 	
