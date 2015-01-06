@@ -7,9 +7,6 @@ import awk.DatenhaltungsException;
 import awk.entity.StudiengangTO;
 import awk.entity.StundenplanSlotTO;
 import awk.entity.StundenplanTO;
-import awk.entity.internal.Studiengang;
-import awk.entity.internal.Stundenplan;
-import awk.entity.internal.StundenplanSlot;
 import awk.persistence.IStundenplanDatenzugriff;
 import awk.persistence.impl.StundenplanDatenzugriff;
 
@@ -24,7 +21,7 @@ public class StundenplanManager {
 	/***
 	 * Der Urplan beinhaltet einen vollstaendigen Stundenplan fuer jeden Studiengang
 	 */
-	private HashMap<Studiengang,Stundenplan> urplan;
+	private HashMap<StudiengangTO,StundenplanTO> urplan;
 	
 	public static StundenplanManager getManager(){
 		if(self == null){
@@ -35,12 +32,12 @@ public class StundenplanManager {
 	}
 	
 	private StundenplanManager(){
-		this.urplan = new HashMap<Studiengang, Stundenplan>();
+		this.urplan = new HashMap<StudiengangTO, StundenplanTO>();
 	}
 	
 
-	public Stundenplan getStundenplan(Studiengang studiengang){
-		return urplan.get(studiengang);
+	public StundenplanTO getStundenplan(StudiengangTO studiengang){
+		return getManager().getUrplan().get(studiengang);
 	}
 	
 	public boolean stundenplanSpeichern(StundenplanTO stundenplan) throws AnwendungskernException{
@@ -62,19 +59,17 @@ public class StundenplanManager {
 	 */
 	public boolean addToUrplan(StudiengangTO studiengang, StundenplanSlotTO stundenplanslot, int zeitslot) throws AnwendungskernException {
 		
-		Studiengang sgang = studiengang.toStudiengang();
-		
 		// Überprüfen ob der Dozent zu dem Zeitslot schon belegt ist.
 		// Wenn ja, dann nicht hinzufuegen und abbrechen.
-		for(Stundenplan stundenplan : this.urplan.values()){
-			StundenplanSlot slot = stundenplan.getZuordnung().get(zeitslot);
+		for(StundenplanTO stundenplan : this.urplan.values()){
+			StundenplanSlotTO slot = stundenplan.getZuordnung().get(zeitslot);
 			if(slot != null){
 				if(slot.getDozent().equals(stundenplanslot.getDozent().toDozent())){
 					return false;
 				}
 			}
 			
-			for(StundenplanSlot s : stundenplan.getZuordnung().values()){
+			for(StundenplanSlotTO s : stundenplan.getZuordnung().values()){
 				if(s.getModul().equals(stundenplanslot.getModul().toModul())){
 					return false;
 				}
@@ -83,13 +78,14 @@ public class StundenplanManager {
 			
 		}
 
-		if(!this.urplan.containsKey(sgang)){
-			Stundenplan stundenplan = new Stundenplan(sgang);
-			this.urplan.put(sgang, stundenplan);
+		if(getManager().getUrplan().containsKey(studiengang)){
+			StundenplanTO stundenplan = new StundenplanTO();
+			stundenplan.setStudiengang(studiengang);
+			getManager().getUrplan().put(studiengang, stundenplan);
 		}
 		
-		Stundenplan stundenplan = this.urplan.get(sgang);
-		boolean ok = stundenplan.addZuordnung(zeitslot, stundenplanslot.toStundenplanSlot());
+		StundenplanTO stundenplan = getManager().getUrplan().get(studiengang);
+		boolean ok = stundenplan.addZuordnung(zeitslot, stundenplanslot);
 		if(!ok){
 			return false;
 		}
@@ -104,7 +100,7 @@ public class StundenplanManager {
 	 */
 	public boolean isUrplanComplete(){
 		
-		for(Stundenplan s : this.urplan.values()){
+		for(StundenplanTO s : getManager().getUrplan().values()){
 			
 			if((s.getZuordnung().containsKey(14)) == false){
 				return false;
@@ -114,7 +110,7 @@ public class StundenplanManager {
 		
 	}
 	
-	public HashMap<Studiengang, Stundenplan> getUrplan(){
+	public HashMap<StudiengangTO, StundenplanTO> getUrplan(){
 		return this.urplan;
 	}
 }
