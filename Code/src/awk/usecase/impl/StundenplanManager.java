@@ -37,7 +37,7 @@ public class StundenplanManager {
 	
 
 	public StundenplanTO getStundenplan(StudiengangTO studiengang){
-		return getManager().getUrplan().get(studiengang);
+		return this.urplan.get(studiengang);
 	}
 	
 	public boolean stundenplanSpeichern(StundenplanTO stundenplan) throws AnwendungskernException{
@@ -78,13 +78,13 @@ public class StundenplanManager {
 			
 		}
 
-		if(getManager().getUrplan().containsKey(studiengang)){
+		if(!this.urplan.containsKey(studiengang)){
 			StundenplanTO stundenplan = new StundenplanTO();
 			stundenplan.setStudiengang(studiengang);
-			getManager().getUrplan().put(studiengang, stundenplan);
+			this.urplan.put(studiengang, stundenplan);
 		}
 		
-		StundenplanTO stundenplan = getManager().getUrplan().get(studiengang);
+		StundenplanTO stundenplan = this.urplan.get(studiengang);
 		boolean ok = stundenplan.addZuordnung(zeitslot, stundenplanslot);
 		if(!ok){
 			return false;
@@ -100,7 +100,7 @@ public class StundenplanManager {
 	 */
 	public boolean isUrplanComplete(){
 		
-		for(StundenplanTO s : getManager().getUrplan().values()){
+		for(StundenplanTO s : this.urplan.values()){
 			
 			if((s.getZuordnung().containsKey(14)) == false){
 				return false;
