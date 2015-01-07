@@ -34,7 +34,6 @@ public class StundenplanManager {
 	private StundenplanManager(){
 		this.urplan = new HashMap<StudiengangTO, StundenplanTO>();
 	}
-	
 
 	public StundenplanTO getStundenplan(StudiengangTO studiengang){
 		return this.urplan.get(studiengang);
@@ -61,16 +60,19 @@ public class StundenplanManager {
 		
 		// Überprüfen ob der Dozent zu dem Zeitslot schon belegt ist.
 		// Wenn ja, dann nicht hinzufuegen und abbrechen.
+		
 		for(StundenplanTO stundenplan : this.urplan.values()){
+			
 			StundenplanSlotTO slot = stundenplan.getZuordnung().get(zeitslot);
+			
 			if(slot != null){
-				if(slot.getDozent().equals(stundenplanslot.getDozent().toDozent())){
+				if(slot.getDozent().equals(stundenplanslot.getDozent())){
 					return false;
 				}
 			}
 			
 			for(StundenplanSlotTO s : stundenplan.getZuordnung().values()){
-				if(s.getModul().equals(stundenplanslot.getModul().toModul())){
+				if(s.getModul().equals(stundenplanslot.getModul())){
 					return false;
 				}
 			}
