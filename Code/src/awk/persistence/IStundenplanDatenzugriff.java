@@ -48,7 +48,13 @@ public interface IStundenplanDatenzugriff {
 	 */
 	public DozentTO dozentMitNummer(int nummer) throws DatenhaltungsException;
 
-	
+	/***
+	 * Liefert ein Dozent von einem Modul
+	 * @param modulNummer
+	 * @return DozentTO
+	 * @throws DatenhaltungsException
+	 */
+	public DozentTO dozentVonModulNummer(int modulNummer) throws DatenhaltungsException;
 	/***
 	 * Gibt die Dozentnummer der Datenbank eines Dozenten zurück
 	 * @param dozent
@@ -87,6 +93,21 @@ public interface IStundenplanDatenzugriff {
 	 */
 	public ArrayList<ModulTO> moduleVonDozentImStudiengang(DozentTO dozent, StudiengangTO studiengang) throws DatenhaltungsException;
 	
+	/****
+	 * Liefert die Modulnummer aus der Datenbank.
+	 * @param modul
+	 * @return
+	 * @throws DatenhaltungsException
+	 */
+	public int modulNummerVonModul(ModulTO modul) throws DatenhaltungsException;
+	
+	/***
+	 * Liefert ein Modul zu einer Modulnummer
+	 * @param modulNummer
+	 * @return ModulTO
+	 * @throws DatenhaltungsException
+	 */
+	public ModulTO modulMitNummer(int modulNummer) throws DatenhaltungsException;
 	
 	/*
 	 * ################################################################
@@ -100,17 +121,41 @@ public interface IStundenplanDatenzugriff {
 	 */
 	public ArrayList<StudiengangTO>  alleStudiengaenge() throws DatenhaltungsException;
 	
+	/***
+	 * Liefert die Studiengangnummer aus der Datenbank
+	 * @param studiengang
+	 * @return studiengangnummer
+	 * @throws DatenhaltungsException
+	 */
+	public int studiengangNummerVonStudiengang(StudiengangTO studiengang) throws DatenhaltungsException;
+	
 	/*
 	 * ################################################################
 	 * Returns Raeume
 	 * ################################################################
 	*/
-	/***
+	/****
 	 * Liefert alle Raeume die im persistenten Speicher stehen
 	 * @return alle Raeume
 	 * @throws DatenhaltungsException
 	 */
 	public ArrayList<RaumTO> alleRaeume() throws DatenhaltungsException;
+
+	/***
+	 * Liefert die Raumnummer aus der Datenbank
+	 * @param raum
+	 * @return raumnummer
+	 * @throws DatenhaltungsException
+	 */
+	public int raumNummerVonRaum(RaumTO raum) throws DatenhaltungsException;
+	
+	/***
+	 * Liefert ein Raum zu einer Raumnummer
+	 * @param raumNummer
+	 * @return RaumTO
+	 * @throws DatenhaltungsException
+	 */
+	public RaumTO raumMitNummer(int raumNummer) throws DatenhaltungsException;
 	
 	/*
 	 * ################################################################
