@@ -60,4 +60,12 @@ public class ModulTO implements Serializable {
 		return this.getBezeichnung().hashCode();
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		ModulTO m = (ModulTO) obj;
+		if(m.getBezeichnung().equals(this.getBezeichnung())){
+			return true;
+		}
+		return false;
+	}
 }

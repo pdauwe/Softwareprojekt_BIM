@@ -57,5 +57,14 @@ public class DozentTO implements Serializable{
 		this.gesperrteZeiten.add(gesperrtZeit);
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		DozentTO d = (DozentTO) obj;
+		if(d.getName().equals(this.getName())){
+			return true;
+		}
+		return false;
+	}
+	
 	
 }
