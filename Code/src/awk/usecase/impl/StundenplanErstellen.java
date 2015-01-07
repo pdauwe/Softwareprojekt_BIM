@@ -105,10 +105,11 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 			}
 		}
 		
-		for(StundenplanTO s : StundenplanManager.getManager().getUrplan().values()){
-			System.out.println((StundenplanManager.getManager().stundenplanSpeichern(s)) ? s.getStudiengang().getName() + "TRUE" : s.getStudiengang().getName() + "FALSE");
+		System.out.println("values: " + stundenplanManager.getUrplan().values());
+		
+		for(StundenplanTO s : stundenplanManager.getUrplan().values()){
+			stundenplanManager.stundenplanSpeichern(s);
 		}
-
 		return true;
 		
 	}
