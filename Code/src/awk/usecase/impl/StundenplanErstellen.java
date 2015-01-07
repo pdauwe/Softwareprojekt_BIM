@@ -1,5 +1,9 @@
 package awk.usecase.impl;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import awk.AnwendungskernException;
@@ -8,21 +12,17 @@ import awk.entity.ModulTO;
 import awk.entity.StudiengangTO;
 import awk.entity.StundenplanSlotTO;
 import awk.entity.StundenplanTO;
-import awk.entity.internal.Dozent;
-import awk.entity.internal.Modul;
-import awk.entity.internal.Studiengang;
-import awk.entity.internal.Stundenplan;
 import awk.usecase.IStundenplanErstellen;
 
-public class StundenplanErstellen implements IStundenplanErstellen {
+public class StundenplanErstellen implements IStundenplanErstellen, Serializable {
 
-	@Override
-	public Stundenplan stundenplanGenerieren(Studiengang studiengang,
-			ArrayList<Dozent> dozenten, ArrayList<Modul> module)
-			throws AnwendungskernException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+	
+	private boolean isRunning;
 
 	@Override
 	public boolean stundenplanSpeichern(StundenplanTO stundenplan) throws AnwendungskernException {
@@ -112,6 +112,25 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 		}
 		return true;
 		
+	}
+
+
+	public boolean isRunning() {
+		return isRunning;
+	}
+
+
+	public void setRunning(boolean isRunning) {
+		this.pcs.firePropertyChange("isRunning", this.isRunning, isRunning);
+		this.isRunning = isRunning;
+	}
+	
+	public void addPropertyChangeListener(PropertyChangeListener l){
+		pcs.addPropertyChangeListener(l);
+	}
+	
+	public void removePropertyChangeListener(PropertyChangeListener l){
+		pcs.removePropertyChangeListener(l);
 	}
 
 }
