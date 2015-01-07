@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="design.css">
 <title>Stundenplan anzeigen</title>
 </head>
 <body>
@@ -26,9 +27,9 @@
 	td{border:1px solid #110 vertical-align:top; overflow:hidden;}
 </style>
 
-	<table align="center" style="table-layout:fixed" border=1 align="center">
+<table align="center" style="table-layout:fixed" border=1 align="center">
 	 
-	<caption background="FFFFFF" >${studiengang}</caption>
+<caption background="FFFFFF" >${studiengang}</caption>
   <tr>
   <thead>
     <th align="center" style="width:16%">Zeit</th>
@@ -37,7 +38,7 @@
     <th  colspan="3" align="center" style="width:16%">Mi</th>
     <th  colspan="3" align="center" style="width:16%">Do</th>
     <th  colspan="3" align="center" style="width:16%">Fr</th>
-   </thead>
+  </thead>
   </tr>
     <tr>
   <thead>
@@ -61,102 +62,75 @@
     </thead>
   </tr>
   
-  <c:forEach var="entry" items="${stundenplan}" >
-  <c:if test="${entry.key == 0}">
-  <tr>
+  <tr> 
+  		
     	<td>08:00 - 11:30</td>
-    	<td></td>
-    	<td>${entry.value.modul.bezeichnung}</td>
-    	<td>${entry.value.raum.name}</td>
-    	<td>${entry.value.dozent.name}</td>
+    	<td><c:out value="${stundenplan.zuordnung[(0).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(0).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(0).intValue()].dozent.name}"></c:out></td>
+  
+    	<td><c:out value="${stundenplan.zuordnung[(3).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(3).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(3).intValue()].dozent.name}"></c:out></td>
+   		
+   		<td><c:out value="${stundenplan.zuordnung[(6).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(6).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(6).intValue()].dozent.name}"></c:out></td>
+   		
+   		<td><c:out value="${stundenplan.zuordnung[(9).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(9).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(9).intValue()].dozent.name}"></c:out></td>
     	
-    	<c:if test="${entry.key == 3}">
-  		<td>${entry.value.modul.bezeichnung}</td>
-    	<td>${entry.value.raum.name}</td>
-    	<td>${entry.value.dozent.name}</td>
-    	</c:if>
-   		<c:if test="${entry.key == 6}">
-  		<td>${entry.value.modul.bezeichnung}</td>
-    	<td>${entry.value.raum.name}</td>
-    	<td>${entry.value.dozent.name}</td>
-    	</c:if>
-   		<c:if test="${entry.key == 9}">
-  		<td>${entry.value.modul.bezeichnung}</td>
-    	<td>${entry.value.raum.name}</td>
-    	<td>${entry.value.dozent.name}</td>
-    	</c:if>
-    	<c:if test="${entry.key == 12}">
-  		<td>${entry.value.modul.bezeichnung}</td>
-    	<td>${entry.value.raum.name}</td>
-    	<td>${entry.value.dozent.name}</td>
-    	</c:if>
+    	<td><c:out value="${stundenplan.zuordnung[(12).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(12).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(12).intValue()].dozent.name}"></c:out></td>
   </tr>
-  </c:if>
-  <c:if test ="${entry.key == 1}">
+ 
   <tr>
     	<td>12:00 - 15:45</td>
-    	<td>${entry.value.modul.bezeichnung}</td>
-    	<td>${entry.value.raum.name}</td>
-    	<td>${entry.value.dozent.name}</td>
+    	<td><c:out value="${stundenplan.zuordnung[(1).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(1).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(1).intValue()].dozent.name}"></c:out></td>
+  
+    	<td><c:out value="${stundenplan.zuordnung[(4).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(4).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(4).intValue()].dozent.name}"></c:out></td>
+   		
+   		<td><c:out value="${stundenplan.zuordnung[(7).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(7).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(7).intValue()].dozent.name}"></c:out></td>
+   		
+   		<td><c:out value="${stundenplan.zuordnung[(10).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(10).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(10).intValue()].dozent.name}"></c:out></td>
     	
-  		<c:if test="${entry.key == 4}">
-  		<td>${entry.value.modul.bezeichnung}</td>
-    	<td>${entry.value.raum.name}</td>
-    	<td>${entry.value.dozent.name}</td>
-    	</c:if>
-    	
-   		<c:if test="${entry.key == 7}">
-  		<td>${entry.value.modul.bezeichnung}</td>
-    	<td>${entry.value.raum.name}</td>
-    	<td>${entry.value.dozent.name}</td>
-    	</c:if>
-    	
-   		<c:if test="${entry.key == 10}">
-  		<td>${entry.value.modul.bezeichnung}</td>
-    	<td>${entry.value.raum.name}</td>
-    	<td>${entry.value.dozent.name}</td>
-    	</c:if>
-    	
-    	<c:if test="${entry.key == 13}">
-  		<td>${entry.value.modul.bezeichnung}</td>
-    	<td>${entry.value.raum.name}</td>
-    	<td>${entry.value.dozent.name}</td>
-    	</c:if>
+    	<td><c:out value="${stundenplan.zuordnung[(13).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(13).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(13).intValue()].dozent.name}"></c:out></td>
   </tr>
-  </c:if>
-  <c:if test ="${entry.key == 2}">
+
    <tr>
     	<td>16:15 - 19:45</td>
-    	<td>${entry.value.modul.bezeichnung}</td>
-    	<td>${entry.value.raum.name}</td>
-    	<td>${entry.value.dozent.name}</td>
+    	<td><c:out value="${stundenplan.zuordnung[(2).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(2).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(2).intValue()].dozent.name}"></c:out></td>
+  
+    	<td><c:out value="${stundenplan.zuordnung[(5).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(5).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(5).intValue()].dozent.name}"></c:out></td>
+   		
+   		<td><c:out value="${stundenplan.zuordnung[(8).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(8).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(8).intValue()].dozent.name}"></c:out></td>
+   		
+   		<td><c:out value="${stundenplan.zuordnung[(11).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(11).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(11).intValue()].dozent.name}"></c:out></td>
     	
- 		<c:if test="${entry.key == 5}">
-  		<td>${entry.value.modul.bezeichnung}</td>
-    	<td>${entry.value.raum.name}</td>
-    	<td>${entry.value.dozent.name}</td>
-    	</c:if>
-    	
-   		<c:if test="${entry.key == 8}">
-  		<td>${entry.value.modul.bezeichnung}</td>
-    	<td>${entry.value.raum.name}</td>
-    	<td>${entry.value.dozent.name}</td>
-    	</c:if>
-    	
-   		<c:if test="${entry.key == 11}">
-  		<td>${entry.value.modul.bezeichnung}</td>
-    	<td>${entry.value.raum.name}</td>
-    	<td>${entry.value.dozent.name}</td>
-    	</c:if>
-    	
-    	<c:if test="${entry.key == 14}">
-  		<td>${entry.value.modul.bezeichnung}</td>
-    	<td>${entry.value.raum.name}</td>
-    	<td>${entry.value.dozent.name}</td>
-    	</c:if>
+    	<td><c:out value="${stundenplan.zuordnung[(14).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(14).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(14).intValue()].dozent.name}"></c:out></td>
   </tr>
-  </c:if>
-  </c:forEach>
 </table>
 <br>
 	</div>
