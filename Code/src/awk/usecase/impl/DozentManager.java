@@ -163,4 +163,13 @@ public class DozentManager {
 	public ArrayList<Dozent> alleDozentenVonStudiengang(Studiengang studiengang){
 		return null;
 	}
+	
+	public DozentTO dozentVonModulNummer(int modulNummer) throws AnwendungskernException{
+		try{
+			return this.stundenplanDatenzugriff.dozentVonModulNummer(modulNummer);
+		}catch(DatenhaltungsException e){
+			e.printStackTrace();
+			throw new AnwendungskernException();
+		}
+	}
 }

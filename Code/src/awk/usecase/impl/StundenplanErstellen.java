@@ -1,14 +1,13 @@
 package awk.usecase.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 
 import awk.AnwendungskernException;
 import awk.entity.DozentTO;
 import awk.entity.ModulTO;
 import awk.entity.StudiengangTO;
 import awk.entity.StundenplanSlotTO;
+import awk.entity.StundenplanTO;
 import awk.entity.internal.Dozent;
 import awk.entity.internal.Modul;
 import awk.entity.internal.Studiengang;
@@ -26,9 +25,8 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 	}
 
 	@Override
-	public boolean stundenplanSpeichern(Stundenplan stundenplan) throws AnwendungskernException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean stundenplanSpeichern(StundenplanTO stundenplan) throws AnwendungskernException {
+		return StundenplanManager.getManager().stundenplanSpeichern(stundenplan);
 	}
 
 
@@ -106,7 +104,12 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 				}	
 			}
 		}
-
+		
+		System.out.println("values: " + stundenplanManager.getUrplan().values());
+		
+		for(StundenplanTO s : stundenplanManager.getUrplan().values()){
+			stundenplanManager.stundenplanSpeichern(s);
+		}
 		return true;
 		
 	}

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map.Entry;
 
 import awk.AnwendungskernException;
 import awk.DatenhaltungsException;
@@ -11,10 +12,14 @@ import awk.entity.DozentTO;
 import awk.entity.ModulTO;
 import awk.entity.RaumTO;
 import awk.entity.StudiengangTO;
+import awk.entity.StundenplanSlotTO;
 import awk.entity.StundenplanTO;
 import awk.persistence.DatenbankNamen;
 import awk.persistence.IStundenplanDatenzugriff;
 import awk.usecase.impl.DozentManager;
+import awk.usecase.impl.ModulManager;
+import awk.usecase.impl.RaumManager;
+import awk.usecase.impl.StudiengangManager;
 
 public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 
@@ -160,15 +165,109 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 	@Override
 	public boolean speichereStundenplan(StundenplanTO stundenplan)
 			throws DatenhaltungsException {
-		// TODO Auto-generated method stub
-		return false;
+		
+		Connection aConnection = Persistence.getConnection();
+
+		try{
+			
+			for (Entry<Integer, StundenplanSlotTO> entry : stundenplan.getZuordnung().entrySet()) {
+			
+				int modulnummer = -1;
+				try {
+					modulnummer = ModulManager.getManager().modulNummerVonModul(entry.getValue().getModul());
+				} catch (AnwendungskernException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				int studiengangnummer = -1;
+				try {
+					studiengangnummer = StudiengangManager.getManager().studiengangNummerVonStudiengang(stundenplan.getStudiengang());
+				} catch (AnwendungskernException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				int raumnummer = -1;
+				try {
+					raumnummer = RaumManager.getManager().raumNummerVonRaum(entry.getValue().getRaum());
+				} catch (AnwendungskernException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(modulnummer >= 0 && studiengangnummer >= 0 && raumnummer >= 0){
+					Persistence.executeUpdateStatement(aConnection, 
+							"INSERT INTO sp_stundenplan VALUES(" + studiengangnummer + 
+							"," + entry.getKey() + "," +
+							modulnummer + "," + raumnummer + ")");
+				}
+			}
+			return true;
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(aConnection);
+		}
 	}
 
 	@Override
 	public StundenplanTO ladeStundenplanFuerStudiengang(
 			StudiengangTO studiengang) throws DatenhaltungsException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Connection aConnection = Persistence.getConnection();
+		ResultSet resultSet;
+		StundenplanTO stundenplan = new StundenplanTO();
+		stundenplan.setStudiengang(studiengang);
+		try{
+			
+			int studiengangNummer = -1;
+			try {
+				studiengangNummer = StudiengangManager.getManager().studiengangNummerVonStudiengang(studiengang);
+			} catch (AnwendungskernException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if(studiengangNummer < 0){
+				return null;
+			}
+			
+			resultSet = Persistence.executeQueryStatement(aConnection,
+					"SELECT * FROM sp_stundenplan WHERE sgnr = " + studiengangNummer
+					);
+			
+			while(resultSet.next()){
+				StundenplanSlotTO slot = new StundenplanSlotTO();
+				ModulTO modul = null;
+				DozentTO dozent = null;
+				RaumTO raum = null;
+				int zeitslot = resultSet.getInt("zeitslot");
+				try {
+					int modulNummer = resultSet.getInt("mnr");
+					int raumNummer = resultSet.getInt("rnr");
+					 modul = ModulManager.getManager().modulMitNummer(modulNummer);
+					 dozent = DozentManager.getManager().dozentVonModulNummer(modulNummer);
+					 raum = RaumManager.getManager().raumMitNummer(raumNummer);
+				} catch (AnwendungskernException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				slot.setDozent(dozent);
+				slot.setModul(modul);
+				slot.setRaum(raum);
+			
+				stundenplan.addZuordnung(zeitslot, slot);
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(aConnection);
+		}
+
+		return stundenplan;
 	}
 	
 	@Override
@@ -407,6 +506,171 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		}
 		
 		return dnr;
+	}
+
+	@Override
+	public int modulNummerVonModul(ModulTO modul) throws DatenhaltungsException {
+		Connection connection = Persistence.getConnection();
+		ResultSet resultSet;
+		
+		
+		int modulNummer = -1;
+		
+		try{
+			resultSet = Persistence.executeQueryStatement(connection,
+					"SELECT m.mnr FROM " +
+					"sp_modul m " +
+					"WHERE " +
+					"m.name = '" + modul.getBezeichnung() + "'");
+			
+			if(resultSet.next()){
+				modulNummer = resultSet.getInt("mnr");
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(connection);
+		}
+		
+		return modulNummer;
+	}
+
+	@Override
+	public int studiengangNummerVonStudiengang(StudiengangTO studiengang)
+			throws DatenhaltungsException {
+		
+		Connection connection = Persistence.getConnection();
+		ResultSet resultSet;
+		
+		
+		int studiengangNummer = -1;
+		
+		try{
+			resultSet = Persistence.executeQueryStatement(connection,
+					"SELECT s.sgnr FROM " +
+					"sp_studiengang s " +
+					"WHERE " +
+					"s.name = '" + studiengang.getName() + "'");
+			
+			if(resultSet.next()){
+				studiengangNummer = resultSet.getInt("sgnr");
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(connection);
+		}
+		
+		return studiengangNummer;
+	}
+
+	@Override
+	public int raumNummerVonRaum(RaumTO raum) throws DatenhaltungsException {
+		
+		return 1;
+		
+//		Connection connection = Persistence.getConnection();
+//		ResultSet resultSet;
+//		
+//		
+//		int raumNummer = -1;
+//		
+//		try{
+//			resultSet = Persistence.executeQueryStatement(connection,
+//					"SELECT r.rnr FROM " +
+//					"sp_raum r " +
+//					"WHERE " +
+//					"r.name = '" + raum.getName() + "'");
+//			
+//			if(resultSet.next()){
+//				raumNummer = resultSet.getInt("rnr");
+//			}
+//			
+//		}catch(SQLException e){
+//			e.printStackTrace();
+//			throw new DatenhaltungsException();
+//		}finally{
+//			Persistence.closeConnection(connection);
+//		}
+//		
+//		return raumNummer;
+	}
+
+	@Override
+	public ModulTO modulMitNummer(int modulNummer)
+			throws DatenhaltungsException {
+		Connection aConnection = Persistence.getConnection();
+		ResultSet resultSet;
+		ModulTO m = null;
+		try{
+			resultSet = Persistence.executeQueryStatement(aConnection, 
+					"SELECT * FROM sp_modul" + 
+					" WHERE mnr = " + modulNummer);
+			
+			if(resultSet.next()){
+				m = new ModulTO();
+				m.setBezeichnung(resultSet.getString(DatenbankNamen.Modul.Name));
+				m.setBenoetigtComputerraum((resultSet.getString(DatenbankNamen.Modul.BenoetigtComputerraum).charAt(0) == 'Y' ? true : false));
+			}	
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(aConnection);
+		}
+		return m;
+	}
+
+	@Override
+	public RaumTO raumMitNummer(int raumNummer) throws DatenhaltungsException {
+		Connection aConnection = Persistence.getConnection();
+		ResultSet resultSet;
+		RaumTO r = null;
+		try{
+			resultSet = Persistence.executeQueryStatement(aConnection, 
+					"SELECT * FROM sp_raum" + 
+					" WHERE rnr = " + raumNummer);
+			
+			if(resultSet.next()){
+				r = new RaumTO();
+				r.setName(resultSet.getString(DatenbankNamen.Raum.Name));
+				r.setComputerraum((resultSet.getString(DatenbankNamen.Raum.Computerraum).charAt(0) == 'Y' ? true : false));
+			}	
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(aConnection);
+		}
+		return r;
+	}
+
+	@Override
+	public DozentTO dozentVonModulNummer(int modulNummer)
+			throws DatenhaltungsException {
+		Connection aConnection = Persistence.getConnection();
+		ResultSet resultSet;
+		DozentTO d = null;
+		try{
+			resultSet = Persistence.executeQueryStatement(aConnection, 
+					"SELECT d.name FROM sp_dozent d, sp_modul m "
+					+ "WHERE m.dnr = d.dnr AND m.mnr = " + modulNummer);
+			
+			if(resultSet.next()){
+				d = new DozentTO();
+				d.setName(resultSet.getString("name"));
+			}	
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(aConnection);
+		}
+		return d;
 	}
 	
 }

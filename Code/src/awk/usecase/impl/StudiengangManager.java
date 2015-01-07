@@ -62,4 +62,18 @@ public class StudiengangManager {
 		return alleStudiengaenge;
 	}
 
+	/****
+	 * Liefert die Studiengangnummer eines Studiengangs
+	 * @param studiengang
+	 * @return Studiengangnummer
+	 * @throws AnwendungskernException
+	 */
+	public int studiengangNummerVonStudiengang(StudiengangTO studiengang) throws AnwendungskernException{
+		try{
+			return this.stundenplanDatenzugriff.studiengangNummerVonStudiengang(studiengang);
+		}catch(DatenhaltungsException e){
+			e.printStackTrace();
+			throw new AnwendungskernException();
+		}
+	}
 }
