@@ -35,8 +35,13 @@ public class StundenplanManager {
 		this.urplan = new HashMap<StudiengangTO, StundenplanTO>();
 	}
 
-	public StundenplanTO getStundenplan(StudiengangTO studiengang){
-		return this.urplan.get(studiengang);
+	public StundenplanTO getStundenplan(StudiengangTO studiengang) throws AnwendungskernException{
+		try {
+			return this.stundenplanDatenzugriff.ladeStundenplanFuerStudiengang(studiengang);
+		} catch (DatenhaltungsException e) {
+			e.printStackTrace();
+			throw new AnwendungskernException();
+		}
 	}
 	
 	public boolean stundenplanSpeichern(StundenplanTO stundenplan) throws AnwendungskernException{
