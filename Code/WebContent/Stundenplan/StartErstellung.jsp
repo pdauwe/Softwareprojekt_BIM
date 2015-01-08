@@ -7,9 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:useBean id="stundenplanErstellen" scope="session"
-    class="awk.usecase.impl.StundenplanErstellen"/>
-<%stundenplanErstellen.setRunning(true); %>
-<jsp:forward page="StundenplanErstellung.jsp"/>
+Erstelle Urplan. Bitte warten. Sie werden weitergeleitet...
 </body>
 </html>
