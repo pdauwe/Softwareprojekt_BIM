@@ -25,6 +25,17 @@ Dantenbank-Server
 	#DB-User
 	Benutzername: STUNDENPLAN
 	Passwort: NewYork89
+
+JBoss-Server
+=================
+	
+	User-Interface:Http://localhoast:9990
+
+	#JBoss-User
+	Benutzername: admin
+	Passwort: $tund3nplan
+	
+	
 	
 Meilensteine
 =============
