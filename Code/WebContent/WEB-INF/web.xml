@@ -11,6 +11,9 @@
   <servlet-name>Dispatch</servlet-name>
   <url-pattern>/Dispatch</url-pattern>
  </servlet-mapping>
+ <session-config>
+  <session-timeout>0</session-timeout>
+ </session-config>
  <welcome-file-list>
   <welcome-file>index.html</welcome-file>
   <welcome-file>index.htm</welcome-file>

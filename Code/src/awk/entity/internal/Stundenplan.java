@@ -32,7 +32,7 @@ public class Stundenplan {
 	 * @return true/false
 	 */
 	public boolean addZuordnung(int zeitslot, StundenplanSlot stundenplanslot){
-		if(this.zuordnung.containsKey(zeitslot)){
+		if(this.zuordnung.containsKey(Integer.valueOf(zeitslot))){
 			return false;
 		}else{
 			this.getZuordnung().put(Integer.valueOf(zeitslot), stundenplanslot);

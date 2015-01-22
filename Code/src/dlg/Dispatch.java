@@ -65,7 +65,7 @@ public class Dispatch extends HttpServlet {
 			else if (page.equalsIgnoreCase("studiengangauswahl")){
 				nextPage = studiengangauswahl.doAction(request);
 			}
-			else if (page.equalsIgnoreCase("stundenplanerstellung")){
+			else if (page.equalsIgnoreCase("stundenplanerstellen")){
 				nextPage = stundenplanerstellung.doAction(request);
 			}
 			else if (page.equalsIgnoreCase("stundenplananzeigen")){

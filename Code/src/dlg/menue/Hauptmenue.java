@@ -22,10 +22,6 @@ public class Hauptmenue implements IAction{
 			}else if(request.getParameter("stundenplanerstellen") != null){
 				nextPage = "Stundenplan/StundenplanErstellung.jsp";
 			}
-			
-			
-			
-			
 			return nextPage;		
 
 		}

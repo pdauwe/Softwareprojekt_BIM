@@ -144,7 +144,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 			// Nummer des Dozenten aus der Datenbank auslesen
 			ResultSet resultSet = Persistence.executeQueryStatement(aConnection, "SELECT " + DatenbankNamen.Dozent.DozentNummer + " FROM " + DatenbankNamen.Dozent.Tabelle + " WHERE " + DatenbankNamen.Dozent.Name + " LIKE '" + dozent.getName() + "'");
 			if(resultSet.next()){
-				int nummer = resultSet.getInt(0);
+				int nummer = resultSet.getInt("DNR");
 				// Alle Zeitpraeferenzen des Dozenten loeschen bevor die neuen hinzugefügt werden.
 				Persistence.executeUpdateStatement(aConnection, "DELETE FROM " + DatenbankNamen.ZeitpraeferenzDozentZuordnung.Tabelle + " WHERE " + DatenbankNamen.ZeitpraeferenzDozentZuordnung.DozentNummer + " = " + nummer);
 				

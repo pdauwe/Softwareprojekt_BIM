@@ -63,31 +63,8 @@
   </tr>
   
   <tr> 
-  		
+<!-- Eclipse zeigt hier einen Fehler an bei der Verwendung von intValue(), obwohl die Verwendung funktioniert. -->  		
     	<td>08:00 - 11:30</td>
-    	<td><c:out value="${stundenplan.zuordnung[(0).intValue()].modul.bezeichnung}"></c:out></td>
-    	<td><c:out value="${stundenplan.zuordnung[(0).intValue()].raum.name}"></c:out></td>
-    	<td><c:out value="${stundenplan.zuordnung[(0).intValue()].dozent.name}"></c:out></td>
-  
-    	<td><c:out value="${stundenplan.zuordnung[(3).intValue()].modul.bezeichnung}"></c:out></td>
-    	<td><c:out value="${stundenplan.zuordnung[(3).intValue()].raum.name}"></c:out></td>
-    	<td><c:out value="${stundenplan.zuordnung[(3).intValue()].dozent.name}"></c:out></td>
-   		
-   		<td><c:out value="${stundenplan.zuordnung[(6).intValue()].modul.bezeichnung}"></c:out></td>
-    	<td><c:out value="${stundenplan.zuordnung[(6).intValue()].raum.name}"></c:out></td>
-    	<td><c:out value="${stundenplan.zuordnung[(6).intValue()].dozent.name}"></c:out></td>
-   		
-   		<td><c:out value="${stundenplan.zuordnung[(9).intValue()].modul.bezeichnung}"></c:out></td>
-    	<td><c:out value="${stundenplan.zuordnung[(9).intValue()].raum.name}"></c:out></td>
-    	<td><c:out value="${stundenplan.zuordnung[(9).intValue()].dozent.name}"></c:out></td>
-    	
-    	<td><c:out value="${stundenplan.zuordnung[(12).intValue()].modul.bezeichnung}"></c:out></td>
-    	<td><c:out value="${stundenplan.zuordnung[(12).intValue()].raum.name}"></c:out></td>
-    	<td><c:out value="${stundenplan.zuordnung[(12).intValue()].dozent.name}"></c:out></td>
-  </tr>
- 
-  <tr>
-    	<td>12:00 - 15:45</td>
     	<td><c:out value="${stundenplan.zuordnung[(1).intValue()].modul.bezeichnung}"></c:out></td>
     	<td><c:out value="${stundenplan.zuordnung[(1).intValue()].raum.name}"></c:out></td>
     	<td><c:out value="${stundenplan.zuordnung[(1).intValue()].dozent.name}"></c:out></td>
@@ -108,9 +85,9 @@
     	<td><c:out value="${stundenplan.zuordnung[(13).intValue()].raum.name}"></c:out></td>
     	<td><c:out value="${stundenplan.zuordnung[(13).intValue()].dozent.name}"></c:out></td>
   </tr>
-
-   <tr>
-    	<td>16:15 - 19:45</td>
+ 
+  <tr>
+    	<td>12:00 - 15:45</td>
     	<td><c:out value="${stundenplan.zuordnung[(2).intValue()].modul.bezeichnung}"></c:out></td>
     	<td><c:out value="${stundenplan.zuordnung[(2).intValue()].raum.name}"></c:out></td>
     	<td><c:out value="${stundenplan.zuordnung[(2).intValue()].dozent.name}"></c:out></td>
@@ -130,6 +107,29 @@
     	<td><c:out value="${stundenplan.zuordnung[(14).intValue()].modul.bezeichnung}"></c:out></td>
     	<td><c:out value="${stundenplan.zuordnung[(14).intValue()].raum.name}"></c:out></td>
     	<td><c:out value="${stundenplan.zuordnung[(14).intValue()].dozent.name}"></c:out></td>
+  </tr>
+
+   <tr>
+    	<td>16:15 - 19:45</td>
+    	<td><c:out value="${stundenplan.zuordnung[(3).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(3).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(3).intValue()].dozent.name}"></c:out></td>
+  
+    	<td><c:out value="${stundenplan.zuordnung[(6).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(6).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(6).intValue()].dozent.name}"></c:out></td>
+   		
+   		<td><c:out value="${stundenplan.zuordnung[(9).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(9).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(9).intValue()].dozent.name}"></c:out></td>
+   		
+   		<td><c:out value="${stundenplan.zuordnung[(12).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(12).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(12).intValue()].dozent.name}"></c:out></td>
+    	
+    	<td><c:out value="${stundenplan.zuordnung[(15).intValue()].modul.bezeichnung}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(15).intValue()].raum.name}"></c:out></td>
+    	<td><c:out value="${stundenplan.zuordnung[(15).intValue()].dozent.name}"></c:out></td>
   </tr>
 </table>
 <br>

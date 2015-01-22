@@ -1,14 +1,16 @@
 package awk.usecase;
 
-import java.util.ArrayList;
-
 import awk.AnwendungskernException;
 import awk.entity.StundenplanTO;
-import awk.entity.internal.*;
 
 public interface IStundenplanErstellen {
 
-	public Stundenplan stundenplanGenerieren(Studiengang studiengang, ArrayList<Dozent> dozenten, ArrayList<Modul> module) throws AnwendungskernException;
+	/***
+	 * Speichert einen Stundenplan persistent
+	 * @param stundenplan
+	 * @return
+	 * @throws AnwendungskernException
+	 */
 	public boolean stundenplanSpeichern(StundenplanTO stundenplan) throws AnwendungskernException;
 
 	
