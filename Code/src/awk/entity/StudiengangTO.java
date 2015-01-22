@@ -28,5 +28,19 @@ public class StudiengangTO implements Serializable {
 		this.name = name;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		StudiengangTO s = (StudiengangTO) obj;
+		if(s.getName().equals(this.getName())){
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.getName().hashCode();
+	}
+	
 	
 }
