@@ -29,7 +29,7 @@ Dantenbank-Server
 JBoss-Server
 =================
 	
-	User-Interface:Http://localhoast:9990
+	User-Interface:Http://localhost:9990
 
 	#JBoss-User
 	Benutzername: admin
