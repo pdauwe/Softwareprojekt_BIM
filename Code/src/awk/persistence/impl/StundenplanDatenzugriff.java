@@ -169,7 +169,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		Connection aConnection = Persistence.getConnection();
 
 		try{
-			
+			Persistence.executeUpdateStatement(aConnection, "DELETE FROM SP_STUNDENPLAN");
 			for (Entry<Integer, StundenplanSlotTO> entry : stundenplan.getZuordnung().entrySet()) {
 			
 				int modulnummer = -1;
