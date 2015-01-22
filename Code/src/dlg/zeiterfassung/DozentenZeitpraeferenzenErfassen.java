@@ -21,29 +21,30 @@ public class DozentenZeitpraeferenzenErfassen implements IAction {
 		
 		if (request.getParameter("speichern") != null ) {
 			
-			for(int i=0; i<14; i++){
-				String[] values = request.getParameterValues(String.valueOf(i));
-				Integer value = Integer.getInteger(values[0]);
+			String[] values = request.getParameterValues("zeitslot");
+			
+			for (int i = 0; i < values.length; i++){	
+				Integer value = Integer.parseInt(values[i]);
 				prefZeiten.add(value);
 			}
 			
 			DozentTO dozent = new DozentTO();
-			dozent.setName(request.getParameterValues("nameauswahl")[0]);
+			dozent.setName(request.getParameterValues("name")[0]);
 			
 			for(Integer zeit : prefZeiten){
 				dozent.addZeit(zeit);
 			}
 			
 			boolean ok = false;
-//			try{
-//				ok = DozentManager.getManager().zeitpraeferenzenFuerDozentSpeichern(dozent);
-//			}catch(AnwendungskernException e){
-//				e.printStackTrace();
-//				throw new DialogException();
-//			}
+			try{
+				ok = DozentManager.getManager().zeitpraeferenzenFuerDozentSpeichern(dozent);
+			}catch(AnwendungskernException e){
+				e.printStackTrace();
+				throw new DialogException();
+			}
 			
 			if(ok){
-				nextPage = "Zeiterfassung/DozentenZeitpraeferenzenErfassen.jsp";
+				nextPage = "Hauptmenue.jsp";
 			}else{
 				nextPage = "zentraleFehlerseite.jsp";
 			}
