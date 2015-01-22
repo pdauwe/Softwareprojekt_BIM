@@ -7,15 +7,21 @@ import awk.DatenhaltungsException;
 import awk.entity.StudiengangTO;
 import awk.entity.StundenplanSlotTO;
 import awk.entity.StundenplanTO;
+import awk.factory.IStundenplanFactory;
+import awk.factory.impl.StundenplanFactory;
 import awk.persistence.IStundenplanDatenzugriff;
 import awk.persistence.impl.StundenplanDatenzugriff;
+import awk.usecase.IStundenplanErstellen;
 
 
 /*
  * Managerklasse zur Verwaltung von Stundenplänen
  */
-public class StundenplanManager {
+public class StundenplanManager{
 	
+	/**
+	 * 
+	 */
 	private IStundenplanDatenzugriff stundenplanDatenzugriff = new StundenplanDatenzugriff();
 	private static StundenplanManager self;
 	/***
@@ -34,6 +40,19 @@ public class StundenplanManager {
 	private StundenplanManager(){
 		this.urplan = new HashMap<StudiengangTO, StundenplanTO>();
 	}
+	
+	public void createUrplan() throws AnwendungskernException{
+		IStundenplanFactory sf = new StundenplanFactory();
+		IStundenplanErstellen se = sf.getStundenplanErstellen();
+		try {
+			se.erstelleUrplan();
+		} catch (AnwendungskernException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 
 	public StundenplanTO getStundenplan(StudiengangTO studiengang) throws AnwendungskernException{
 		try {
@@ -92,12 +111,8 @@ public class StundenplanManager {
 		}
 		
 		StundenplanTO stundenplan = this.urplan.get(studiengang);
-		boolean ok = stundenplan.addZuordnung(zeitslot, stundenplanslot);
-		if(!ok){
-			return false;
-		}
-
-		return true;
+		return stundenplan.addZuordnung(zeitslot, stundenplanslot);
+		
 	}
 	
 	/***
