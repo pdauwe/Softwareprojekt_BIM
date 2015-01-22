@@ -7,6 +7,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="design.css">
+
 <style type="text/css">
 	table {width:dynamic;}
 	td{border:1px solid #110 vertical-align:top; overflow:hidden;}
@@ -14,7 +16,17 @@
 <title>Zeiterfassung</title>
 </head>
 <body>
-<h2>Dozenten Zeiterfassung</h2>
+<div id="webside">
+		<div id="header">
+			<div id="header1">
+				<h1>Zeitpräferenzen erfassen</h1>
+			</div>
+			<div id="logo">
+			<img src="hlogo.png" alt="h2logo" width="93px" height="75px">
+			</div>
+		</div>
+		<div id="main"></div>
+</div>
 <label>Bitte Dozenten waehlen!<br><br></label>
 
 <form name="zeiterfassung" action="Dispatch" method="GET">
