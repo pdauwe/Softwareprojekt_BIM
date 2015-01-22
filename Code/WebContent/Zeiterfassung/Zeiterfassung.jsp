@@ -19,7 +19,7 @@
 
 <form name="zeiterfassung" action="Dispatch" method="GET">
 	<input type="hidden" value="zeiterfassung" name="page"/>
-	<select id = "nameauswahl" name="name" size="1">
+	<select id ="nameauswahl" name="name" size="1">
 		<c:forEach var="dozent" items="${dozenten}" >
 			<option> ${dozent.name } </option>
 			</c:forEach>
@@ -36,32 +36,32 @@
 	  </tr>
 	  <tr>
 		<td>08:00 - 11:30</td>
-		<td align="center" valign="middle"><input type ="checkbox" name="1" value="true"/></td>
-		<td align="center" valign="middle"><input type ="checkbox" name="4" value="true"/></td>
-		<td align="center" valign="middle"><input type ="checkbox" name="7" value="true"/></td>
-		<td align="center" valign="middle"><input type ="checkbox" name="10" value="true"/></td>
-		<td align="center" valign="middle"><input type ="checkbox" name="13" value="true"/></td>
+		<td align="center" valign="middle"><input type ="checkbox" name="zeitslot" value="1"/></td>
+		<td align="center" valign="middle"><input type ="checkbox" name="zeitslot" value="4"/></td>
+		<td align="center" valign="middle"><input type ="checkbox" name="zeitslot" value="7"/></td>
+		<td align="center" valign="middle"><input type ="checkbox" name="zeitslot" value="10"/></td>
+		<td align="center" valign="middle"><input type ="checkbox" name="zeitslot" value="13"/></td>
 	  </tr>
 	  <tr>
 		<td>12:00 - 15:45</td>
-		<td align="center" valign="middle"><input type ="checkbox" name="2" value="true"/></td>
-		<td align="center" valign="middle"><input type ="checkbox" name="5" value="true"/></td>
-		<td align="center" valign="middle"><input type ="checkbox" name="8" value="true"/></td>
-		<td align="center" valign="middle"><input type ="checkbox" name="11" value="true"/></td>
-		<td align="center" valign="middle"><input type ="checkbox" name="14" value="true"/></td>
+		<td align="center" valign="middle"><input type ="checkbox" name="zeitslot" value="2"/></td>
+		<td align="center" valign="middle"><input type ="checkbox" name="zeitslot" value="5"/></td>
+		<td align="center" valign="middle"><input type ="checkbox" name="zeitslot" value="8"/></td>
+		<td align="center" valign="middle"><input type ="checkbox" name="zeitslot" value="11"/></td>
+		<td align="center" valign="middle"><input type ="checkbox" name="zeitslot" value="14"/></td>
 	  </tr>
 	   <tr>
 		<td>16:15 - 19:45</td>
-		<td align="center" valign="middle"><input type ="checkbox" name="3" value="true"/></td>
-		<td align="center" valign="middle"><input type ="checkbox" name="6" value="true"/></td>
-		<td align="center" valign="middle"><input type ="checkbox" name="9" value="true"/></td>
-		<td align="center" valign="middle"><input type ="checkbox" name="12" value="true"/></td>
-		<td align="center" valign="middle"><input type ="checkbox" name="15" value="true"/></td>
+		<td align="center" valign="middle"><input type ="checkbox" name="zeitslot" value="3"/></td>
+		<td align="center" valign="middle"><input type ="checkbox" name="zeitslot" value="6"/></td>
+		<td align="center" valign="middle"><input type ="checkbox" name="zeitslot" value="9"/></td>
+		<td align="center" valign="middle"><input type ="checkbox" name="zeitslot" value="12"/></td>
+		<td align="center" valign="middle"><input type ="checkbox" name="zeitslot" value="15"/></td>
 	  </tr>
 	</table>
 	<br>
-	<input type="submit" value="speichern"/>
-	<input type="submit" value="abbrechen"/>
+	<input type="submit" value="speichern" name="speichern"/>
+	<input type="submit" value="abbrechen" name="abbrechen"/>
 </form>
 </body>
 </html>
