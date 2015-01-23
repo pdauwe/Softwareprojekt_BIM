@@ -12,7 +12,7 @@ public class StundenplanTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private StudiengangTO studiengang;
-	private HashMap<Integer, StundenplanSlotTO> zuordnung;
+	private Map<Integer, StundenplanSlotTO> zuordnung;
 	
 	public StundenplanTO(){
 		this.zuordnung = new HashMap<Integer, StundenplanSlotTO>();

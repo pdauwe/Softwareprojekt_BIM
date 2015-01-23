@@ -27,14 +27,6 @@ public class Modul {
 		this.benoetigtComputerraum = benoetigtComputerraum;
 	}
 
-	public boolean isVerplant() {
-		return isVerplant;
-	}
-
-	public void setVerplant(boolean isVerplant) {
-		this.isVerplant = isVerplant;
-	}
-
 	public String getBezeichnung() {
 		return bezeichnung;
 	}

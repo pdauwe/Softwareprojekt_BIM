@@ -12,7 +12,6 @@ public class ModulTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int nummer;
 	private boolean benoetigtComputerraum;
-	private boolean isVerplant;
 	private String bezeichnung;
 	
 	public ModulTO(){
@@ -37,14 +36,6 @@ public class ModulTO implements Serializable {
 
 	public void setBenoetigtComputerraum(boolean benoetigtComputerraum) {
 		this.benoetigtComputerraum = benoetigtComputerraum;
-	}
-	
-	public boolean isVerplant() {
-		return isVerplant;
-	}
-
-	public void setVerplant(boolean isVerplant) {
-		this.isVerplant = isVerplant;
 	}
 
 	public String getBezeichnung() {

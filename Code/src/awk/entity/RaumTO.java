@@ -10,7 +10,6 @@ public class RaumTO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int anzahlPlaetze;
 	private String name;
 	private boolean isComputerraum;
 	
@@ -19,15 +18,7 @@ public class RaumTO implements Serializable {
 	}
 	
 	public Raum toRaum(){
-		return new Raum(this.getName(), this.getAnzahlPlaetze(), this.isComputerraum());
-	}
-	
-	public int getAnzahlPlaetze() {
-		return anzahlPlaetze;
-	}
-
-	public void setAnzahlPlaetze(int anzahlPlaetze) {
-		this.anzahlPlaetze = anzahlPlaetze;
+		return new Raum(this.getName(), this.isComputerraum());
 	}
 
 	public boolean isComputerraum() {
@@ -44,6 +35,15 @@ public class RaumTO implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		RaumTO r = (RaumTO) obj;
+		if(r.getName().equals(this.getName())){
+			return true;
+		}
+		return false;
 	}
 
 }

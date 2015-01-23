@@ -1,24 +1,17 @@
 package awk.entity.internal;
 
+
 public class Raum {
 
-	private int anzahlPlaetze;
 	private String name;
 	private boolean isComputerraum;
 	
-	public Raum (String name, int anzahlPlaetze, boolean isComputerraum)
+	public Raum (String name, boolean isComputerraum)
 	{
 		this.name = name;
-		this.anzahlPlaetze = anzahlPlaetze;
 		this.isComputerraum = isComputerraum;
 	}
 	
-	public int getAnzahlPlaetze() {
-		return anzahlPlaetze;
-	}
-	public void setAnzahlPlaetze(int anzahlPlaetze) {
-		this.anzahlPlaetze = anzahlPlaetze;
-	}
 	public String getName() {
 		return name;
 	}
@@ -30,6 +23,15 @@ public class Raum {
 	}
 	public void setComputerraum(boolean isComputerraum) {
 		this.isComputerraum = isComputerraum;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Raum r = (Raum) obj;
+		if(r.getName().equals(this.getName())){
+			return true;
+		}
+		return false;
 	}
 	
 	

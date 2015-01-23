@@ -19,8 +19,7 @@ public class StundenplanSlotTO implements Serializable {
 	}
 	
 	public StundenplanSlot toStundenplanSlot(){
-		// TODO: raum auf null fuer Testzwecke. YOU NEED TO FIX THIS PENNER!
-		return new StundenplanSlot(modul.toModul(), dozent.toDozent(), null);
+		return new StundenplanSlot(modul.toModul(), dozent.toDozent(), raum.toRaum());
 	}
 
 	public ModulTO getModul() {
