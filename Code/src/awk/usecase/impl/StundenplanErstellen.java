@@ -21,34 +21,6 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 	private boolean stundenplanSpeichern(StundenplanTO stundenplan) throws AnwendungskernException {
 		return StundenplanManager.getManager().stundenplanSpeichern(stundenplan);
 	}
-	
-	/***
-	 * Ordnet jedem StundenplanSlot einen Raum zu
-	 * @throws AnwendungskernException
-	 */
-	private void ordneRaeumeZu() throws AnwendungskernException{
-		
-		for(int i = 1; i<16; i++){
-			ArrayList<RaumTO> belegteRaeume = new ArrayList<RaumTO>();
-			// HIER IST DER FEHLER
-			for(StundenplanTO stundenplan : StundenplanManager.getManager().getUrplan().values()){
-				StundenplanSlotTO slot = stundenplan.getZuordnung().get(Integer.valueOf(i));
-				RaumTO raum = null;
-				boolean foundRoom = false;
-				while(foundRoom == false){
-					
-					raum = RaumManager.getManager().raumFuerModul(slot.getModul());
-					
-					if(belegteRaeume.contains(raum) == false){
-						foundRoom = true;
-					}
-				}
-				slot.setRaum(raum);
-				belegteRaeume.add(raum);
-			}
-		}
-	}
-
 
 	@Override
 	public boolean erstelleUrplan() throws AnwendungskernException {
@@ -76,9 +48,17 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 					continue;
 				}
 				
+				RaumTO randomRaum = RaumManager.getManager().raumFuerModul(randomModul);
+				
+				if(randomRaum == null){
+					continue;
+				}
+				
 				StundenplanSlotTO slot = new StundenplanSlotTO();
 				slot.setDozent(randomDozent);
 				slot.setModul(randomModul);
+				slot.setRaum(randomRaum);
+				
 
 				boolean ok = stundenplanManager.addToUrplan(s, slot, zeitslot);
 				
@@ -107,9 +87,16 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 					continue;
 				}
 				
+				RaumTO randomRaum = RaumManager.getManager().raumFuerModul(randomModul);
+				
+				if(randomRaum == null){
+					continue;
+				}
+				
 				StundenplanSlotTO slot = new StundenplanSlotTO();
 				slot.setDozent(randomDozent);
 				slot.setModul(randomModul);
+				slot.setRaum(randomRaum);
 
 				boolean ok = stundenplanManager.addToUrplan(s, slot, zeitslot);
 				
@@ -120,8 +107,6 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 				
 			}
 		}
-		
-		this.ordneRaeumeZu();
 
 		for(StundenplanTO s : stundenplanManager.getUrplan().values()){
 			this.stundenplanSpeichern(s);

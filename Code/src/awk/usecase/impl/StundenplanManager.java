@@ -98,6 +98,9 @@ public class StundenplanManager{
 				if(slot.getDozent().equals(stundenplanslot.getDozent())){
 					return false;
 				}
+				if(slot.getRaum().equals(stundenplanslot.getRaum())){
+					return false;
+				}
 			}
 			
 			for(StundenplanSlotTO s : stundenplan.getZuordnung().values()){

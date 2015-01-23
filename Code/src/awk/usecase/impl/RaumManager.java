@@ -94,14 +94,13 @@ public class RaumManager {
 				return null;
 			}else{
 				Random randomGenerator = new Random();
-				int randomIndex = randomGenerator.nextInt(raeume.size());
-				
-				RaumTO raum = raeume.get(randomIndex);
-				if(raum.isComputerraum() == modul.isBenoetigtComputerraum()){
-					return raum;
-				}else{
-					return null;
-				}
+				RaumTO raum;
+				do{
+					int randomIndex = randomGenerator.nextInt(raeume.size());
+					raum = raeume.get(randomIndex);
+				}while(!(raum.isComputerraum() == modul.isBenoetigtComputerraum()));
+					
+				return raum;
 			}	
 		}catch(DatenhaltungsException e){
 			e.printStackTrace();

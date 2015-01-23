@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="design.css">
-<title>Stundenplan wird erstellt</title>
+<title>Stundenplan wurde erstellt</title>
 </head>
 <body>
 <div id="webside">

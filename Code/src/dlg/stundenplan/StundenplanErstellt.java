@@ -12,8 +12,8 @@ public class StundenplanErstellt implements IAction{
 		
 		String nextPage = null;
 		
-		if(request.getAttribute("hauptmenue") != null){
-			nextPage = "../Hauptmenue.jsp";
+		if(request.getParameter("hauptmenue") != null){
+			nextPage = "Hauptmenue.jsp";
 		}
 		
 		return nextPage;
