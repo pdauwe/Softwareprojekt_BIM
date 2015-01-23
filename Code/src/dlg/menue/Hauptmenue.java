@@ -2,8 +2,10 @@ package dlg.menue;
 
 import javax.servlet.http.HttpServletRequest;
 
+import awk.AnwendungskernException;
 import awk.usecase.impl.DozentManager;
 import awk.usecase.impl.StudiengangManager;
+import awk.usecase.impl.StundenplanManager;
 import dlg.DialogException;
 import dlg.IAction;
 
@@ -20,7 +22,16 @@ public class Hauptmenue implements IAction{
 				request.setAttribute("studiengaenge", StudiengangManager.getManager().getAlleStudiengaenge());
 				nextPage = "Stundenplan/StudiengangAuswaehlen.jsp";
 			}else if(request.getParameter("stundenplanerstellen") != null){
-				nextPage = "Stundenplan/StundenplanErstellung.jsp";
+				try {
+					boolean ok = StundenplanManager.getManager().doesUrplanExists();
+					if(ok){
+						nextPage = "Stundenplan/UrplanLoeschen.jsp";
+					}else{
+						nextPage = "Stundenplan/StundenplanErstellung.jsp";
+					}
+				} catch (AnwendungskernException e) {
+					e.printStackTrace();
+				}
 			}
 			return nextPage;		
 

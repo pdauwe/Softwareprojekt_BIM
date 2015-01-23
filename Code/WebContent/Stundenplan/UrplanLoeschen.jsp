@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    errorPage ="zentraleFehlerseite.jsp"
-    import="dlg.Dispatch"
-    %>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,7 +10,7 @@
 <div id="webside">
 		<div id="header">
 			<div id="header1">
-				<h1>Hauptmenü</h1>
+				<h1>Urplan ersetzen</h1>
 			</div>
 			<div id="logo">
 			<img src="hlogo.png" alt="h2logo" width="93px" height="75px">
@@ -21,11 +18,11 @@
 		</div>
 		<div id="main"></div>
 </div>
-<form name="hauptmenue"  action="Dispatch" method="GET">
-<input type="hidden" value="hauptmenue" name="page"/>
-<input type="submit" value="Zeiterfassung" name ="zeiterfassung"/>
-<input type="submit" value="Stundenplan erstellen" name ="stundenplanerstellen"/>
-<input type="submit" value="Stundenplan anzeigen" name ="studiengangauswahl"/>
+Es ist schon ein Urplan vorhanden. Um einen neuen zu erstellen, müssen Sie den vorhandenen löschen.
+<form name="urplanloeschen" action="Dispatch" method="GET">
+<input type="hidden" value="urplanloeschen" name="page"/>
+<input type="submit" value="Vorhanden Plan löschen" name ="delete"/>
+<input type="submit" value="Zurück" name ="abbrechen"/>
 </form>
 </body>
 </html>

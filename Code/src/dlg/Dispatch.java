@@ -13,6 +13,7 @@ import dlg.menue.Hauptmenue;
 import dlg.stundenplan.StudiengangAuswaehlen;
 import dlg.stundenplan.StundenplanAnzeigen;
 import dlg.stundenplan.StundenplanErstellung;
+import dlg.stundenplan.UprlanLoeschen;
 import dlg.zeiterfassung.DozentenZeitpraeferenzenErfassen;
 
 /**
@@ -27,6 +28,7 @@ public class Dispatch extends HttpServlet {
 	StudiengangAuswaehlen studiengangauswahl = new StudiengangAuswaehlen();
 	StundenplanErstellung stundenplanerstellung = new StundenplanErstellung();
 	StundenplanAnzeigen stundenplananzeigen = new StundenplanAnzeigen();
+	UprlanLoeschen urplanloeschen = new UprlanLoeschen();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -70,6 +72,9 @@ public class Dispatch extends HttpServlet {
 			}
 			else if (page.equalsIgnoreCase("stundenplananzeigen")){
 				nextPage = stundenplananzeigen.doAction(request);
+			}
+			else if (page.equalsIgnoreCase("urplanloeschen")){
+				nextPage = urplanloeschen.doAction(request);
 			}
 			
 		} catch (DialogException e) {
