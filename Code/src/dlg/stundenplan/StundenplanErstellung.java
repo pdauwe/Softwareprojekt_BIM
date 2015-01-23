@@ -3,7 +3,9 @@ package dlg.stundenplan;
 import javax.servlet.http.HttpServletRequest;
 
 import awk.AnwendungskernException;
-import awk.usecase.impl.StundenplanManager;
+import awk.factory.IStundenplanFactory;
+import awk.factory.impl.StundenplanFactory;
+import awk.usecase.IStundenplanErstellen;
 import dlg.DialogException;
 import dlg.IAction;
 
@@ -12,21 +14,22 @@ public class StundenplanErstellung implements IAction{
 	@Override
 	public String doAction(HttpServletRequest request) throws DialogException {
 		
-		Thread seThread = new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				try{
-					StundenplanManager.getManager().createUrplan();
-				}catch(AnwendungskernException e){
-					e.printStackTrace();
-				}
-			}
-		});
+		String nextPage = null;
+		boolean ok = false;
 		
-		seThread.start();
+		try{
+			IStundenplanFactory sf = new StundenplanFactory();
+			IStundenplanErstellen se = sf.getStundenplanErstellen();
+			ok = se.erstelleUrplan();
+		}catch(AnwendungskernException e){
+			e.printStackTrace();
+		}
 
-		String nextPage = "Stundenplan/StartErstellung.jsp";
+		if(ok){
+			nextPage = "Stundenplan/StundenplanErstellt.jsp";
+		}else{
+			nextPage = "zentraleFehlerseite.jsp";
+		}
 		return nextPage;
 	}
 

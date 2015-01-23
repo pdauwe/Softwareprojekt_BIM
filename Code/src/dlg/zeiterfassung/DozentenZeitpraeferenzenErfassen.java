@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import awk.AnwendungskernException;
 import awk.entity.DozentTO;
-import awk.usecase.impl.DozentManager;
+import awk.factory.IStundenplanFactory;
+import awk.factory.impl.StundenplanFactory;
+import awk.usecase.IZeitpraeferenzErfassen;
 import dlg.DialogException;
 import dlg.IAction;
 
@@ -37,7 +39,9 @@ public class DozentenZeitpraeferenzenErfassen implements IAction {
 			
 			boolean ok = false;
 			try{
-				ok = DozentManager.getManager().zeitpraeferenzenFuerDozentSpeichern(dozent);
+				IStundenplanFactory sf = new StundenplanFactory();
+				IZeitpraeferenzErfassen ze = sf.getZeitpraeferenzenErfassen();
+				ok = ze.zeitpraeferenzenSpeichern(dozent);
 			}catch(AnwendungskernException e){
 				e.printStackTrace();
 				throw new DialogException();
