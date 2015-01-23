@@ -15,7 +15,7 @@ Server Hochschule
 	
 	Extern erreichbare TCP/IP-Ports: 3389
 
-Dantenbank-Server
+Datenbank-Server
 =================
 
 	#Konfiguration
@@ -25,6 +25,9 @@ Dantenbank-Server
 	#DB-User
 	Benutzername: STUNDENPLAN
 	Passwort: NewYork89
+	
+	#DB Webschnittstelle
+	Port: 3010
 
 JBoss-Server
 =================
