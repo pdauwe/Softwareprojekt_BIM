@@ -7,11 +7,8 @@ import awk.DatenhaltungsException;
 import awk.entity.StudiengangTO;
 import awk.entity.StundenplanSlotTO;
 import awk.entity.StundenplanTO;
-import awk.factory.IStundenplanFactory;
-import awk.factory.impl.StundenplanFactory;
 import awk.persistence.IStundenplanDatenzugriff;
 import awk.persistence.impl.StundenplanDatenzugriff;
-import awk.usecase.IStundenplanErstellen;
 
 
 /*
@@ -41,19 +38,6 @@ public class StundenplanManager{
 		this.urplan = new HashMap<StudiengangTO, StundenplanTO>();
 	}
 	
-	public void createUrplan() throws AnwendungskernException{
-		IStundenplanFactory sf = new StundenplanFactory();
-		IStundenplanErstellen se = sf.getStundenplanErstellen();
-		try {
-			se.erstelleUrplan();
-		} catch (AnwendungskernException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	
-
 	public StundenplanTO getStundenplan(StudiengangTO studiengang) throws AnwendungskernException{
 		try {
 			return this.stundenplanDatenzugriff.ladeStundenplanFuerStudiengang(studiengang);
@@ -67,7 +51,6 @@ public class StundenplanManager{
 		try {
 			return this.stundenplanDatenzugriff.speichereStundenplan(stundenplan);
 		} catch (DatenhaltungsException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new AnwendungskernException();
 		}

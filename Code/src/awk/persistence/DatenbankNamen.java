@@ -39,6 +39,7 @@ public abstract class DatenbankNamen {
 		public static final String StudiengangNummer = "SGNR";
 		public static final String ModulNummer = "MNR";
 		public static final String Zeitslot = "ZEITSLOT";
+		public static final String RaumNummer = "RNR";
 	}
 	
 	public abstract class ModulStudiengangZuordnung{

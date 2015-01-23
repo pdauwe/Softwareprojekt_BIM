@@ -65,7 +65,6 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 				ModulTO modul = new ModulTO();
 				modul.setNummer(resultSet.getInt(DatenbankNamen.Modul.ModulNummer));
 				modul.setBenoetigtComputerraum( resultSet.getString(DatenbankNamen.Modul.BenoetigtComputerraum).charAt(0) == 'Y' ? true : false);
-				modul.setVerplant(false);
 				
 				alleModule.add(modul);
 			}
@@ -169,7 +168,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		Connection aConnection = Persistence.getConnection();
 
 		try{
-			Persistence.executeUpdateStatement(aConnection, "DELETE FROM SP_STUNDENPLAN");
+			Persistence.executeUpdateStatement(aConnection, "DELETE FROM " + DatenbankNamen.Stundenplan.Tabelle);
 			for (Entry<Integer, StundenplanSlotTO> entry : stundenplan.getZuordnung().entrySet()) {
 			
 				int modulnummer = -1;
@@ -196,7 +195,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 				
 				if(modulnummer >= 0 && studiengangnummer >= 0 && raumnummer >= 0){
 					Persistence.executeUpdateStatement(aConnection, 
-							"INSERT INTO sp_stundenplan VALUES(" + studiengangnummer + 
+							"INSERT INTO " + DatenbankNamen.Stundenplan.Tabelle + " VALUES(" + studiengangnummer + 
 							"," + entry.getKey() + "," +
 							modulnummer + "," + raumnummer + ")");
 				}
@@ -233,7 +232,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 			}
 			
 			resultSet = Persistence.executeQueryStatement(aConnection,
-					"SELECT * FROM sp_stundenplan WHERE sgnr = " + studiengangNummer
+					"SELECT * FROM "+ DatenbankNamen.Stundenplan.Tabelle +" WHERE sgnr = " + studiengangNummer
 					);
 			
 			while(resultSet.next()){
@@ -241,10 +240,10 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 				ModulTO modul = null;
 				DozentTO dozent = null;
 				RaumTO raum = null;
-				int zeitslot = resultSet.getInt("zeitslot");
+				int zeitslot = resultSet.getInt(DatenbankNamen.Stundenplan.Zeitslot);
 				try {
-					int modulNummer = resultSet.getInt("mnr");
-					int raumNummer = resultSet.getInt("rnr");
+					int modulNummer = resultSet.getInt(DatenbankNamen.Stundenplan.ModulNummer);
+					int raumNummer = resultSet.getInt(DatenbankNamen.Stundenplan.RaumNummer);
 					 modul = ModulManager.getManager().modulMitNummer(modulNummer);
 					 dozent = DozentManager.getManager().dozentVonModulNummer(modulNummer);
 					 raum = RaumManager.getManager().raumMitNummer(raumNummer);
@@ -285,8 +284,8 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 			
 			while(resultSet.next()){
 				ModulTO m = new ModulTO();
-				m.setBezeichnung(resultSet.getString("name"));
-				m.setBenoetigtComputerraum(resultSet.getString("iscomputernotwendig").charAt(0) == 'Y' ? true : false);
+				m.setBezeichnung(resultSet.getString(DatenbankNamen.Modul.Name));
+				m.setBenoetigtComputerraum(resultSet.getString(DatenbankNamen.Modul.BenoetigtComputerraum).charAt(0) == 'Y' ? true : false);
 				module.add(m);
 			}
 		}catch(SQLException e){
@@ -306,12 +305,12 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		DozentTO d = null;
 		try{
 			resultSet = Persistence.executeQueryStatement(aConnection, 
-					"SELECT * FROM sp_dozent" + 
-					" WHERE dnr = " + nummer);
+					"SELECT * FROM " + DatenbankNamen.Dozent.Tabelle +
+					" WHERE " + DatenbankNamen.Dozent.DozentNummer +  " = " + nummer);
 			
 			if(resultSet.next()){
 				d = new DozentTO();
-				d.setName(resultSet.getString("name"));
+				d.setName(resultSet.getString(DatenbankNamen.Dozent.Name));
 				d.setZeiten(this.zeitPrefsFuerDozent(nummer));
 			}	
 		}catch(SQLException e){
@@ -391,7 +390,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 			while( resultSet.next() ){
 
 				try {
-					DozentTO d = DozentManager.getManager().dozentMitNummer(resultSet.getInt("dnr"));
+					DozentTO d = DozentManager.getManager().dozentMitNummer(resultSet.getInt(DatenbankNamen.Dozent.DozentNummer));
 					dozenten.add(d);
 				} catch (AnwendungskernException e) {
 					e.printStackTrace();
@@ -495,7 +494,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 					"d.name = '" + dozent.getName() + "'");
 			
 			if(resultSet.next()){
-				dnr = resultSet.getInt("dnr");
+				dnr = resultSet.getInt(DatenbankNamen.Dozent.DozentNummer);
 			}
 			
 		}catch(SQLException e){
@@ -524,7 +523,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 					"m.name = '" + modul.getBezeichnung() + "'");
 			
 			if(resultSet.next()){
-				modulNummer = resultSet.getInt("mnr");
+				modulNummer = resultSet.getInt(DatenbankNamen.Modul.ModulNummer);
 			}
 			
 		}catch(SQLException e){
@@ -555,7 +554,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 					"s.name = '" + studiengang.getName() + "'");
 			
 			if(resultSet.next()){
-				studiengangNummer = resultSet.getInt("sgnr");
+				studiengangNummer = resultSet.getInt(DatenbankNamen.Studiengang.StudiengangNummer);
 			}
 			
 		}catch(SQLException e){

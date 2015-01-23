@@ -10,13 +10,11 @@ public class StundenplanFactory implements IStundenplanFactory {
 
 	@Override
 	public IStundenplanErstellen getStundenplanErstellen() {
-		// TODO Auto-generated method stub
 		return new StundenplanErstellen();
 	}
 
 	@Override
 	public IZeitpraeferenzErfassen getZeitpraeferenzenErfassen() {
-		// TODO Auto-generated method stub
 		return new ZeitpraeferenzErfassen();
 	}
 

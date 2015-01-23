@@ -1,14 +1,10 @@
 package awk.usecase;
 
-import java.util.ArrayList;
-
 import awk.AnwendungskernException;
-import awk.entity.internal.*;
+import awk.entity.DozentTO;
 
 public interface IZeitpraeferenzErfassen {
 
-	public ArrayList<Dozent> dozentenlisteAnzeigen() throws AnwendungskernException;
-	public ArrayList<Zeit> zeitpraeferenzbloeckeAnzeigen() throws AnwendungskernException;
-	public boolean zeitpraeferenzenSpeichern(Dozent dozent) throws AnwendungskernException;
+	public boolean zeitpraeferenzenSpeichern(DozentTO dozent) throws AnwendungskernException;
 	
 }
