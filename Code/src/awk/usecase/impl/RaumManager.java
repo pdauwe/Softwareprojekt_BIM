@@ -1,6 +1,7 @@
 package awk.usecase.impl;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import awk.AnwendungskernException;
 import awk.DatenhaltungsException;
@@ -71,6 +72,37 @@ public class RaumManager {
 	public RaumTO raumMitNummer(int raumNummer) throws AnwendungskernException{
 		try{
 			return this.stundenplanDatenzugriff.raumMitNummer(raumNummer);
+		}catch(DatenhaltungsException e){
+			e.printStackTrace();
+			throw new AnwendungskernException();
+		}
+	}
+	
+	/***
+	 * Liefert einen Raum fuer ein Modul
+	 * @param modul
+	 * @return raum
+	 * @throws AnwendungskernException
+	 */
+	public RaumTO raumFuerModul(ModulTO modul) throws AnwendungskernException{
+		ArrayList<RaumTO> raeume = null;
+		
+		try{
+			raeume =  this.stundenplanDatenzugriff.alleRaeume();
+			
+			if(raeume.size() == 0){
+				return null;
+			}else{
+				Random randomGenerator = new Random();
+				int randomIndex = randomGenerator.nextInt(raeume.size());
+				
+				RaumTO raum = raeume.get(randomIndex);
+				if(raum.isComputerraum() == modul.isBenoetigtComputerraum()){
+					return raum;
+				}else{
+					return null;
+				}
+			}	
 		}catch(DatenhaltungsException e){
 			e.printStackTrace();
 			throw new AnwendungskernException();

@@ -570,33 +570,31 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 	@Override
 	public int raumNummerVonRaum(RaumTO raum) throws DatenhaltungsException {
 		
-		return 1;
+		Connection connection = Persistence.getConnection();
+		ResultSet resultSet;
 		
-//		Connection connection = Persistence.getConnection();
-//		ResultSet resultSet;
-//		
-//		
-//		int raumNummer = -1;
-//		
-//		try{
-//			resultSet = Persistence.executeQueryStatement(connection,
-//					"SELECT r.rnr FROM " +
-//					"sp_raum r " +
-//					"WHERE " +
-//					"r.name = '" + raum.getName() + "'");
-//			
-//			if(resultSet.next()){
-//				raumNummer = resultSet.getInt("rnr");
-//			}
-//			
-//		}catch(SQLException e){
-//			e.printStackTrace();
-//			throw new DatenhaltungsException();
-//		}finally{
-//			Persistence.closeConnection(connection);
-//		}
-//		
-//		return raumNummer;
+		
+		int raumNummer = -1;
+		
+		try{
+			resultSet = Persistence.executeQueryStatement(connection,
+					"SELECT r.rnr FROM " +
+					"sp_raum r " +
+					"WHERE " +
+					"r.name = '" + raum.getName() + "'");
+			
+			if(resultSet.next()){
+				raumNummer = resultSet.getInt(DatenbankNamen.Raum.RaumNummer);
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(connection);
+		}
+		
+		return raumNummer;
 	}
 
 	@Override
@@ -661,7 +659,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 			
 			if(resultSet.next()){
 				d = new DozentTO();
-				d.setName(resultSet.getString("name"));
+				d.setName(resultSet.getString(DatenbankNamen.Dozent.Name));
 			}	
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -670,6 +668,40 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 			Persistence.closeConnection(aConnection);
 		}
 		return d;
+	}
+
+	@Override
+	public RaumTO raumFuerModul(ModulTO modul) throws DatenhaltungsException {
+		
+		RaumTO raum = null;
+		Connection connection = Persistence.getConnection();
+		ResultSet resultSet;
+		
+		try{
+			if(modul.isBenoetigtComputerraum()){
+				resultSet = Persistence.executeQueryStatement(connection,
+					"SELECT * FROM " + DatenbankNamen.Raum.Tabelle +
+					" WHERE " + DatenbankNamen.Raum.Computerraum + " = 'Y'");
+			}else{
+				resultSet = Persistence.executeQueryStatement(connection,
+					"SELECT * FROM " + DatenbankNamen.Raum.Tabelle +
+					" WHERE " + DatenbankNamen.Raum.Computerraum + " = 'N'");
+			}
+			
+			if(resultSet.next()){
+				raum = new RaumTO();
+				raum.setName(resultSet.getString(DatenbankNamen.Raum.Name));
+				raum.setComputerraum(resultSet.getString(DatenbankNamen.Raum.Computerraum).charAt(0) == 'Y' ? true : false);
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(connection);
+		}
+
+		return raum;
 	}
 	
 }

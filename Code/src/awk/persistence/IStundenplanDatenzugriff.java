@@ -150,12 +150,20 @@ public interface IStundenplanDatenzugriff {
 	public int raumNummerVonRaum(RaumTO raum) throws DatenhaltungsException;
 	
 	/***
-	 * Liefert ein Raum zu einer Raumnummer
+	 * Liefert einen Raum zu einer Raumnummer
 	 * @param raumNummer
 	 * @return RaumTO
 	 * @throws DatenhaltungsException
 	 */
 	public RaumTO raumMitNummer(int raumNummer) throws DatenhaltungsException;
+	
+	/***
+	 * Leifert einen Raum fuer ein Modul
+	 * @param modul
+	 * @return raum
+	 * @throws DatenhaltungsException
+	 */
+	public RaumTO raumFuerModul(ModulTO modul) throws DatenhaltungsException;
 	
 	/*
 	 * ################################################################

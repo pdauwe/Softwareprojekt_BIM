@@ -26,8 +26,8 @@ public class Persistence {
 			aConnection = 
 					DriverManager.getConnection (
 							// TODO: ip, benutzername und passwort
-							//"jdbc:oracle:thin:@131.173.92.216:1521:orcl", "STUD12", "NewYork99");
 							"jdbc:oracle:thin:@131.173.88.204:1521:XE", "STUNDENPLAN", "NewYork89");
+							//"jdbc:oracle:thin:@localhost:1521", "STUNDENPLAN", "NewYork89");
 		} catch (SQLException e) {
 				e.printStackTrace();
 		}

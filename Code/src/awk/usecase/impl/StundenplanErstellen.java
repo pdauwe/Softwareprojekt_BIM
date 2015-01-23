@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import awk.AnwendungskernException;
 import awk.entity.DozentTO;
 import awk.entity.ModulTO;
+import awk.entity.RaumTO;
 import awk.entity.StudiengangTO;
 import awk.entity.StundenplanSlotTO;
 import awk.entity.StundenplanTO;
@@ -11,9 +12,41 @@ import awk.usecase.IStundenplanErstellen;
 
 public class StundenplanErstellen implements IStundenplanErstellen {
 	
-	@Override
-	public boolean stundenplanSpeichern(StundenplanTO stundenplan) throws AnwendungskernException {
+	/***
+	 * Speichert den Stundenplan
+	 * @param stundenplan
+	 * @return true
+	 * @throws AnwendungskernException
+	 */
+	private boolean stundenplanSpeichern(StundenplanTO stundenplan) throws AnwendungskernException {
 		return StundenplanManager.getManager().stundenplanSpeichern(stundenplan);
+	}
+	
+	/***
+	 * Ordnet jedem StundenplanSlot einen Raum zu
+	 * @throws AnwendungskernException
+	 */
+	private void ordneRaeumeZu() throws AnwendungskernException{
+		
+		for(int i = 1; i<16; i++){
+			ArrayList<RaumTO> belegteRaeume = new ArrayList<RaumTO>();
+			// HIER IST DER FEHLER
+			for(StundenplanTO stundenplan : StundenplanManager.getManager().getUrplan().values()){
+				StundenplanSlotTO slot = stundenplan.getZuordnung().get(Integer.valueOf(i));
+				RaumTO raum = null;
+				boolean foundRoom = false;
+				while(foundRoom == false){
+					
+					raum = RaumManager.getManager().raumFuerModul(slot.getModul());
+					
+					if(belegteRaeume.contains(raum) == false){
+						foundRoom = true;
+					}
+				}
+				slot.setRaum(raum);
+				belegteRaeume.add(raum);
+			}
+		}
 	}
 
 
@@ -88,9 +121,10 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 			}
 		}
 		
-		
+		this.ordneRaeumeZu();
+
 		for(StundenplanTO s : stundenplanManager.getUrplan().values()){
-			stundenplanManager.stundenplanSpeichern(s);
+			this.stundenplanSpeichern(s);
 		}
 		
 		return true;
