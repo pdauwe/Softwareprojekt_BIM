@@ -168,10 +168,6 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		Connection aConnection = Persistence.getConnection();
 
 		try{
-<<<<<<< Updated upstream
-			Persistence.executeUpdateStatement(aConnection, "DELETE FROM " + DatenbankNamen.Stundenplan.Tabelle);
-=======
->>>>>>> Stashed changes
 			for (Entry<Integer, StundenplanSlotTO> entry : stundenplan.getZuordnung().entrySet()) {
 			
 				int modulnummer = -1;
