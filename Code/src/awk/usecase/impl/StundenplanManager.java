@@ -38,6 +38,29 @@ public class StundenplanManager{
 		this.urplan = new HashMap<StudiengangTO, StundenplanTO>();
 	}
 	
+<<<<<<< Updated upstream
+=======
+	public void createUrplan() throws AnwendungskernException{
+		IStundenplanFactory sf = new StundenplanFactory();
+		IStundenplanErstellen se = sf.getStundenplanErstellen();
+		try {
+			se.erstelleUrplan();
+		} catch (AnwendungskernException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public boolean deleteUrplan() throws AnwendungskernException{
+		try {
+			return this.stundenplanDatenzugriff.deleteUrplan();
+		} catch (DatenhaltungsException e) {
+			e.printStackTrace();
+			throw new AnwendungskernException();
+		}
+	}
+
+>>>>>>> Stashed changes
 	public StundenplanTO getStundenplan(StudiengangTO studiengang) throws AnwendungskernException{
 		try {
 			return this.stundenplanDatenzugriff.ladeStundenplanFuerStudiengang(studiengang);
@@ -113,6 +136,20 @@ public class StundenplanManager{
 		}
 		return true;
 		
+	}
+	
+	/***
+	 * Gibt an, ob ein Urplan vorhanden ist
+	 * @return
+	 * @throws AnwendungskernException
+	 */
+	public boolean doesUrplanExists() throws AnwendungskernException{
+		try {
+			return this.stundenplanDatenzugriff.doesUrplanExists();
+		} catch (DatenhaltungsException e) {
+			e.printStackTrace();
+			throw new AnwendungskernException();
+		}
 	}
 	
 	public HashMap<StudiengangTO, StundenplanTO> getUrplan(){
