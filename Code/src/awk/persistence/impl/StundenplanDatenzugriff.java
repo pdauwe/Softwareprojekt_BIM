@@ -164,11 +164,14 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 	@Override
 	public boolean speichereStundenplan(StundenplanTO stundenplan)
 			throws DatenhaltungsException {
-		
+
 		Connection aConnection = Persistence.getConnection();
 
 		try{
+<<<<<<< Updated upstream
 			Persistence.executeUpdateStatement(aConnection, "DELETE FROM " + DatenbankNamen.Stundenplan.Tabelle);
+=======
+>>>>>>> Stashed changes
 			for (Entry<Integer, StundenplanSlotTO> entry : stundenplan.getZuordnung().entrySet()) {
 			
 				int modulnummer = -1;
@@ -702,6 +705,38 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		}
 
 		return raum;
+	}
+	
+	public boolean deleteUrplan() throws DatenhaltungsException{
+		Connection connection = Persistence.getConnection();
+		try{
+			Persistence.executeUpdateStatement(connection, "DELETE FROM " + DatenbankNamen.Stundenplan.Tabelle);
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(connection);
+		}
+		return true;
+	}
+
+	@Override
+	public boolean doesUrplanExists() throws DatenhaltungsException {
+		Connection connection = Persistence.getConnection();
+		ResultSet resultSet;
+		try{
+			resultSet = Persistence.executeQueryStatement(connection, "SELECT * FROM " + DatenbankNamen.Stundenplan.Tabelle + " WHERE ROWNUM < 2");
+			if(resultSet.next()){
+				return true;
+			}else{
+				return false;
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(connection);
+		}
 	}
 	
 }

@@ -187,4 +187,16 @@ public interface IStundenplanDatenzugriff {
 	*/
 	public StundenplanTO ladeStundenplanFuerStudiengang(StudiengangTO studiengang) throws DatenhaltungsException;
 	
+	/***
+	 * Loescht den vorhanden Urplan
+	 * @throws DatenhaltungsException
+	 */
+	public boolean deleteUrplan() throws DatenhaltungsException;
+	
+	/***
+	 * Gibt an, ob ein Urplan bereits existiert
+	 * @return
+	 * @throws DatenhaltungsException
+	 */
+	public boolean doesUrplanExists() throws DatenhaltungsException;
 }
