@@ -17,19 +17,25 @@ public class StundenplanErstellung implements IAction{
 		String nextPage = null;
 		boolean ok = false;
 		
-		try{
-			IStundenplanFactory sf = new StundenplanFactory();
-			IStundenplanErstellen se = sf.getStundenplanErstellen();
-			ok = se.erstelleUrplan();
-		}catch(AnwendungskernException e){
-			e.printStackTrace();
-		}
+		if(request.getParameter("erstellen") != null){
+			try{
+				IStundenplanFactory sf = new StundenplanFactory();
+				IStundenplanErstellen se = sf.getStundenplanErstellen();
+				ok = se.erstelleUrplan();
+			}catch(AnwendungskernException e){
+				e.printStackTrace();
+			}
 
-		if(ok){
-			nextPage = "Stundenplan/StundenplanErstellt.jsp";
-		}else{
-			nextPage = "zentraleFehlerseite.jsp";
+			if(ok){
+				nextPage = "Stundenplan/StundenplanErstellt.jsp";
+			}else{
+				nextPage = "zentraleFehlerseite.jsp";
+			}
+		}else if(request.getParameter("hauptmenue") != null){
+			nextPage = "Hauptmenue.jsp";
 		}
+		
+		
 		return nextPage;
 	}
 

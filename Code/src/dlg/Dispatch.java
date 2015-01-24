@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import dlg.menue.Hauptmenue;
 import dlg.stundenplan.StudiengangAuswaehlen;
 import dlg.stundenplan.StundenplanAnzeigen;
+import dlg.stundenplan.StundenplanErstellt;
 import dlg.stundenplan.StundenplanErstellung;
 import dlg.stundenplan.UprlanLoeschen;
 import dlg.zeiterfassung.DozentenZeitpraeferenzenErfassen;
@@ -29,6 +30,7 @@ public class Dispatch extends HttpServlet {
 	StundenplanErstellung stundenplanerstellung = new StundenplanErstellung();
 	StundenplanAnzeigen stundenplananzeigen = new StundenplanAnzeigen();
 	UprlanLoeschen urplanloeschen = new UprlanLoeschen();
+	StundenplanErstellt stundenplanerstellt = new StundenplanErstellt();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -75,6 +77,9 @@ public class Dispatch extends HttpServlet {
 			}
 			else if (page.equalsIgnoreCase("urplanloeschen")){
 				nextPage = urplanloeschen.doAction(request);
+			}
+			else if (page.equalsIgnoreCase("stundenplanerstellt")){
+				nextPage = stundenplanerstellt.doAction(request);
 			}
 			
 		} catch (DialogException e) {

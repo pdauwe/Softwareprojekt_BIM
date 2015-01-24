@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import awk.AnwendungskernException;
 import awk.entity.StudiengangTO;
 import awk.entity.StundenplanTO;
-import awk.entity.internal.Studiengang;
 import awk.usecase.impl.StundenplanManager;
 import dlg.DialogException;
 import dlg.IAction;
@@ -40,6 +39,8 @@ public class StudiengangAuswaehlen implements IAction {
 			}
 			nextPage = "Stundenplan/StundenplanAnzeigen.jsp";
 			
+		}else if(request.getParameter("hauptmenue") != null){
+			nextPage = "Hauptmenue.jsp";
 		}
 
 		return nextPage;

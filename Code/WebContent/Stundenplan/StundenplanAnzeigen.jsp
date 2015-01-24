@@ -134,6 +134,11 @@
   </tr>
 </table>
 <br>
-	</div>
+<form name="stundenplananzeigen" action="Dispatch" method="GET">
+	<input type="hidden" value="stundenplananzeigen" name="page"/>
+	<input type="submit" value="Anderen Studiengang auswählen" name ="studiengangwechseln"/>
+	<input type="submit" value="Hauptmenü" name ="hauptmenue"/>
+</form>
+</div>
 </body>
 </html>

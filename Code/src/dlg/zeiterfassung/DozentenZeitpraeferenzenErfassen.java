@@ -52,6 +52,8 @@ public class DozentenZeitpraeferenzenErfassen implements IAction {
 			}else{
 				nextPage = "zentraleFehlerseite.jsp";
 			}
+		}else if(request.getParameter("abbrechen") != null){
+			nextPage = "Hauptmenue.jsp";
 		}
 
 		return nextPage;

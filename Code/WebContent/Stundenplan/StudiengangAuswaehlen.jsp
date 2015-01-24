@@ -31,6 +31,7 @@
 			</c:forEach>
 	</select>
 	<input type="submit" value="Stundenplan anzeigen" name ="stundenplananzeigen"/>
+	<input type="submit" value="Hauptmenü" name ="hauptmenue"/>
 </form>
 </body>
 </html>
