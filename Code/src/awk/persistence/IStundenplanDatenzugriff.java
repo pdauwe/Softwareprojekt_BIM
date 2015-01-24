@@ -178,7 +178,26 @@ public interface IStundenplanDatenzugriff {
 	 */
 	public boolean speichereDozentZeitpraeferenzen(DozentTO dozent) throws DatenhaltungsException;
 
+	/***
+	 * Speichert einen Stundenplan persistent
+	 * @param stundenplan
+	 * @return true
+	 * @throws DatenhaltungsException
+	 */
 	public boolean speichereStundenplan(StundenplanTO stundenplan) throws DatenhaltungsException;
+	
+	/*
+	 * ################################################################
+	 * Loeschen
+	 * ################################################################
+	*/	
+	/***
+	 * Loescht die Zeitpraeferenzen eines Dozenten
+	 * @param dozent
+	 * @return true
+	 * @throws DatenhaltungsException
+	 */
+	public boolean loescheDozentZeitpraeferenzen(DozentTO dozent) throws DatenhaltungsException;
 	
 	/*
 	 * ################################################################

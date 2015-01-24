@@ -74,6 +74,7 @@
 	</table>
 	<br>
 	<input type="submit" value="speichern" name="speichern"/>
+	<input type="submit" value="Vorhandene Präferenzen löschen" name="delete"/>
 	<input type="submit" value="abbrechen" name="abbrechen"/>
 </form>
 </body>

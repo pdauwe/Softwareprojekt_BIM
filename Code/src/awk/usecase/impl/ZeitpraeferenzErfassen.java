@@ -13,4 +13,10 @@ public class ZeitpraeferenzErfassen implements IZeitpraeferenzErfassen {
 		return dozentManager.zeitpraeferenzenFuerDozentSpeichern(dozent);
 	}
 
+	@Override
+	public boolean zeitpraeferenzenLoeschen(DozentTO dozent) throws AnwendungskernException {
+		DozentManager dozentManager = DozentManager.getManager();
+		return dozentManager.zeitpraeferenzenFuerDozentLoeschen(dozent);
+	}
+
 }
