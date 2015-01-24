@@ -67,3 +67,46 @@ table tbody tr.odd {background: #F0F2F4;}
 table tbody  tr:hover {background: #EAECEE; color: #111;}
 
 table tfoot td, table tfoot th, table tfoot tr {text-align: center; font: 120%  "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", sans-serif; text-transform: uppercase; background: #fff; padding: 10px;}
+
+
+a.submit {
+
+color: white;
+text-decoration: none;
+font-family:Arial;
+font-weight:bold;
+background-color: #6B90C6;
+border: 1px solid #3366CC;
+background-image: -webkit-gradient(
+	linear,
+	left top,
+	left bottom,
+	color-stop(0, rgb(26,71,162)),
+	color-stop(0.73, rgb(107,143,198))
+);
+background-image: -o-linear-gradient(bottom, rgb(26,71,162) 0%,rgb(107,143,198)73%);
+background-image: -moz-linear-gradient(bottom, rgb(26,71,162) 0%,rgb(107,143,198)73%));
+background-image: -webkit-linear-gradient(bottom, rgb(26,71,162) 0%,rgb(107,143,198)73%);
+background-image: -ms-linear-gradient(bottom, rgb(26,71,162) 0%,rgb(107,143,198)73%);
+background-image: linear-gradient(to bottom, rgb(26,71,162) 0%,rgb(107,143,198)73%);
+
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+}
+
+a.submit:hover
+{
+background-image: -webkit-gradient(
+	linear,
+	left top,
+	left bottom,
+	color-stop(0, rgb(26,71,162)),
+	color-stop(0.84, rgb(143,177,227))
+);
+background-image: -o-linear-gradient(bottom, rgb(26,71,162) 0%,rgb(143,177,227)84%);
+background-image: -moz-linear-gradient(bottom, rgb(26,71,162) 0%,rgb(143,177,227)84%));
+background-image: -webkit-linear-gradient(bottom, rgb(26,71,162) 0%,rgb(143,177,227)84%);
+background-image: -ms-linear-gradient(bottom, rgb(26,71,162) 0%,rgb(143,177,227)84%);
+background-image: linear-gradient(to bottom, rgb(26,71,162) 0%,rgb(143,177,227)84%);
+}
