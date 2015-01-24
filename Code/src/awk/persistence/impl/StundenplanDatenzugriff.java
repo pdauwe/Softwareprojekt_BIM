@@ -752,5 +752,58 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		}
 		return false;
 	}
+
+	@Override
+	public int maxModuleFuerStudiengang(StudiengangTO studiengang) throws DatenhaltungsException {
+		
+		Connection connection = Persistence.getConnection();
+		ResultSet resultSet;
+		int count = 0;
+		int sgnr = -1;
+		try {
+			 sgnr = StudiengangManager.getManager().studiengangNummerVonStudiengang(studiengang);
+		} catch (AnwendungskernException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try{
+			if(sgnr != -1){
+				resultSet = Persistence.executeQueryStatement(connection,
+						"SELECT COUNT(" + DatenbankNamen.ModulStudiengangZuordnung.StudiengangNummer + ") AS anzahl FROM " + DatenbankNamen.ModulStudiengangZuordnung.Tabelle +
+								" WHERE " + DatenbankNamen.ModulStudiengangZuordnung.StudiengangNummer + " = " + sgnr);
+				if(resultSet.next()){
+					count = resultSet.getInt("anzahl");
+				}
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(connection);
+		}
+		return count;
+	}
+
+	@Override
+	public int anzahlStudiengaenge() throws DatenhaltungsException {
+		Connection connection = Persistence.getConnection();
+		ResultSet resultSet;
+		int count = 0;
+	
+		try{
+			resultSet = Persistence.executeQueryStatement(connection,
+					"SELECT COUNT(COUNT(DISTINCT sgnr)) as anzahl FROM sp_modul_studiengang GROUP BY sgnr");
+			if(resultSet.next()){
+				count = resultSet.getInt("anzahl");
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(connection);
+		}
+		return count;
+	}
 	
 }

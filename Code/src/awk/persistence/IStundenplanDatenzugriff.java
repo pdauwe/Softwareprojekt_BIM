@@ -218,4 +218,24 @@ public interface IStundenplanDatenzugriff {
 	 * @throws DatenhaltungsException
 	 */
 	public boolean doesUrplanExists() throws DatenhaltungsException;
+	
+	/*
+	 * ################################################################
+	 * Helfer
+	 * ################################################################
+	*/
+	/***
+	 * Gibt die Anzahl der Studiengaenge zurueck
+	 * @return int
+	 * @throws DatenhaltungsException
+	 */
+	public int anzahlStudiengaenge() throws DatenhaltungsException;
+	
+	/***
+	 * Gibt die Anzahl der Module eines Studiengangs zurueck
+	 * @param studiengang
+	 * @return int
+	 * @throws DatenhaltungsException
+	 */
+	public int maxModuleFuerStudiengang(StudiengangTO studiengang) throws DatenhaltungsException;
 }
