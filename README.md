@@ -2,6 +2,9 @@ Softwareprojekt_BIM "Stundenplan"
 ===================
 Repository für das Softwareprojekt BIM Semester 5
 
+Projekt ist unter 
+[stundenplan.pdauwe.de](stundenplan.pdauwe.de) zu erreichen.
+
 Server Hochschule
 ================
 	Betriebssystem: Windows 2008 R2 (64bit)
