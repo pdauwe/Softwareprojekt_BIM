@@ -149,7 +149,7 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 				
 				//Neue Zeitpraeferenzen in die Tabelle schreiben
 				for(Integer zeitpref : dozent.getZeiten()){
-					Persistence.executeUpdateStatement(aConnection, "INSERT INTO " + DatenbankNamen.ZeitpraeferenzDozentZuordnung.Tabelle + " VALUES(" + nummer + "," + zeitpref + ")");
+					Persistence.executeUpdateStatement(aConnection, "INSERT INTO " + DatenbankNamen.ZeitpraeferenzDozentZuordnung.Tabelle + " VALUES(" + zeitpref + "," + nummer + ")");
 				}
 			}
 		}catch(SQLException e){
