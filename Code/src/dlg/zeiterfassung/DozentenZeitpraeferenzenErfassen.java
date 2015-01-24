@@ -27,11 +27,13 @@ public class DozentenZeitpraeferenzenErfassen implements IAction {
 		
 		if (request.getParameter("speichern") != null ) {
 			
-			String[] values = request.getParameterValues("zeitslot");
-			
-			if(values.length == 0){
+			if(request.getParameterValues("zeitslot") == null){
 				return this.goBack(request);
 			}
+			
+			String[] values = request.getParameterValues("zeitslot");
+			
+			
 			
 			for (int i = 0; i < values.length; i++){	
 				Integer value = Integer.parseInt(values[i]);
