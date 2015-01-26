@@ -21,7 +21,7 @@
 </div>
 <form name="stundenplanerstellen" action="Dispatch" method="GET">
 <input type="hidden" value="stundenplanerstellen" name="page"/>
-<input type="submit" value="Stundenplan erstellen" name ="erstellen"/>
+<input type="submit" value="Stundenplan erstellen" name ="erstellen"/><br>
 <input type="submit" value="Hauptmenü" name ="hauptmenue"/>
 </form>
 </body>

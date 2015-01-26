@@ -23,8 +23,8 @@
 </div>
 <form name="hauptmenue"  action="Dispatch" method="GET">
 <input type="hidden" value="hauptmenue" name="page"/>
-<input type="submit" value="Zeiterfassung" name ="zeiterfassung"/>
-<input type="submit" value="Stundenplan erstellen" name ="stundenplanerstellen"/>
+<input type="submit" value="Zeiterfassung" name ="zeiterfassung"/><br>
+<input type="submit" value="Stundenplan erstellen" name ="stundenplanerstellen"/><br>
 <input type="submit" value="Stundenplan anzeigen" name ="studiengangauswahl"/>
 </form>
 </body>

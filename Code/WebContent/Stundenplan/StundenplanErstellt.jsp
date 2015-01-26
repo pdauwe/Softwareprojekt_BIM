@@ -25,7 +25,7 @@
 </div>
 Der Stundenplan wurde erfolgreich erstellt.
 <form name="stundenplanerstellt"  action="Dispatch" method="GET">
-<input type="hidden" value="stundenplanerstellt" name="page"/>
+<input type="hidden" value="stundenplanerstellt" name="page"/><br>
 <input type="submit" value="Hauptmenü" name ="hauptmenue"/>
 </form>
 </body>

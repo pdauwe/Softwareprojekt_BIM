@@ -30,7 +30,7 @@
 			<option> ${s.name } </option>
 			</c:forEach>
 	</select>
-	<input type="submit" value="Stundenplan anzeigen" name ="stundenplananzeigen"/>
+	<input type="submit" value="Stundenplan anzeigen" name ="stundenplananzeigen"/><br>
 	<input type="submit" value="Hauptmenü" name ="hauptmenue"/>
 </form>
 </body>

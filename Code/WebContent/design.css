@@ -51,8 +51,7 @@ table a:hover {color: #000;}
 
 table caption {text-align: center; text-transform: uppercase;  padding-bottom: 10px; font: 200% "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", sans-serif;}
 
-table thead th {background: #000066; padding: 15px 10px; color: #fff; text-align: center; font-weight: normal;}
-table thead1 th1{background: #2A6BC0; padding: 15px 10px; color: #fff; text-align: center; font-weight: normal;}
+table th {background: #000066; padding: 15px 10px; color: #fff; text-align: center; font-weight: normal;}
 
 table tbody, table thead {border-left: 1px solid #EAECEE; border-right: 1px solid #EAECEE;}
 
@@ -73,6 +72,7 @@ input[type="submit"] {
 padding: 2px;
 color: white;
 text-decoration: none;
+font-size: 110%;
 
 background-color: #6B90C6;
 border: 1px solid #3366CC;
