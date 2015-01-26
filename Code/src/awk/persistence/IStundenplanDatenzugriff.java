@@ -178,7 +178,26 @@ public interface IStundenplanDatenzugriff {
 	 */
 	public boolean speichereDozentZeitpraeferenzen(DozentTO dozent) throws DatenhaltungsException;
 
+	/***
+	 * Speichert einen Stundenplan persistent
+	 * @param stundenplan
+	 * @return true
+	 * @throws DatenhaltungsException
+	 */
 	public boolean speichereStundenplan(StundenplanTO stundenplan) throws DatenhaltungsException;
+	
+	/*
+	 * ################################################################
+	 * Loeschen
+	 * ################################################################
+	*/	
+	/***
+	 * Loescht die Zeitpraeferenzen eines Dozenten
+	 * @param dozent
+	 * @return true
+	 * @throws DatenhaltungsException
+	 */
+	public boolean loescheDozentZeitpraeferenzen(DozentTO dozent) throws DatenhaltungsException;
 	
 	/*
 	 * ################################################################
@@ -199,4 +218,24 @@ public interface IStundenplanDatenzugriff {
 	 * @throws DatenhaltungsException
 	 */
 	public boolean doesUrplanExists() throws DatenhaltungsException;
+	
+	/*
+	 * ################################################################
+	 * Helfer
+	 * ################################################################
+	*/
+	/***
+	 * Gibt die Anzahl der Studiengaenge zurueck
+	 * @return int
+	 * @throws DatenhaltungsException
+	 */
+	public int anzahlStudiengaenge() throws DatenhaltungsException;
+	
+	/***
+	 * Gibt die Anzahl der Module eines Studiengangs zurueck
+	 * @param studiengang
+	 * @return int
+	 * @throws DatenhaltungsException
+	 */
+	public int maxModuleFuerStudiengang(StudiengangTO studiengang) throws DatenhaltungsException;
 }

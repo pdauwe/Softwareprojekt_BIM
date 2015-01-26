@@ -75,6 +75,21 @@ public class DozentManager {
 	}
 	
 	/***
+	 * Loescht die Zeitpraeferenzen eines Dozenten
+	 * @param dozent
+	 * @return
+	 * @throws AnwendungskernException
+	 */
+	public boolean zeitpraeferenzenFuerDozentLoeschen(DozentTO dozent) throws AnwendungskernException{
+		try{
+			return this.stundenplanDatenzugriff.loescheDozentZeitpraeferenzen(dozent);
+		}catch(DatenhaltungsException e){
+			e.printStackTrace();
+			throw new AnwendungskernException();
+		}
+	}
+	
+	/***
 	 * Liefer zu einer Nummer den Dozenten, wenn dieser mit die Nummer als Dozentnummer in der Datenbank hat
 	 * @param nummer
 	 * @return DozentTO

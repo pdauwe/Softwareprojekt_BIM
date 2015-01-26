@@ -76,4 +76,33 @@ public class StudiengangManager {
 			throw new AnwendungskernException();
 		}
 	}
+	
+	/***
+	 * Gibt die Anzahl an Modulen fuer einen Studiengang zurueck.
+	 * @param studiengang
+	 * @return int
+	 * @throws AnwendungskernException
+	 */
+	public int maxAnzahlAnModulenFuerStudiengang(StudiengangTO studiengang) throws AnwendungskernException{
+		try{
+			return this.stundenplanDatenzugriff.maxModuleFuerStudiengang(studiengang);
+		}catch(DatenhaltungsException e){
+			e.printStackTrace();
+			throw new AnwendungskernException();
+		}
+	}
+	
+	/***
+	 * Gibt die Anzahl der Studiengaenge zurueck
+	 * @return int
+	 * @throws AnwendungskernException
+	 */
+	public int anzahlStudiengaenge() throws AnwendungskernException{
+		try{
+			return this.stundenplanDatenzugriff.anzahlStudiengaenge();
+		}catch(DatenhaltungsException e){
+			e.printStackTrace();
+			throw new AnwendungskernException();
+		}
+	}
 }

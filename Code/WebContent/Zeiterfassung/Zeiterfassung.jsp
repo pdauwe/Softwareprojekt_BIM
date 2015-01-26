@@ -37,7 +37,7 @@
 			<option> ${dozent.name } </option>
 			</c:forEach>
 	</select>
-		
+	<input type="submit" value="Vorhandene Präferenzen löschen" name="delete"/>	
 	<table style="table-layout:fixed" border=1>
 	  <tr>
 		<th  style="width:16%">Zeit</th>

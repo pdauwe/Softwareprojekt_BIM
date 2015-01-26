@@ -369,16 +369,6 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		Connection aConnection = Persistence.getConnection();
 		ResultSet resultSet;
 		
-		/*
-		SELECT d.dnr from sp_dozent d, sp_modul m, sp_modul_studiengang ms 
-		where d.dnr = m.dnr AND m.mnr = ms.mnr;
-		*/
-		
-		/*
-		 * select d.name from sp_dozent d, sp_modul_studiengang ms, sp_modul m, sp_studiengang s
-						 where d.dnr = m.dnr AND m.mnr = ms.mnr AND ms.sgnr = s.sgnr AND s.name = 'BIM3';
-		 */
-		
 		try{
 			resultSet = Persistence.executeQueryStatement(aConnection, 
 					"SELECT d.dnr from sp_dozent d, sp_modul_studiengang ms, sp_modul m, sp_studiengang s " +
@@ -733,6 +723,87 @@ public class StundenplanDatenzugriff implements IStundenplanDatenzugriff {
 		}finally{
 			Persistence.closeConnection(connection);
 		}
+	}
+
+	@Override
+	public boolean loescheDozentZeitpraeferenzen(DozentTO dozent)
+			throws DatenhaltungsException {
+		
+		int dozentNummer = -1;
+		try {
+			dozentNummer = DozentManager.getManager().dozentNummerVonDozent(dozent);
+		} catch (AnwendungskernException e) {
+			e.printStackTrace();
+		}
+		
+		Connection connection = Persistence.getConnection();
+		try{
+			if(dozentNummer != -1){
+				Persistence.executeUpdateStatement(connection, 
+					"DELETE FROM " + DatenbankNamen.ZeitpraeferenzDozentZuordnung.Tabelle + " WHERE "
+							+ DatenbankNamen.ZeitpraeferenzDozentZuordnung.DozentNummer + " = " + dozentNummer);
+				return true;
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(connection);
+		}
+		return false;
+	}
+
+	@Override
+	public int maxModuleFuerStudiengang(StudiengangTO studiengang) throws DatenhaltungsException {
+		
+		Connection connection = Persistence.getConnection();
+		ResultSet resultSet;
+		int count = 0;
+		int sgnr = -1;
+		try {
+			 sgnr = StudiengangManager.getManager().studiengangNummerVonStudiengang(studiengang);
+		} catch (AnwendungskernException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try{
+			if(sgnr != -1){
+				resultSet = Persistence.executeQueryStatement(connection,
+						"SELECT COUNT(" + DatenbankNamen.ModulStudiengangZuordnung.StudiengangNummer + ") AS anzahl FROM " + DatenbankNamen.ModulStudiengangZuordnung.Tabelle +
+								" WHERE " + DatenbankNamen.ModulStudiengangZuordnung.StudiengangNummer + " = " + sgnr);
+				if(resultSet.next()){
+					count = resultSet.getInt("anzahl");
+				}
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(connection);
+		}
+		return count;
+	}
+
+	@Override
+	public int anzahlStudiengaenge() throws DatenhaltungsException {
+		Connection connection = Persistence.getConnection();
+		ResultSet resultSet;
+		int count = 0;
+	
+		try{
+			resultSet = Persistence.executeQueryStatement(connection,
+					"SELECT COUNT(COUNT(DISTINCT sgnr)) as anzahl FROM sp_modul_studiengang GROUP BY sgnr");
+			if(resultSet.next()){
+				count = resultSet.getInt("anzahl");
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(connection);
+		}
+		return count;
 	}
 	
 }

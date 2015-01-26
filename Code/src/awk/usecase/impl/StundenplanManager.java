@@ -130,12 +130,35 @@ public class StundenplanManager{
 	 */
 	public boolean isUrplanComplete(){
 		
-		for(StundenplanTO s : this.urplan.values()){
-			
-			if((s.getZuordnung().containsKey(14)) == false){
-				return false;
+		boolean alleStudiengaengeImUrplan = false;
+		
+		try {
+			int anzahlStudiengaenge = StudiengangManager.getManager().anzahlStudiengaenge();
+			if(this.urplan.keySet().size() == anzahlStudiengaenge){
+				alleStudiengaengeImUrplan = true;
 			}
+		} catch (AnwendungskernException e) {
+			e.printStackTrace();
 		}
+
+		if(alleStudiengaengeImUrplan){
+			for(StudiengangTO studiengang : this.urplan.keySet()){
+				try {
+					int anzahlModule = StudiengangManager.getManager().maxAnzahlAnModulenFuerStudiengang(studiengang);
+					
+					if(this.urplan.get(studiengang).getZuordnung().values().size() != anzahlModule){
+						return false;
+					}
+				} catch (AnwendungskernException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		}else{
+			return false;
+		}
+
 		return true;
 		
 	}

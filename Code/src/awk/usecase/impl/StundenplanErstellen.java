@@ -68,43 +68,44 @@ public class StundenplanErstellen implements IStundenplanErstellen {
 			}
 		}
 
-		
-		// Zweite Iteration fuer das Zuordnen ohne Zeitpraeferenzen, um den Urplan aufzufuellen.
-		for(int zeitslot = 1; zeitslot<16; zeitslot++){
-			
-			ArrayList<StudiengangTO> stList = StudiengangManager.getManager().studiengangZufallsliste();
-			
-			for(StudiengangTO s :stList){
-				DozentTO randomDozent = DozentManager.getManager().RandomDozent(s);
+		while(!stundenplanManager.isUrplanComplete()){
+			// Zweite Iteration fuer das Zuordnen ohne Zeitpraeferenzen, um den Urplan aufzufuellen.
+			for(int zeitslot = 1; zeitslot<16; zeitslot++){
 				
-				if(randomDozent == null){
-					continue;
+				ArrayList<StudiengangTO> stList = StudiengangManager.getManager().studiengangZufallsliste();
+				
+				for(StudiengangTO s :stList){
+					DozentTO randomDozent = DozentManager.getManager().RandomDozent(s);
+					
+					if(randomDozent == null){
+						continue;
+					}
+					
+					ModulTO randomModul = ModulManager.getManager().randomModulVonDozentImStudiengang(randomDozent, s);
+					
+					if(randomModul == null){
+						continue;
+					}
+					
+					RaumTO randomRaum = RaumManager.getManager().raumFuerModul(randomModul);
+					
+					if(randomRaum == null){
+						continue;
+					}
+					
+					StundenplanSlotTO slot = new StundenplanSlotTO();
+					slot.setDozent(randomDozent);
+					slot.setModul(randomModul);
+					slot.setRaum(randomRaum);
+	
+					boolean ok = stundenplanManager.addToUrplan(s, slot, zeitslot);
+					
+					if(!ok){
+						continue;
+					}
+					
+					
 				}
-				
-				ModulTO randomModul = ModulManager.getManager().randomModulVonDozentImStudiengang(randomDozent, s);
-				
-				if(randomModul == null){
-					continue;
-				}
-				
-				RaumTO randomRaum = RaumManager.getManager().raumFuerModul(randomModul);
-				
-				if(randomRaum == null){
-					continue;
-				}
-				
-				StundenplanSlotTO slot = new StundenplanSlotTO();
-				slot.setDozent(randomDozent);
-				slot.setModul(randomModul);
-				slot.setRaum(randomRaum);
-
-				boolean ok = stundenplanManager.addToUrplan(s, slot, zeitslot);
-				
-				if(!ok){
-					continue;
-				}
-				
-				
 			}
 		}
 
