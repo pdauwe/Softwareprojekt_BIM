@@ -10,6 +10,9 @@ import awk.entity.internal.Studiengang;
 import awk.persistence.IStundenplanDatenzugriff;
 import awk.persistence.impl.StundenplanDatenzugriff;
 
+/***
+ * Klasse zur Verwaltung von Studiengaengen
+ */
 public class StudiengangManager {
 
 	private IStundenplanDatenzugriff stundenplanDatenzugriff = new StundenplanDatenzugriff();
@@ -25,6 +28,10 @@ public class StudiengangManager {
 		}
 	}
 
+	/***
+	 * Gibt alle Studiengaenge zurueck
+	 * @return alle Studiengaenge
+	 */
 	public ArrayList<Studiengang> getAlleStudiengaenge() {
 		if(this.alleStudiengaenge == null){
 			this.ladeStudiengaenge();
@@ -32,6 +39,9 @@ public class StudiengangManager {
 		return alleStudiengaenge;
 	}
 	
+	/***
+	 * Laedt alle Studiengaenge
+	 */
 	private void ladeStudiengaenge(){
 		this.alleStudiengaenge = new ArrayList<Studiengang>();
 		

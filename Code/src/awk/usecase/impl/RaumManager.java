@@ -11,6 +11,9 @@ import awk.entity.internal.Raum;
 import awk.persistence.IStundenplanDatenzugriff;
 import awk.persistence.impl.StundenplanDatenzugriff;
 
+/***
+ * Klasse zur Verwaltung von Raeumen
+ */
 public class RaumManager {
 
 	private IStundenplanDatenzugriff stundenplanDatenzugriff = new StundenplanDatenzugriff();
@@ -27,6 +30,10 @@ public class RaumManager {
 		}
 	}
 	
+	/***
+	 * Gibt alle Raeume zurueck
+	 * @return alle Raeume
+	 */
 	public ArrayList<Raum> getAlleRaeume(){
 		if(this.alleRaeume == null){
 			this.ladeAlleRaeume();
@@ -35,6 +42,9 @@ public class RaumManager {
 		return this.alleRaeume;
 	}
 	
+	/***
+	 * Laedt alle Raeume
+	 */
 	private void ladeAlleRaeume(){
 		this.alleRaeume = new ArrayList<Raum>();
 		try{

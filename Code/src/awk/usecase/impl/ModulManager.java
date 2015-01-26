@@ -12,6 +12,9 @@ import awk.entity.internal.Modul;
 import awk.persistence.IStundenplanDatenzugriff;
 import awk.persistence.impl.StundenplanDatenzugriff;
 
+/***
+ * Klasse zur Verwaltung von Modulen
+ */
 public class ModulManager {
 
 	private IStundenplanDatenzugriff stundenplanDatenzugriff = new StundenplanDatenzugriff();

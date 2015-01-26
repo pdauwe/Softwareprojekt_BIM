@@ -8,14 +8,11 @@ import awk.DatenhaltungsException;
 import awk.entity.DozentTO;
 import awk.entity.StudiengangTO;
 import awk.entity.internal.Dozent;
-import awk.entity.internal.Studiengang;
 import awk.persistence.IStundenplanDatenzugriff;
 import awk.persistence.impl.StundenplanDatenzugriff;
+
 /***
- * Singleton Klasse DozentManager
- * Kümmert sich um alle Dozent Objekte
- * 
- *
+ * Klasse zur Verwaltung von Dozenten
  */
 public class DozentManager {
 
@@ -35,6 +32,10 @@ public class DozentManager {
 		}
 	}
 	
+	/***
+	 * Gibt alle Dozenten zurück
+	 * @return
+	 */
 	public ArrayList<Dozent> getAlleDozenten(){
 		if(this.alleDozenten == null){
 			this.ladeDozenten();
@@ -174,11 +175,13 @@ public class DozentManager {
 			return dozenten.get(randomIndex);
 		}
 	}
-	
-	public ArrayList<Dozent> alleDozentenVonStudiengang(Studiengang studiengang){
-		return null;
-	}
-	
+
+	/***
+	 * Gibt den Dozenten eines Moduls zurück
+	 * @param modulNummer
+	 * @return DozentTO
+	 * @throws AnwendungskernException
+	 */
 	public DozentTO dozentVonModulNummer(int modulNummer) throws AnwendungskernException{
 		try{
 			return this.stundenplanDatenzugriff.dozentVonModulNummer(modulNummer);

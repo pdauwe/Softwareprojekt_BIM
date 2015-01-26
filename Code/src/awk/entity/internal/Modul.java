@@ -6,8 +6,6 @@ public class Modul {
 	private boolean benoetigtComputerraum;
 	private String bezeichnung;
 	
-	private boolean isVerplant;
-	
 	public Modul(int nummer, String bezeichnung, boolean benoetigtComputerraum){
 		this.nummer = nummer;
 		this.benoetigtComputerraum = benoetigtComputerraum;

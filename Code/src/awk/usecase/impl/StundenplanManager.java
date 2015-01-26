@@ -7,21 +7,15 @@ import awk.DatenhaltungsException;
 import awk.entity.StudiengangTO;
 import awk.entity.StundenplanSlotTO;
 import awk.entity.StundenplanTO;
-import awk.factory.IStundenplanFactory;
-import awk.factory.impl.StundenplanFactory;
 import awk.persistence.IStundenplanDatenzugriff;
 import awk.persistence.impl.StundenplanDatenzugriff;
-import awk.usecase.IStundenplanErstellen;
 
 
-/*
- * Managerklasse zur Verwaltung von Stundenplänen
+/***
+ *  Managerklasse zur Verwaltung von Stundenplaenen
  */
 public class StundenplanManager{
 	
-	/**
-	 * 
-	 */
 	private IStundenplanDatenzugriff stundenplanDatenzugriff = new StundenplanDatenzugriff();
 	private static StundenplanManager self;
 	/***
@@ -41,17 +35,11 @@ public class StundenplanManager{
 		this.urplan = new HashMap<StudiengangTO, StundenplanTO>();
 	}
 	
-	public void createUrplan() throws AnwendungskernException{
-		IStundenplanFactory sf = new StundenplanFactory();
-		IStundenplanErstellen se = sf.getStundenplanErstellen();
-		try {
-			se.erstelleUrplan();
-		} catch (AnwendungskernException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
+	/***
+	 * Loescht einen vorhandenen Urplan
+	 * @return true
+	 * @throws AnwendungskernException
+	 */
 	public boolean deleteUrplan() throws AnwendungskernException{
 		try {
 			return this.stundenplanDatenzugriff.deleteUrplan();
@@ -60,6 +48,13 @@ public class StundenplanManager{
 			throw new AnwendungskernException();
 		}
 	}
+	
+	/***
+	 * Gibt einen Stundenplan fuer einen Studiengang zurueck
+	 * @param studiengang
+	 * @return StundenplanTO
+	 * @throws AnwendungskernException
+	 */
 	public StundenplanTO getStundenplan(StudiengangTO studiengang) throws AnwendungskernException{
 		try {
 			return this.stundenplanDatenzugriff.ladeStundenplanFuerStudiengang(studiengang);
@@ -69,6 +64,12 @@ public class StundenplanManager{
 		}
 	}
 	
+	/***
+	 * Speichert einen Stundenplan persistent
+	 * @param stundenplan
+	 * @return true
+	 * @throws AnwendungskernException
+	 */
 	public boolean stundenplanSpeichern(StundenplanTO stundenplan) throws AnwendungskernException{
 		try {
 			return this.stundenplanDatenzugriff.speichereStundenplan(stundenplan);
@@ -86,23 +87,27 @@ public class StundenplanManager{
 	 * @throws AnwendungskernException
 	 */
 	public boolean addToUrplan(StudiengangTO studiengang, StundenplanSlotTO stundenplanslot, int zeitslot) throws AnwendungskernException {
-		
-		// Überprüfen ob der Dozent zu dem Zeitslot schon belegt ist.
-		// Wenn ja, dann nicht hinzufuegen und abbrechen.
-		
+
 		for(StundenplanTO stundenplan : this.urplan.values()){
 			
 			StundenplanSlotTO slot = stundenplan.getZuordnung().get(zeitslot);
 			
 			if(slot != null){
+				// Ueberpruefen ob der Dozent zu dem Zeitslot schon belegt ist.
+				// Wenn ja, dann nicht hinzufuegen und abbrechen.
 				if(slot.getDozent().equals(stundenplanslot.getDozent())){
 					return false;
 				}
+				
+				// Ueberpruefen ob der Raum zu dem Zeitslot schon belegt ist.
+				// Wenn ja, dann nicht hinzufuegen und abbrechen.
 				if(slot.getRaum().equals(stundenplanslot.getRaum())){
 					return false;
 				}
 			}
 			
+			// Ueberpruefen ob das Modul schon verplant wurde.
+			// Wenn ja, dann nicht hinzufuegen und abbrechen.
 			for(StundenplanSlotTO s : stundenplan.getZuordnung().values()){
 				if(s.getModul().equals(stundenplanslot.getModul())){
 					return false;
@@ -112,6 +117,8 @@ public class StundenplanManager{
 			
 		}
 
+		// Ueberpruefen ob ein Stundenplan fuer den Studiengang existiert.
+		// Falls nein, wird ein neuer leerer Stundenplan erstellt und dem Urplan hinzugefuegt.
 		if(!this.urplan.containsKey(studiengang)){
 			StundenplanTO stundenplan = new StundenplanTO();
 			stundenplan.setStudiengang(studiengang);
@@ -158,9 +165,7 @@ public class StundenplanManager{
 		}else{
 			return false;
 		}
-
 		return true;
-		
 	}
 	
 	/***
