@@ -10,27 +10,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="design.css">	
 <title>Stundenplan anzeigen</title>
-</head>
-<body>
-	<div id="webside">
-		<div id="header">
-			<div id="header1">
-				<h1>Stundenplan</h1>
-			</div>
-			<div id="logo">
-			<img src="hlogo.png" alt="h2logo" width="93px" height="75px">
-			</div>
-		</div>
-		<div id="main"></div>
-    
 <style type="text/css">
 	table {width:dynamic;}
 	td{border:1px solid #110 vertical-align:top; overflow:hidden;}
 </style>
 
-<table align="center" style="table-layout:fixed" border=1 align="center">
-<caption background="FFFFFF" >${studiengang}</caption>
+</head>
+<body>
+<div id="webside">
+	<div id="header">
+		<div id="header1">
+		<h1>Stundenplan</h1>
+		</div>
+			<div id="logo">
+				<img src="hlogo.png" alt="h2logo" width="93px" height="75px">
+			</div>
+		</div>
+<div class="table">
+<table align="center" style="table-layout:fixed" border=1>
+<caption>${studiengang}</caption>
 
+<thead>
 <tr>
 <th align="center" style="width:16%">Zeit</th>
 <th align="center" style="width:16%">Montag</th>
@@ -39,6 +39,7 @@
 <th align="center" style="width:16%">Donnerstag</th>
 <th align="center" style="width:16%">Freitag</th> 
 </tr>
+</thead>
 
  <tr> 
 <!-- Eclipse zeigt hier einen Fehler an bei der Verwendung von intValue(), obwohl die Verwendung funktioniert. -->  		
@@ -141,6 +142,7 @@
   </tr>
 
 </table>
+</div>
 <br>
 <form name="stundenplananzeigen" action="Dispatch" method="GET">
 	<input type="hidden" value="stundenplananzeigen" name="page"/>

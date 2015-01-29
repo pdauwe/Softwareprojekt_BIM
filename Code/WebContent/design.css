@@ -41,32 +41,68 @@ color:#FFFFFF;
 font-family:Courier;
 }
 
-table {font: 85% "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", sans-serif;padding: 0; margin: 0; border-collapse: collapse; color: #333; background: #F3F5F7; margin-left:auto;margin-right:auto;}
+.table {
+	margin:0px;padding:0px;
+	width:100%;
+	border:1px solid #ffffff;
+	font-size:85%;
+	font: Lucida Grande;
+	
+	-moz-border-radius-bottomleft:0px;
+	-webkit-border-bottom-left-radius:0px;
+	border-bottom-left-radius:0px;
+	
+	-moz-border-radius-bottomright:0px;
+	-webkit-border-bottom-right-radius:0px;
+	border-bottom-right-radius:0px;
+	
+	-moz-border-radius-topright:0px;
+	-webkit-border-top-right-radius:0px;
+	border-top-right-radius:0px;
+	
+	-moz-border-radius-topleft:0px;
+	-webkit-border-top-left-radius:0px;
+	border-top-left-radius:0px;
+}.table table{
+    border-collapse: collapse;
+        border-spacing: 0;
+	width:100%;
+	height:100%;
+	margin:0px;padding:0px;
+}
 
-table a {color: #3A4856; text-decoration: none; border-bottom: 1px solid #C6C8CB;}  
+.table thead th{
+	background:#000066;
+	padding:15px 10px;
+	color: #fff;
+	text-align: center;
+	font-weight: bold;
+}
 
-table a:visited {color: #777;}
+.table tr:nth-child(odd){ background-color:#F0F2F4; }
+.table tr:nth-child(even)    { background-color:#F3F5F7; }
 
-table a:hover {color: #000;}  
+.table caption{
+	text-align: center;
+	text-transform: uppercase;
+	padding-bottom: 10px;
+	font-size: 200%;
+	font:Lucida Grande;
+}
 
-table caption {text-align: center; text-transform: uppercase;  padding-bottom: 10px; font: 200% "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", sans-serif;}
-
-table th {background: #000066; padding: 15px 10px; color: #fff; text-align: center; font-weight: normal;}
-
-table tbody, table thead {border-left: 1px solid #EAECEE; border-right: 1px solid #EAECEE;}
-
-table tbody {border-bottom: 1px solid #EAECEE;}
-                      
-table tbody td, table tbody th {padding: 10px; repeat-x; text-align: center;}
-
-table tbody tr {background: #F3F5F7;}
-
-table tbody tr.odd {background: #F0F2F4;}
-
-table tbody  tr:hover {background: #EAECEE; color: #111;}
-
-table tfoot td, table tfoot th, table tfoot tr {text-align: center; font: 120%  "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", sans-serif; text-transform: uppercase; background: #fff; padding: 10px;}
-
+.table td{
+	vertical-align:middle;
+	border:1px solid #000000;
+	border-width:0px 1px 1px 0px;
+	text-align:center;
+	repeat-x;
+	padding:10px;
+	font-family:Lucida Grande;
+	font-weight:normal;
+	color:#000000;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
 
 input[type="submit"] {
 padding: 2px;
