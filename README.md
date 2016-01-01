@@ -2,47 +2,19 @@ Softwareprojekt_BIM "Stundenplan"
 ===================
 Repository für das Softwareprojekt BIM Semester 5
 
-Projekt ist unter 
-[stundenplan.pdauwe.de](stundenplan.pdauwe.de) zu erreichen.
+Das Projekt ist nicht mehr zu erreichen
 
 Server Hochschule
 ================
-	Betriebssystem: Windows 2008 R2 (64bit)
-
-	Hostname: usrv06.zemit.wi.hs-osnabrueck.de
-	IP: 131.173.88.204
-	Remote-Zugang: RDP-Remotedesktop (Port 3389)
-
-	Benutzer: administrator
-	Passwort: SNNnab1PPe
-	
-	Extern erreichbare TCP/IP-Ports: 3389
+	Server steht nicht mehr zur Verfügung
 
 Datenbank-Server
 =================
-
-	#Konfiguration
-	Benutzername: system
-	Passwort: $tund3nplan
-
-	#DB-User
-	Benutzername: STUNDENPLAN
-	Passwort: NewYork89
-	
-	#DB Webschnittstelle
-	Port: 3010
+	Server steht nicht mehr zur Verfügung
 
 JBoss-Server
 =================
-	
-	User-Interface:Http://localhost:9990
-
-	#JBoss-User
-	Benutzername: admin
-	Passwort: $tund3nplan
-	
-	
-	
+	Server steht nicht mehr zur Verfügung
 Meilensteine
 =============
 ##Donnerstag, 13. November 2014 (12:00, CF107): Erster Überblick (20 min) – PL
